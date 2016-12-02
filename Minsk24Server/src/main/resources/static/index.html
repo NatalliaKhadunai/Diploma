@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Minsk 24</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
+    <script src="home/home.component.js"></script>
+    <script src="home/home.controller.js"></script>
+    <script src="articles/article-list.component.js"></script>
+    <script src="articles/article-list.controller.js"></script>
+    <script src="articles/article.service.js"></script>
+</head>
+<body>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li ui-sref-active="home"><a ui-sref="home">Home</a></li>
+        <li ui-sref-active="articles"><a ui-sref="articles">Articles</a></li>
+        <li ui-sref-active="advertisements"><a ui-sref="advertisements">Advertisements</a></li>
+        <li ui-sref-active="events"><a ui-sref="events">Events</a></li>
+    </ul>
+    <ui-view></ui-view>
+</div>
+</body>
+</html>

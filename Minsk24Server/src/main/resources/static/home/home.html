@@ -1,0 +1,22 @@
+<table class="table">
+    <thead>
+    <th>Main title</th>
+    <th>Short title</th>
+    <th>Content</th>
+    <th>Publish date</th>
+    <th>Authors</th>
+    <th>Tags</th>
+    <th>Comments</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="article in $ctrl.articles">
+        <td>{{article.mainTitle}}</td>
+        <td>{{article.shortTitle}}</td>
+        <td>{{article.content}}</td>
+        <td>{{article.publishDate}}</td>
+        <td>{{article.authors}}</td>
+        <td>{{article.tags}}</td>
+        <td>{{article.comments}}</td>
+    </tr>
+    </tbody>
+</table>
