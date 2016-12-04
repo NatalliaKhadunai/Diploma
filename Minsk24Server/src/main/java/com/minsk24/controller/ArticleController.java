@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 
-@RestController (value = "/articles")
+@RestController
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
 
-    @RequestMapping (value = "/", method = RequestMethod.GET)
+    @RequestMapping (value = "/articles", method = RequestMethod.GET)
     public Iterable<Article> getArticles() {
         return articleRepository.findAll();
     }

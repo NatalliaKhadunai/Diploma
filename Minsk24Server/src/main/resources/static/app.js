@@ -22,11 +22,30 @@
             })
             .state('advertisements', {
                 url: '/advertisements',
-                template: '<h1>Advertisements</h1>'
+                template: '<advertisement-list advertisements="$resolve.advertisements"></advertisement-list>',
+                resolve : {
+                    advertisements: function(advertisementSrv) {
+                        return advertisementSrv.getAdvertisements();
+                    }
+                }
             })
             .state('events', {
                 url: '/events',
-                template: '<h1>Events</h1>'
+                template: '<event-list events="$resolve.events"></event-list>',
+                resolve : {
+                    events: function(eventSrv) {
+                        return eventSrv.getEvents();
+                    }
+                }
+            })
+            .state('users', {
+                url: '/users',
+                template: '<user-list users="$resolve.users"></user-list>',
+                resolve : {
+                    users: function(userSrv) {
+                        return userSrv.getUsers();
+                    }
+                }
             });
     });
 })();

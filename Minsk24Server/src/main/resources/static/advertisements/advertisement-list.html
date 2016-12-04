@@ -1,0 +1,35 @@
+<table class="table">
+    <thead>
+    <th>Name</th>
+    <th>Holder id</th>
+    <th>Content</th>
+    <th>Placement date</th>
+    <th>Expiration date</th>
+    <th>Comments</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="advertisement in $ctrl.advertisements">
+        <td>{{advertisement.name}}</td>
+        <td>{{advertisement.holderId}}</td>
+        <td>{{advertisement.content}}</td>
+        <td>{{advertisement.placementDate}}</td>
+        <td>{{advertisement.expirationDate}}</td>
+        <td>{{advertisement.comments}}</td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <label>Name:</label>
+    <input ng-model="$ctrl.advertisementToAdd.name">
+    <br>
+    <label>Content:</label>
+    <input ng-model="$ctrl.advertisementToAdd.content">
+    <br>
+    <label>Placement date:</label>
+    <input type="date" ng-model="$ctrl.advertisementToAdd.placementDate">
+    <br>
+    <label>Expiration date:</label>
+    <input type="date" ng-model="$ctrl.advertisementToAdd.expirationDate">
+    <br>
+    <button class="btn" ng-click="$ctrl.addAdvertisement()">Add advertisement</button>
+</div>

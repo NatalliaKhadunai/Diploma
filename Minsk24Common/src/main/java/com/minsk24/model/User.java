@@ -12,7 +12,7 @@ public class User {
     private String id;
     @Indexed (unique = true)
     private String username;
-    private String passwordHash;
+    private String password;
     private Set<Role> roles;
 
     public String getId() {
@@ -32,11 +32,11 @@ public class User {
     }
 
     public String getPassword() {
-        return passwordHash;
+        return password;
     }
 
     public void setPassword(String passwordHash) {
-        this.passwordHash = passwordHash;
+        this.password = passwordHash;
     }
 
     public String getUsername() {
@@ -67,7 +67,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "username='" + getUsername() + '\'' +
-                ", password=" + passwordHash +
+                ", password=" + password +
                 '}';
     }
 }
