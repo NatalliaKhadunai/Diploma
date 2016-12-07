@@ -21,20 +21,24 @@
     </tbody>
 </table>
 <div>
-    <label>Main title:</label>
-    <input ng-model="$ctrl.articleToAdd.mainTitle">
-    <br>
-    <label>Short title:</label>
-    <input ng-model="$ctrl.articleToAdd.shortTitle">
-    <br>
-    <label>Content:</label>
-    <input ng-model="$ctrl.articleToAdd.content">
-    <br>
-    <select multiple ng-model="$ctrl.tags">
-        <option>Entertainment</option>
-        <option>Fashion</option>
-        <option>Business</option>
-        <option>Politics</option>
-    </select>
-    <button class="btn" ng-click="$ctrl.addArticle()">Add article</button>
+    <form action="/addArticle" method="post" enctype="multipart/form-data">
+        <label>Main title:</label>
+        <input name="mainTitle" ng-model="$ctrl.articleToAdd.mainTitle">
+        <br>
+        <label>Short title:</label>
+        <input name="shortTitle" ng-model="$ctrl.articleToAdd.shortTitle">
+        <br>
+        <label>Content:</label>
+        <input name="content" ng-model="$ctrl.articleToAdd.content">
+        <br>
+        <select multiple name="tags" ng-model="$ctrl.tags">
+            <option>Entertainment</option>
+            <option>Fashion</option>
+            <option>Business</option>
+            <option>Politics</option>
+        </select>
+        <input type="file" name="mainPhoto">
+        <button type="submit" class="btn" ng-click="$ctrl.addArticle()">Add article</button>
+    </form>
+
 </div>

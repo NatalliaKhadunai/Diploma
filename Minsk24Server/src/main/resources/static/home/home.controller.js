@@ -5,24 +5,31 @@
         .module('app')
         .controller('homeCtrl', function ($http) {
             let $ctrl = this;
-            $ctrl.file = {};
+            $ctrl.obj = {};
             $ctrl.uploadFile = function () {
-                var uploadUrl= '/uploadFile';
-                var formData=new FormData();
-                formData.append("file", $ctrl.file);
-                $http({
-                    method: 'POST',
-                    url: uploadUrl,
-                    headers: {'Content-Type': undefined},
-                    data: formData,
-                    transformRequest: function(data, headersGetterFunction) {
-                        return data;
-                    }
-                })
-                    .success(function(data, status) {
-                        alert("success");
+                var fd = new FormData();
+                fd.append('file', file.files[0]);
+                fd.append('name', $ctrl.obj.name);
+                fd.append('id', $ctrl.obj.id);
+                $http.post('/uploadFile', fd, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
                     })
-
-            }
+                    .success(function(){
+                    })
+                    .error(function(){
+                    });
+            };
+            $ctrl.sendFile = function () {
+                $ctrl.obj.file = file.files[0];
+                $http.post('/uploadFile', $ctrl.obj, {
+                        transformRequest: angular.identity,
+                        headers: {'Content-Type': undefined}
+                    })
+                    .success(function(){
+                    })
+                    .error(function(){
+                    });
+            };
         });
 })();

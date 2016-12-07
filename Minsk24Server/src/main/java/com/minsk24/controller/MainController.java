@@ -2,10 +2,7 @@ package com.minsk24.controller;
 
 import org.apache.commons.fileupload.FileUpload;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,9 +20,11 @@ public class MainController {
 
     @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
     @ResponseBody
-    public String postFile(MultipartHttpServletRequest request)
+    public String postFile(@RequestParam(value="id") int id,
+                           @RequestParam(value="name") String name,
+                           @RequestParam(value="file") MultipartFile file)
     {
-        InputStream inputStream = null;
+        /*InputStream inputStream = null;
         OutputStream outputStream = null;
         Iterator<String> itr=request.getFileNames();
         MultipartFile file=request.getFile(itr.next());
@@ -48,7 +47,7 @@ public class MainController {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return "success";
     }

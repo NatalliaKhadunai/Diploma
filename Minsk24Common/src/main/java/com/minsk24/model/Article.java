@@ -3,6 +3,7 @@ package com.minsk24.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.annotation.Generated;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +18,8 @@ public class Article {
     private String content;
     private Date publishDate;
     private String mainPhoto;
-    private Set<User> authors;
-    private Set<Tag> tags;
+    private Set<String> authorsId;
+    private Set<String> tags;
     private List<Comment> comments;
 
     public String getId() {
@@ -29,19 +30,19 @@ public class Article {
         this.id = id;
     }
 
-    public Set<User> getAuthors() {
-        return authors;
+    public Set<String> getAuthorsId() {
+        return authorsId;
     }
 
-    public void setAuthors(Set<User> authors) {
-        this.authors = authors;
+    public void setAuthorsId(Set<String> authorsId) {
+        this.authorsId = authorsId;
     }
 
-    public Set<Tag> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(Set<String> tags) {
         this.tags = tags;
     }
 
@@ -106,7 +107,7 @@ public class Article {
         if (!content.equals(article.content)) return false;
         if (!publishDate.equals(article.publishDate)) return false;
         if (!mainPhoto.equals(article.mainPhoto)) return false;
-        if (!authors.equals(article.authors)) return false;
+        if (!authorsId.equals(article.authorsId)) return false;
         if (!tags.equals(article.tags)) return false;
         return comments.equals(article.comments);
 
@@ -120,7 +121,7 @@ public class Article {
         result = 31 * result + content.hashCode();
         result = 31 * result + publishDate.hashCode();
         result = 31 * result + mainPhoto.hashCode();
-        result = 31 * result + authors.hashCode();
+        result = 31 * result + authorsId.hashCode();
         result = 31 * result + tags.hashCode();
         result = 31 * result + comments.hashCode();
         return result;
@@ -135,7 +136,7 @@ public class Article {
                 ", content='" + content + '\'' +
                 ", publishDate=" + publishDate +
                 ", mainPhoto='" + mainPhoto + '\'' +
-                ", authors=" + authors +
+                ", authors=" + authorsId +
                 ", tags=" + tags +
                 ", comments=" + comments +
                 '}';
