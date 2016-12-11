@@ -14,6 +14,8 @@ public class Event {
     private String id;
     private String name;
     private String location;
+    private String description;
+    private String mainPhoto;
     private List<OpinionBeforeEvent> opinionsBeforeEvent;
     private List<EventRate> eventRates;
 
@@ -39,6 +41,22 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 
     public List<OpinionBeforeEvent> getOpinionsBeforeEvent() {

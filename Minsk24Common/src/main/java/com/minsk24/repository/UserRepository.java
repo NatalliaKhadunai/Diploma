@@ -1,5 +1,6 @@
 package com.minsk24.repository;
 
+import com.minsk24.model.Role;
 import com.minsk24.model.User;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,4 +11,5 @@ import java.util.Iterator;
  */
 public interface UserRepository extends CrudRepository<User, String> {
     User findByUsername(String username);
+    Iterable<User> findByRole(Role role);
 }

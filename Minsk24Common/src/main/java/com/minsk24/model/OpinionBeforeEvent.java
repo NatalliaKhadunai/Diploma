@@ -4,15 +4,15 @@ package com.minsk24.model;
  * Created by khadunai on 12/2/2016.
  */
 public class OpinionBeforeEvent {
-    private int userId;
+    private User user;
     private EventUserChoice eventUserChoice;
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public EventUserChoice getEventUserChoice() {

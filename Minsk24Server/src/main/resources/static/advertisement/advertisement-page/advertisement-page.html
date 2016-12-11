@@ -1,0 +1,23 @@
+<div class="row">
+    <a on-click="history.back()">Back</a>
+</div>
+<div class="row">
+    <h3>{{$ctrl.advertisement.name}}</h3>
+</div>
+<div class="row">
+    <h5>{{$ctrl.advertisement.holder.username}}</h5>
+</div>
+<div class="row">
+    <h5>Placement date: {{$ctrl.advertisement.placementDate | date}}</h5>
+</div>
+<div class="row">
+    <h5>Expiration date: {{$ctrl.advertisement.expirationDate | date}}</h5>
+</div>
+<div class="row">
+    <img src="img/articles/{{$ctrl.advertisement.mainPhoto}}">
+</div>
+<p>{{$ctrl.advertisement.content}}</p>
+<div ng-repeat="comment in $ctrl.advertisement.comments">
+    <p>{{comment.user.username}} {{comment.date | date : "M/d/yy h:mm a"}}</p>
+    <p>{{comment.content}}</p>
+</div>

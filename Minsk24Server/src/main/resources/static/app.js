@@ -20,6 +20,20 @@
                     }
                 }
             })
+            .state('articlePage', {
+                url: '/articlePage',
+                template: '<article-page></article-page>',
+                params: {
+                    'article': {}
+                }
+            })
+            .state('addArticle', {
+                url: '/addArticle',
+                template: '<add-article></add-article>',
+                params: {
+                    'article': {}
+                }
+            })
             .state('advertisements', {
                 url: '/advertisements',
                 template: '<advertisement-list advertisements="$resolve.advertisements"></advertisement-list>',
@@ -27,6 +41,20 @@
                     advertisements: function(advertisementSrv) {
                         return advertisementSrv.getAdvertisements();
                     }
+                }
+            })
+            .state('advertisementPage', {
+                url: '/advertisementPage',
+                template: '<advertisement-page></advertisement-page>',
+                params: {
+                    'advertisement': {}
+                }
+            })
+            .state('addAdvertisement', {
+                url: '/addAdvertisement',
+                template: '<add-advertisement></add-advertisement>',
+                params: {
+                    'advertisement': {}
                 }
             })
             .state('events', {
@@ -38,6 +66,20 @@
                     }
                 }
             })
+            .state('eventPage', {
+                url: '/eventPage',
+                template: '<event-page></event-page>',
+                params: {
+                    'event': {}
+                }
+            })
+            .state('addEvent', {
+                url: '/addEvent',
+                template: '<add-event></add-event>',
+                params: {
+                    'event': {}
+                }
+            })
             .state('users', {
                 url: '/users',
                 template: '<user-list users="$resolve.users"></user-list>',
@@ -47,5 +89,6 @@
                     }
                 }
             });
+
     });
 })();

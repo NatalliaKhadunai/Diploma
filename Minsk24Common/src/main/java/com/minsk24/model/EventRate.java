@@ -4,15 +4,15 @@ package com.minsk24.model;
  * Created by khadunai on 12/2/2016.
  */
 public class EventRate {
-    private String userId;
+    private User user;
     private int rate;
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getRate() {

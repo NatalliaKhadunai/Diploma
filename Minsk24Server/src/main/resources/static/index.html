@@ -11,28 +11,25 @@
     <script src="app.js"></script>
     <script src="home/home.component.js"></script>
     <script src="home/home.controller.js"></script>
-    <script src="articles/article-list.component.js"></script>
-    <script src="articles/article-list.controller.js"></script>
-    <script src="articles/article.service.js"></script>
-    <script src="advertisements/advertisement-list.component.js"></script>
-    <script src="advertisements/advertisement-list.controller.js"></script>
-    <script src="advertisements/advertisement.service.js"></script>
-    <script src="events/event-list.component.js"></script>
-    <script src="events/event-list.controller.js"></script>
-    <script src="events/event.service.js"></script>
+    <script src="article/article-list/article-list.component.js"></script>
+    <script src="article/article-page/article-page.component.js"></script>
+    <script src="article/add-article/add-article.component.js"></script>
+    <script src="article/article.service.js"></script>
+    <script src="advertisement/advertisement-list/advertisement-list.component.js"></script>
+    <script src="advertisement/advertisement-page/advertisement-page.component.js"></script>
+    <script src="advertisement/add-advertisement/add-advertisement.component.js"></script>
+    <script src="advertisement/advertisement.service.js"></script>
+    <script src="event/event-list/event-list.component.js"></script>
+    <script src="event/event-page/event-page.component.js"></script>
+    <script src="event/add-event/add-event.component.js"></script>
+    <script src="event/event.service.js"></script>
     <script src="users/user-list.component.js"></script>
-    <script src="users/user-list.controller.js"></script>
     <script src="users/user.service.js"></script>
+    <script src="menu/menu.component.js"></script>
 </head>
 <body>
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li ui-sref-active="home"><a ui-sref="home">Home</a></li>
-        <li ui-sref-active="articles"><a ui-sref="articles">Articles</a></li>
-        <li ui-sref-active="advertisements"><a ui-sref="advertisements">Advertisements</a></li>
-        <li ui-sref-active="events"><a ui-sref="events">Events</a></li>
-        <li ui-sref-active="users"><a ui-sref="users">Users</a></li>
-    </ul>
+    <menu-component></menu-component>
     <ui-view></ui-view>
 </div>
 </body>

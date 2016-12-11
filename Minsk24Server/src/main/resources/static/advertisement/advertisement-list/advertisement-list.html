@@ -1,0 +1,28 @@
+<table class="table">
+    <thead>
+    <th>Photo</th>
+    <th>Name</th>
+    <th>Holder id</th>
+    <th>Content</th>
+    <th>Placement date</th>
+    <th>Expiration date</th>
+    <th>Comments</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="advertisement in $ctrl.advertisements">
+        <td><img src="img/advertisements/{{advertisement.mainPhoto}}" style="max-width: 200px"></td>
+        <td><a ng-click="$ctrl.openAdvertisementPage(advertisement)">{{advertisement.name}}</a></td>
+        <td>{{advertisement.holderId}}</td>
+        <td>{{advertisement.content}}</td>
+        <td>{{advertisement.placementDate | date}}</td>
+        <td>{{advertisement.expirationDate | date}}</td>
+        <td>{{advertisement.comments}}</td>
+        <td>
+            <button ng-click="$ctrl.editAdvertisement(advertisement)">
+                Edit
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>

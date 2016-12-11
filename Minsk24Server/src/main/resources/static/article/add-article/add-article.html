@@ -1,0 +1,23 @@
+<form name="addArticleForm" action="/addArticle" method="post" enctype="multipart/form-data">
+    <label>Main title *:</label>
+    <input name="mainTitle" ng-model="$ctrl.article.mainTitle" required>
+    <br>
+    <label>Short title *:</label>
+    <input name="shortTitle" ng-model="$ctrl.article.shortTitle" required>
+    <br>
+    <label>Content *:</label>
+    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+    <br>
+    <label>Tags *:</label>
+    <select multiple name="tags" ng-model="$ctrl.article.tags" required>
+        <option>Entertainment</option>
+        <option>Fashion</option>
+        <option>Business</option>
+        <option>Politics</option>
+    </select>
+    <label>Main photo *:</label>
+    <input type="file" name="mainPhoto" required>
+    <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
+        Add article
+    </button>
+</form>

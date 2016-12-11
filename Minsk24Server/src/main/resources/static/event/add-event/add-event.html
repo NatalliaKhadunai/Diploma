@@ -1,0 +1,15 @@
+<form name="addEventForm" action="/addEvent" method="post" enctype="multipart/form-data">
+    <label>Name *:</label>
+    <input name="name" ng-model="$ctrl.event.name" required>
+    <br>
+    <label>Location *:</label>
+    <input name="location" ng-model="$ctrl.event.location" required>
+    <br>
+    <label>Description</label>
+    <textarea name="description" ng-model="$ctrl.event.description"></textarea>
+    <label>Main photo *:</label>
+    <input type="file" name="mainPhoto" required>
+    <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
+        Add event
+    </button>
+</form>

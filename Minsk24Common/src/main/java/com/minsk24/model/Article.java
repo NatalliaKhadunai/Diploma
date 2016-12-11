@@ -18,7 +18,7 @@ public class Article {
     private String content;
     private Date publishDate;
     private String mainPhoto;
-    private Set<String> authorsId;
+    private User author;
     private Set<String> tags;
     private List<Comment> comments;
 
@@ -30,12 +30,12 @@ public class Article {
         this.id = id;
     }
 
-    public Set<String> getAuthorsId() {
-        return authorsId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorsId(Set<String> authorsId) {
-        this.authorsId = authorsId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Set<String> getTags() {
@@ -107,7 +107,7 @@ public class Article {
         if (!content.equals(article.content)) return false;
         if (!publishDate.equals(article.publishDate)) return false;
         if (!mainPhoto.equals(article.mainPhoto)) return false;
-        if (!authorsId.equals(article.authorsId)) return false;
+        if (!author.equals(article.author)) return false;
         if (!tags.equals(article.tags)) return false;
         return comments.equals(article.comments);
 
@@ -121,7 +121,7 @@ public class Article {
         result = 31 * result + content.hashCode();
         result = 31 * result + publishDate.hashCode();
         result = 31 * result + mainPhoto.hashCode();
-        result = 31 * result + authorsId.hashCode();
+        result = 31 * result + author.hashCode();
         result = 31 * result + tags.hashCode();
         result = 31 * result + comments.hashCode();
         return result;
@@ -136,7 +136,7 @@ public class Article {
                 ", content='" + content + '\'' +
                 ", publishDate=" + publishDate +
                 ", mainPhoto='" + mainPhoto + '\'' +
-                ", authors=" + authorsId +
+                ", author=" + author +
                 ", tags=" + tags +
                 ", comments=" + comments +
                 '}';

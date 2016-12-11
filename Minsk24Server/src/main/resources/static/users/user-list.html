@@ -1,12 +1,23 @@
 <table class="table">
     <thead>
     <th>Username</th>
-    <th>Roles</th>
+    <th>Role</th>
+    <th>Actions</th>
     </thead>
     <tbody>
     <tr ng-repeat="user in $ctrl.users">
         <td>{{user.username}}</td>
-        <td>{{user.roles}}</td>
+        <td>{{user.role}}</td>
+        <td>
+            <label>Author permissions:</label>
+            <button class="btn" ng-click="$ctrl.addAuthorPermissions(user)">
+                Add
+            </button>
+            <button class="btn" ng-click="$ctrl.removeAuthorPermissions(user)">
+                Remove
+            </button>
+            <button class="btn" ng-click="$ctrl.removeUser(user)">Remove user</button>
+        </td>
     </tr>
     </tbody>
 </table>

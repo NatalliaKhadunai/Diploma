@@ -1,0 +1,23 @@
+<div class="row">
+    <a on-click="history.back()">Back</a>
+    </div>
+<div class="row">
+    <h3>{{$ctrl.article.mainTitle}}</h3>
+</div>
+<div class="row">
+    <h5>{{$ctrl.article.shortTitle}}</h5>
+</div>
+<div class="row">
+    <h5>{{$ctrl.article.author.username}} {{$ctrl.article.publishDate | date}}</h5>
+</div>
+<div class="row">
+    <span ng-repeat="tag in $ctrl.article.tags">{{tag}},</span>
+</div>
+<div class="row">
+    <img src="img/articles/{{$ctrl.article.mainPhoto}}">
+</div>
+<p>{{$ctrl.article.content}}</p>
+<div ng-repeat="comment in $ctrl.article.comments">
+    <p>{{comment.user.username}} {{comment.date | date : "M/d/yy h:mm a"}}</p>
+    <p>{{comment.content}}</p>
+</div>

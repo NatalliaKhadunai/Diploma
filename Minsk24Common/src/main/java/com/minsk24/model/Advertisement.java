@@ -14,11 +14,12 @@ public class Advertisement {
     @Id
     private String id;
     private String name;
-    private String holderId;
+    private User holder;
     private String content;
     private Date placementDate;
     private Date expirationDate;
     private List<Comment> comments;
+    private String mainPhoto;
 
     public String getId() {
         return id;
@@ -36,12 +37,12 @@ public class Advertisement {
         this.name = name;
     }
 
-    public String getHolderId() {
-        return holderId;
+    public User getHolder() {
+        return holder;
     }
 
-    public void setHolderId(String holderId) {
-        this.holderId = holderId;
+    public void setHolder(User holder) {
+        this.holder = holder;
     }
 
     public String getContent() {
@@ -74,5 +75,13 @@ public class Advertisement {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
     }
 }

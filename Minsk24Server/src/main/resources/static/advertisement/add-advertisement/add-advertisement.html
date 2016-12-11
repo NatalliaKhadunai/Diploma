@@ -1,0 +1,19 @@
+<form name="addAdvertisementForm" action="/addAdvertisement"
+      method="post" enctype="multipart/form-data">
+    <label>Name *:</label>
+    <input name="name" ng-model="$ctrl.advertisement.name" required>
+    <br>
+    <label>Content *:</label>
+    <textarea name="content" ng-model="$ctrl.advertisement.content" required></textarea>
+    <br>
+    <label>Placement date *:</label>
+    <input name="placementDate" ng-model="$ctrl.advertisement.placementDate" type="date" required>
+    <br>
+    <label>Expiration date *:</label>
+    <input name="expirationDate" ng-model="$ctrl.advertisement.expirationDate" type="date" required>
+    <br>
+    <input type="file" name="mainPhoto" required>
+    <button type="submit" class="btn" ng-disabled="addAdvertisementForm.$invalid">
+        Add advertisement
+    </button>
+</form>

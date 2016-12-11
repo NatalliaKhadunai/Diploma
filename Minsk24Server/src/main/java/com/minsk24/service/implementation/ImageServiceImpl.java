@@ -1,5 +1,6 @@
-package com.minsk24.service;
+package com.minsk24.service.implementation;
 
+import com.minsk24.service.ImageService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,13 +11,14 @@ import java.util.Iterator;
 public class ImageServiceImpl implements ImageService {
 
     @Override
-    public void saveImage(MultipartFile imageSourceFile, String destinationDirectory, String newFilename) {
+    public String saveImage(MultipartFile imageSourceFile, String destinationDirectory, String newFilename) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = imageSourceFile.getInputStream();
-
-            File newFile = new File("\\" + destinationDirectory + "\\" + newFilename);
+            int extensionStartIndex = imageSourceFile.getOriginalFilename().lastIndexOf('.');
+            String extension = imageSourceFile.getOriginalFilename().substring(extensionStartIndex);
+            File newFile = new File(destinationDirectory + "\\" + newFilename + extension);
             if (!newFile.exists()) {
                 newFile.createNewFile();
             }
@@ -29,8 +31,10 @@ public class ImageServiceImpl implements ImageService {
             }
             inputStream.close();
             outputStream.close();
+            return newFilename + extension;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 }
