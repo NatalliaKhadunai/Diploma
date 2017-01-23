@@ -1,18 +1,28 @@
 <form name="addAdvertisementForm" action="/addAdvertisement"
       method="post" enctype="multipart/form-data">
     <label>Name *:</label>
-    <input name="name" ng-model="$ctrl.advertisement.name" required>
+    <input name="name" class="form-control" ng-model="$ctrl.advertisement.name"
+           ng-maxlength="30" required
+           ng-class="addAdvertisementForm.name.$touched && addAdvertisementForm.name.$invalid ? 'empty-field' : ''">
     <br>
     <label>Content *:</label>
-    <textarea name="content" ng-model="$ctrl.advertisement.content" required></textarea>
+    <textarea name="content" class="form-control" ng-model="$ctrl.advertisement.content"
+              ng-maxlength="1000" required
+              ng-class="addAdvertisementForm.content.$touched && addAdvertisementForm.content.$invalid ? 'empty-field' : ''">
+    </textarea>
     <br>
-    <label>Placement date *:</label>
-    <input name="placementDate" ng-model="$ctrl.advertisement.placementDate" type="date" required>
+    <label>Placement date * (max date is today):</label>
+    <input name="placementDate" class="form-control" ng-model="$ctrl.advertisement.placementDate"
+           type="date" max="{{$ctrl.currentDate}}" required
+           ng-class="addAdvertisementForm.placementDate.$touched && addAdvertisementForm.placementDate.$invalid ? 'empty-field' : ''">
     <br>
-    <label>Expiration date *:</label>
-    <input name="expirationDate" ng-model="$ctrl.advertisement.expirationDate" type="date" required>
+    <label>Expiration date * (min date is tomorrow):</label>
+    <input name="expirationDate" class="form-control" ng-model="$ctrl.advertisement.expirationDate"
+           type="date" min="{{$ctrl.currentDate}}" required
+           ng-class="addAdvertisementForm.expirationDate.$touched && addAdvertisementForm.expirationDate.$invalid ? 'empty-field' : ''">
     <br>
-    <input type="file" name="mainPhoto" required>
+    <input type="file" class="form-control" name="mainPhoto" required
+           ng-class="addAdvertisementForm.mainPhoto.$touched && addAdvertisementForm.mainPhoto.$invalid ? 'empty-field' : ''">
     <button type="submit" class="btn" ng-disabled="addAdvertisementForm.$invalid">
         Add advertisement
     </button>

@@ -20,7 +20,7 @@ public class EventController {
     }
 
     @RequestMapping (value = "/addEvent", method = RequestMethod.POST)
-    public void addEvent(@RequestParam(value = "name") String name,
+    public Event addEvent(@RequestParam(value = "name") String name,
                          @RequestParam(value = "location") String location,
                          @RequestParam(value = "description") String description,
                          @RequestParam(value = "mainPhoto") MultipartFile mainPhoto) {
@@ -33,5 +33,6 @@ public class EventController {
                 "Minsk24Server\\src\\main\\resources\\static\\img\\events", event.getId());
         event.setMainPhoto(newFilename);
         eventRepository.save(event);
+        return event;
     }
 }

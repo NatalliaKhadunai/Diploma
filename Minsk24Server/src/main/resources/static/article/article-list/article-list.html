@@ -1,30 +1,9 @@
-<table class="table">
-    <thead>
-    <th>Photo</th>
-    <th>Main title</th>
-    <th>Short title</th>
-    <th>Content</th>
-    <th>Publish date</th>
-    <th>Author</th>
-    <th>Tags</th>
-    <th>Comments</th>
-    <th>Actions</th>
-    </thead>
-    <tbody>
-    <tr ng-repeat="article in $ctrl.articles">
-        <td><img src="img/articles/{{article.mainPhoto}}" style="max-width: 200px"></td>
-        <td><a ng-click="$ctrl.openArticlePage(article)">{{article.mainTitle}}</a></td>
-        <td>{{article.shortTitle}}</td>
-        <td>{{article.content}}</td>
-        <td>{{article.publishDate | date}}</td>
-        <td>{{article.author}}</td>
-        <td>{{article.tags}}</td>
-        <td>{{article.comments}}</td>
-        <td>
-            <button ng-click="$ctrl.editArticle(article)">
-                Edit
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="col-md-3" ng-repeat="article in $ctrl.articles">
+    <img src="img/articles/{{article.mainPhoto}}" style="max-width: 200px">
+    <p><a ng-click="$ctrl.openArticlePage(article)">{{article.mainTitle}}</a></p>
+    <p>{{article.shortTitle}}</p>
+    <!--<button ng-click="$ctrl.editArticle(article)"
+            ng-show="$ctrl.currentUser.role === 'ADMIN' || $ctrl.currentUser.role === 'AUTHOR'">
+        Edit
+    </button>-->
+</div>

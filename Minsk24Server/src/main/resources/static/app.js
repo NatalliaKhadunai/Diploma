@@ -4,10 +4,16 @@
         $stateProvider
             .state('home', {
                 url: '/',
-                template: '<home-component articles="$resolve.articles"></home-component>',
+                template: '<home-component articles="$resolve.articles" advertisements="$resolve.advertisements" events="$resolve.events"></home-component>',
                 resolve : {
                     articles: function(articleSrv) {
                         return articleSrv.getArticles();
+                    },
+                    advertisements: function(advertisementSrv) {
+                        return advertisementSrv.getAdvertisements();
+                    },
+                    events: function(eventSrv) {
+                        return eventSrv.getEvents();
                     }
                 }
             })

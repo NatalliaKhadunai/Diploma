@@ -7,8 +7,9 @@
             });
         };
         $ctrl.getCurrentUser = function() {
-            return $http.get('/currentUser').then(function(response){
-                return response.data;
+            return $http.get('/currentUser')
+                .then(function(response){
+                    return response.data;
             });
         };
         $ctrl.getUser = function(username) {

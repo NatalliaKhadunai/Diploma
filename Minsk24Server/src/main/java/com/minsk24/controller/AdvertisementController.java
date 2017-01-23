@@ -27,7 +27,7 @@ public class AdvertisementController {
     }
 
     @RequestMapping (value = "/addAdvertisement", method = RequestMethod.POST)
-    public void addAdvertisement(Principal principal,
+    public Advertisement addAdvertisement(Principal principal,
                                  @RequestParam(value = "name") String name,
                                  @RequestParam(value = "content") String content,
                                  @RequestParam(value = "placementDate") Date placementDate,
@@ -44,5 +44,6 @@ public class AdvertisementController {
                 "Minsk24Server\\src\\main\\resources\\static\\img\\advertisements", advertisement.getId());
         advertisement.setMainPhoto(newFilename);
         advertisementRepository.save(advertisement);
+        return advertisement;
     }
 }

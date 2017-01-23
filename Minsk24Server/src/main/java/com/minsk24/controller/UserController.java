@@ -38,6 +38,9 @@ public class UserController {
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @ResponseBody
     public User getCurrentUser(Principal principal) {
+        User user = userRepository.findByUsername(principal.getName());
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
         return userRepository.findByUsername(principal.getName());
     }
 

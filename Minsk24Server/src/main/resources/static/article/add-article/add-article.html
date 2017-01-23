@@ -1,22 +1,29 @@
 <form name="addArticleForm" action="/addArticle" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" ng-model="$ctrl.article.id">
     <label>Main title *:</label>
-    <input name="mainTitle" ng-model="$ctrl.article.mainTitle" required>
+    <input name="mainTitle" ng-model="$ctrl.article.mainTitle" ng-maxlength="100" required
+           ng-class="addArticleForm.mainTitle.$touched && addArticleForm.mainTitle.$invalid ? 'empty-field' : ''">
     <br>
     <label>Short title *:</label>
-    <input name="shortTitle" ng-model="$ctrl.article.shortTitle" required>
+    <input name="shortTitle" ng-model="$ctrl.article.shortTitle" ng-maxlength="150" required
+           ng-class="addArticleForm.shortTitle.$touched && addArticleForm.shortTitle.$invalid ? 'empty-field' : ''">
     <br>
     <label>Content *:</label>
-    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+    <textarea name="content" ng-model="$ctrl.article.content" ng-maxlength="1000" required
+              ng-class="addArticleForm.content.$touched && addArticleForm.content.$invalid ? 'empty-field' : ''">
+    </textarea>
     <br>
     <label>Tags *:</label>
-    <select multiple name="tags" ng-model="$ctrl.article.tags" required>
+    <select multiple name="tags" ng-model="$ctrl.article.tags" required
+            ng-class="addArticleForm.tags.$touched && addArticleForm.tags.$invalid ? 'empty-field' : ''">
         <option>Entertainment</option>
         <option>Fashion</option>
         <option>Business</option>
         <option>Politics</option>
     </select>
     <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" required>
+    <input type="file" name="mainPhoto" required
+           ng-class="addArticleForm.mainPhoto.$touched && addArticleForm.mainPhoto.$invalid ? 'empty-field' : ''">
     <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
         Add article
     </button>

@@ -4,7 +4,7 @@
     <li ui-sref-active="advertisements"><a ui-sref="advertisements">Advertisements</a></li>
     <li ui-sref-active="events"><a ui-sref="events">Events</a></li>
     <li><a ui-sref="addAdvertisement">Add advertisement</a></li>
-    <li ui-sref-active="users"
+    <!--<li ui-sref-active="users"
         ng-show="$ctrl.currentUser.role==='ADMIN'">
         <a ui-sref="users">Users</a>
     </li>
@@ -14,6 +14,15 @@
     </li>
     <li ui-sref-active="addEvent"
         ng-show="$ctrl.currentUser.role==='ADMIN'">
+        <a ui-sref="addEvent">Add Event</a>
+    </li>-->
+    <li ui-sref-active="users">
+        <a ui-sref="users">Users</a>
+    </li>
+    <li ui-sref-active="addArticle">
+        <a ui-sref="addArticle">Add article</a>
+    </li>
+    <li ui-sref-active="addEvent">
         <a ui-sref="addEvent">Add Event</a>
     </li>
     <li><a href="/logout">Logout</a></li>

@@ -1,14 +1,19 @@
 <form name="addEventForm" action="/addEvent" method="post" enctype="multipart/form-data">
     <label>Name *:</label>
-    <input name="name" ng-model="$ctrl.event.name" required>
+    <input name="name" ng-model="$ctrl.event.name" ng-maxlength="100" required
+           ng-class="addEventForm.name.$touched && addEventForm.name.$invalid ? 'empty-field' : ''">
     <br>
     <label>Location *:</label>
-    <input name="location" ng-model="$ctrl.event.location" required>
+    <input name="location" ng-model="$ctrl.event.location" ng-maxlength="150" required
+           ng-class="addEventForm.location.$touched && addEventForm.location.$invalid ? 'empty-field' : ''">
     <br>
     <label>Description</label>
-    <textarea name="description" ng-model="$ctrl.event.description"></textarea>
+    <textarea name="description" ng-model="$ctrl.event.description" ng-maxlength="1000"
+              ng-class="addEventForm.description.$touched && addEventForm.description.$invalid ? 'empty-field' : ''">
+    </textarea>
     <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" required>
+    <input type="file" name="mainPhoto" required
+           ng-class="addEventForm.mainPhoto.$touched && addEventForm.mainPhoto.$invalid ? 'empty-field' : ''">
     <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
         Add event
     </button>

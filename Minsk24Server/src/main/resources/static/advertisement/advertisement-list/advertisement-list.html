@@ -1,28 +1,8 @@
-<table class="table">
-    <thead>
-    <th>Photo</th>
-    <th>Name</th>
-    <th>Holder id</th>
-    <th>Content</th>
-    <th>Placement date</th>
-    <th>Expiration date</th>
-    <th>Comments</th>
-    <th>Actions</th>
-    </thead>
-    <tbody>
-    <tr ng-repeat="advertisement in $ctrl.advertisements">
-        <td><img src="img/advertisements/{{advertisement.mainPhoto}}" style="max-width: 200px"></td>
-        <td><a ng-click="$ctrl.openAdvertisementPage(advertisement)">{{advertisement.name}}</a></td>
-        <td>{{advertisement.holderId}}</td>
-        <td>{{advertisement.content}}</td>
-        <td>{{advertisement.placementDate | date}}</td>
-        <td>{{advertisement.expirationDate | date}}</td>
-        <td>{{advertisement.comments}}</td>
-        <td>
-            <button ng-click="$ctrl.editAdvertisement(advertisement)">
-                Edit
-            </button>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="col-md-3" ng-repeat="advertisement in $ctrl.advertisements">
+    <img src="img/advertisements/{{advertisement.mainPhoto}}" style="max-width: 200px">
+    <p><a ng-click="$ctrl.openAdvertisementPage(advertisement)">{{advertisement.name}}</a></p>
+    <p>{{advertisement.placementDate | date}} - {{advertisement.expirationDate | date}}</p>
+    <!--<button ng-click="$ctrl.editAdvertisement(advertisement)" ng-show="$ctrl.currentUser.role === 'ADMIN'">
+        Edit
+    </button>-->
+</div>

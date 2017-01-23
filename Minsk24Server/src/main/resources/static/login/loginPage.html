@@ -11,7 +11,7 @@
         var app = angular.module('login', []);
         app.controller('loginCtrl', function($location){
             let $ctrl = this;
-            $ctrl.error = $location.absUrl().split('?').length > 1 ? true : false;
+            $ctrl.error = $location.absUrl().split('?')[1] === 'error' ? true : false;
         });
     </script>
     <style>
@@ -25,15 +25,15 @@
 </head>
 <body ng-controller="loginCtrl as $ctrl" ng-cloak>
 <div class="container">
-    <form method="POST" action="/login" class="form-signin">
+    <form name="loginForm" method="POST" action="/login" class="form-signin">
         <h2 class="form-heading">Log in</h2>
         <div class="alert alert-danger" ng-show="$ctrl.error">Invalid username or password</div>
-        <input name="username" type="text" class="form-control" placeholder="Username"
-               autofocus="true"/>
-        <input name="password" type="password" class="form-control" placeholder="Password"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+        <input name="username" type="text" class="form-control" placeholder="Username" ng-maxlength="30"
+               autofocus="true" required/>
+        <input name="password" type="password" class="form-control" placeholder="Password" ng-maxlength="30" required/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="loginForm.$invalid">Log In</button>
     </form>
-    <a href="../registration/registrationPage.html"></a>
+    <a href="registration">Registration</a>
 </div>
 </body>
 </html>

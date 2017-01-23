@@ -5,7 +5,9 @@
             templateUrl: 'home/home.html',
             controller: 'homeCtrl',
             bindings: {
-                articles: '<'
+                articles: '<',
+                advertisements : '<',
+                events: '<'
             }
         });
 })();

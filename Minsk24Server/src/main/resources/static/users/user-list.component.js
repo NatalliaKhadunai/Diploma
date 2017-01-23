@@ -23,7 +23,7 @@
                 $ctrl.removeUser = function(user) {
                     $http.post('/removeUser', user.username)
                         .success(function() {
-                            user = null;
+                            $ctrl.users.pop(user);
                         });
                 }
             }

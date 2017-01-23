@@ -27,13 +27,15 @@ public class ArticleController {
     }
 
     @RequestMapping (value = "/addArticle", method = RequestMethod.POST)
-    public void addArticle(Principal principal,
+    public Article addArticle(Principal principal,
+                              @RequestParam(value = "id") String id,
                            @RequestParam(value = "mainTitle") String mainTitle,
                            @RequestParam(value = "shortTitle") String shortTitle,
                            @RequestParam(value = "content") String content,
                            @RequestParam(value = "mainPhoto") MultipartFile mainPhoto,
                            @RequestParam(value = "tags") String[] tags) {
         Article article = new Article();
+        if (id != null) article.setId(id);
         article.setMainTitle(mainTitle);
         article.setShortTitle(shortTitle);
         article.setContent(content);
@@ -48,5 +50,6 @@ public class ArticleController {
                 .saveImage(mainPhoto, "Minsk24Server\\src\\main\\resources\\static\\img\\articles", article.getId());
         article.setMainPhoto(newFileName);
         articleRepository.save(article);
+        return article;
     }
 }
