@@ -1,29 +1,25 @@
 package com.minsk24.controller;
 
-import com.minsk24.model.Article;
-import com.minsk24.repository.ArticleRepository;
-import com.minsk24.repository.UserRepository;
-import com.minsk24.service.ImageService;
+import com.minsk24.bean.*;
+import com.minsk24.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
-import java.sql.Timestamp;
-import java.util.HashSet;
 
 @RestController
 public class ArticleController {
     @Autowired
-    private ArticleRepository articleRepository;
+    private ArticleService articleService;
     @Autowired
     private ImageService imageService;
     @Autowired
-    private UserRepository userRepository;
+    private AccountService accountService;
 
     @RequestMapping (value = "/articles", method = RequestMethod.GET)
     public Iterable<Article> getArticles() {
-        return articleRepository.findAll();
+        return articleService.getArticles();
     }
 
     @RequestMapping (value = "/addArticle", method = RequestMethod.POST)
@@ -33,20 +29,11 @@ public class ArticleController {
                            @RequestParam(value = "content") String content,
                            @RequestParam(value = "mainPhoto") MultipartFile mainPhoto,
                            @RequestParam(value = "tags") String[] tags) {
-        Article article = new Article();
-        article.setMainTitle(mainTitle);
-        article.setShortTitle(shortTitle);
-        article.setContent(content);
-        article.setTags(new HashSet<>());
-        for (String tagStr : tags) {
-            article.getTags().add(tagStr);
-        }
-        article.setAuthor(userRepository.findByUsername(principal.getName()));
-        article.setPublishDate(new Timestamp(System.currentTimeMillis()));
-        article = articleRepository.save(article);
+        Article article = articleService.saveArticle(mainTitle, shortTitle,
+                accountService.getAccountByLogin(principal.getName()), content, tags);
         String newFileName = imageService
-                .saveImage(mainPhoto, "Minsk24Server\\src\\main\\resources\\static\\img\\articles", article.getId());
-        article.setMainPhoto(newFileName);
-        articleRepository.save(article);
+                .saveImage(mainPhoto,
+                        "Minsk24Server\\src\\main\\resources\\static\\img\\articles",
+                        Integer.toString(article.getId()));
     }
 }

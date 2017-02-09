@@ -1,10 +1,13 @@
 package com.minsk24.service;
 
-import com.minsk24.model.Article;
+import com.minsk24.bean.Account;
+import com.minsk24.bean.Article;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by khadunai on 12/1/2016.
- */
+import java.util.List;
+
+@Service
 public interface ArticleService {
-    Iterable<Article> getArticles();
+    Article saveArticle(String mainTitle, String shortTitle, Account author, String content, String[] tags);
+    List<Article> getArticles();
 }
