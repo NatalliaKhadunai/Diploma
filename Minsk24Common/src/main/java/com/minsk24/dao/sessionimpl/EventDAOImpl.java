@@ -1,4 +1,4 @@
-package com.minsk24.dao.impl;
+package com.minsk24.dao.sessionimpl;
 
 import com.minsk24.bean.Event;
 import com.minsk24.dao.EventDAO;
@@ -8,23 +8,24 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class EventDAOImpl implements EventDAO {
     private String GET_EVENTS = "from Event";
 
     @Override
     public Event save(Event event) {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         session.save(event);
-        session.close();
+        session.getTransaction().commit();
         return event;
     }
 
     @Override
     public List<Event> getEvents() {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         List<Event> events = session.createQuery(GET_EVENTS).list();
-        session.close();
+        session.getTransaction().commit();
         return events;
     }
 }

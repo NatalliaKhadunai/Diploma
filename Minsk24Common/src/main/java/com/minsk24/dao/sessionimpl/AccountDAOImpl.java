@@ -1,4 +1,4 @@
-package com.minsk24.dao.impl;
+package com.minsk24.dao.sessionimpl;
 
 import com.minsk24.bean.Account;
 import com.minsk24.dao.AccountDAO;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 public class AccountDAOImpl implements AccountDAO {
     private String GET_ACCOUNT_BY_LOGIN_HQL = "from Account where login=:login";
     private String GET_ACCOUNTS = "from Account";
@@ -17,40 +16,45 @@ public class AccountDAOImpl implements AccountDAO {
     @Override
     public Account save(Account account) {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         session.save(account);
-        session.close();
+        session.getTransaction().commit();
         return account;
     }
 
     @Override
     public void update(Account account) {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         session.update(account);
-        session.close();
+        session.getTransaction().commit();
     }
 
     @Override
     public void delete(Account account) {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         session.delete(account);
-        session.close();
+        session.getTransaction().commit();
     }
 
     @Override
     public Account getAccountByLogin(String login) {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         Query query = session.createQuery(GET_ACCOUNT_BY_LOGIN_HQL);
         query.setParameter("login", login);
         Account account = (Account) query.uniqueResult();
-        session.close();
+        session.getTransaction().commit();
         return account;
     }
 
     @Override
     public List<Account> getAccounts() {
         Session session = SessionFactoryUtil.getSession();
+        session.beginTransaction();
         List<Account> accounts = session.createQuery(GET_ACCOUNTS).list();
-        session.close();
+        session.getTransaction().commit();
         return accounts;
     }
 }

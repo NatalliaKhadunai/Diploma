@@ -5,7 +5,6 @@ import com.minsk24.bean.Role;
 import com.minsk24.dao.AccountDAO;
 import com.minsk24.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
