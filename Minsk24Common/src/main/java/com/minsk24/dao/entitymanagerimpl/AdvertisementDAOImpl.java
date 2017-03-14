@@ -3,12 +3,12 @@ package com.minsk24.dao.entitymanagerimpl;
 import com.minsk24.bean.Advertisement;
 import com.minsk24.dao.AdvertisementDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-@Component
+@Repository
 public class AdvertisementDAOImpl implements AdvertisementDAO {
     @Autowired
     private EntityManager em;

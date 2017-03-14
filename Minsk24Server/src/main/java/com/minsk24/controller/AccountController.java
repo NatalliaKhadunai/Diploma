@@ -41,7 +41,7 @@ public class AccountController {
 
     @RequestMapping(value = "/getUser", method = RequestMethod.GET)
     @ResponseBody
-    public Account getUser(@RequestParam(value = "username") String username) {
+    public Account getUser(@RequestParam(value = "login") String username) {
         return accountService.getAccountByLogin(username);
     }
 

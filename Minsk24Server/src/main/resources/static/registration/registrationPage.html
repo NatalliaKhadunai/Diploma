@@ -17,16 +17,16 @@
         var app = angular.module('registration', []);
         app.controller('registrationCtrl', function($http){
             let $ctrl = this;
-            $ctrl.checkUsername = function() {
+            $ctrl.checkLogin = function() {
                 $http
                     .get('/getUser', {
                         params: {
-                            username: $ctrl.username
+                            login: $ctrl.login
                         }
                     })
                     .then(function (response) {
-                        if (response.data) $ctrl.usernameExists = true;
-                        else $ctrl.usernameExists = false;
+                        if (response.data) $ctrl.loginExists = true;
+                        else $ctrl.loginExists = false;
                     });
             };
         });
@@ -46,9 +46,9 @@
 <div class="container">
     <form name="registrationForm" method="POST" action="/registration" class="form-signin">
         <h2 class="form-signin-heading">Create your account</h2>
-        <input type="text" name="username" ng-model="$ctrl.username" ng-blur="$ctrl.checkUsername()"
+        <input type="text" name="login" ng-model="$ctrl.login" ng-blur="$ctrl.checkLogin()"
                class="form-control" placeholder="Username" required>
-        <div class="alert alert-danger" ng-show="$ctrl.usernameExists">User with such username already exists</div>
+        <div class="alert alert-danger" ng-show="$ctrl.loginExists">User with such username already exists</div>
         <input type="password" name="password" class="form-control"
                placeholder="Password" required>
         <input type="password" name="passwordConfirm" class="form-control"

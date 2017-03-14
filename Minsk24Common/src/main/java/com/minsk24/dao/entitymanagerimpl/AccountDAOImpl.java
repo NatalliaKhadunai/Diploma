@@ -3,13 +3,14 @@ package com.minsk24.dao.entitymanagerimpl;
 import com.minsk24.bean.Account;
 import com.minsk24.dao.AccountDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
+@Repository
 public class AccountDAOImpl implements AccountDAO {
     @Autowired
     private EntityManager em;
@@ -18,7 +19,9 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public Account save(Account account) {
+        em.getTransaction().begin();
         em.persist(account);
+        em.getTransaction().commit();
         return account;
     }
 
@@ -36,7 +39,12 @@ public class AccountDAOImpl implements AccountDAO {
     public Account getAccountByLogin(String login) {
         Query query = em.createQuery(GET_ACCOUNT_BY_LOGIN_HQL);
         query.setParameter("login", login);
-        Account account = (Account) query.getSingleResult();
+        Account account = null;
+        try {
+            account = (Account) query.getSingleResult();
+        } catch (NoResultException e) {
+
+        }
         return account;
     }
 
