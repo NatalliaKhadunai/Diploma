@@ -1,12 +1,15 @@
 <form name="addArticleForm" action="/addArticle" method="post" enctype="multipart/form-data">
     <label>Main title *:</label>
-    <input name="mainTitle" ng-model="$ctrl.article.mainTitle" required>
+    <input name="title" ng-model="$ctrl.article.title" required>
+    <p>Length: {{$ctrl.article.mainTitle.length}}</p>
     <br>
     <label>Short title *:</label>
-    <input name="shortTitle" ng-model="$ctrl.article.shortTitle" required>
+    <input name="shortDescription" ng-model="$ctrl.article.shortDescription" required>
+    <p>Length: {{$ctrl.article.shortTitle.length}}</p>
     <br>
     <label>Content *:</label>
     <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+    <p>Length: {{$ctrl.article.content.length}}</p>
     <br>
     <label>Tags *:</label>
     <select multiple name="tags" ng-model="$ctrl.article.tags" required>

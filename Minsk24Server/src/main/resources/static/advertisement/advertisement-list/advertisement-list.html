@@ -11,9 +11,9 @@
     </thead>
     <tbody>
     <tr ng-repeat="advertisement in $ctrl.advertisements">
-        <td><img src="img/advertisements/{{advertisement.mainPhoto}}" style="max-width: 200px"></td>
-        <td><a ng-click="$ctrl.openAdvertisementPage(advertisement)">{{advertisement.name}}</a></td>
-        <td>{{advertisement.holderId}}</td>
+        <td><img src="img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 200px"></td>
+        <td><a ng-click="$ctrl.openAdvertisementPage(advertisement)">{{advertisement.title}}</a></td>
+        <td>{{advertisement.holder}}</td>
         <td>{{advertisement.content}}</td>
         <td>{{advertisement.placementDate | date}}</td>
         <td>{{advertisement.expirationDate | date}}</td>

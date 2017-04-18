@@ -1,23 +1,30 @@
 package com.minsk24.bean;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "EVENT")
 public class Event {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="EVENT_SEQ")
-    @SequenceGenerator(name="EVENT_SEQ", sequenceName="EVENT_SEQ", allocationSize=1)
-    private int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "E_ID")
+    private Integer id;
+    @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
+    @Column(name = "LOCATION", length = 100, nullable = false)
     private String location;
-    @Column(length=1000)
+    @Column(name = "DESCRIPTION", length = 1000, nullable = false)
     private String description;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

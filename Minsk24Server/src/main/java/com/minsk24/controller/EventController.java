@@ -20,13 +20,14 @@ public class EventController {
     }
 
     @RequestMapping (value = "/addEvent", method = RequestMethod.POST)
-    public void addEvent(@RequestParam(value = "title") String title,
+    public String addEvent(@RequestParam(value = "title") String title,
                          @RequestParam(value = "location") String location,
                          @RequestParam(value = "description") String description,
                          @RequestParam(value = "mainPhoto") MultipartFile mainPhoto) {
         Event event = eventService.save(title, location, description);
         String newFilename = imageService.saveImage(mainPhoto,
-                "Minsk24Server\\src\\main\\resources\\static\\img\\events",
+                "Minsk24Server\\src\\main\\resources\\static\\img\\event",
                 Integer.toString(event.getId()));
+        return "redirect:/home";
     }
 }

@@ -10,5 +10,5 @@ public interface AccountService {
     void update(Account account);
     void delete(Account account);
     Account getAccountByLogin(String login);
-    List<Account> getAccounts();
+    Iterable<Account> getAccounts();
 }

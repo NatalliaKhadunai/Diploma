@@ -2,17 +2,18 @@ package com.minsk24.service.impl;
 
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Role;
-import com.minsk24.dao.AccountDAO;
+import com.minsk24.repository.AccountRepository;
 import com.minsk24.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AccountServiceImpl implements AccountService{
     @Autowired
-    private AccountDAO accountDAO;
+    private AccountRepository accountDAO;
 
     @Override
     public Account save(String login, String password, Role role) {
@@ -25,7 +26,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public void update(Account account) {
-        accountDAO.update(account);
+        accountDAO.save(account);
     }
 
     @Override
@@ -35,11 +36,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account getAccountByLogin(String login) {
-        return accountDAO.getAccountByLogin(login);
+        return accountDAO.findByLogin(login);
     }
 
     @Override
-    public List<Account> getAccounts() {
-        return accountDAO.getAccounts();
+    public Iterable<Account> getAccounts() {
+        return accountDAO.findAll();
     }
 }

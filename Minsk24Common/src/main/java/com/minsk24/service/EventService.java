@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface EventService {
     Event save(String title, String location, String description);
-    List<Event> getEvents();
+    Iterable<Event> getEvents();
 }

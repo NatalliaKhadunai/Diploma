@@ -3,19 +3,20 @@ package com.minsk24.bean;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "TAG")
 public class Tag {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="TAG_SEQ")
-    @SequenceGenerator(name="TAG_SEQ", sequenceName="TAG_SEQ", allocationSize=1)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "T_ID")
     private int id;
-    @Column(length = 30)
+    @Column(name = "NAME", unique = true, length = 30, nullable = false)
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

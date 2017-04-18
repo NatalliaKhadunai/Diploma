@@ -1,13 +1,10 @@
 <form name="addAdvertisementForm" action="/addAdvertisement"
       method="post" enctype="multipart/form-data">
     <label>Name *:</label>
-    <input name="name" ng-model="$ctrl.advertisement.name" required>
+    <input name="title" ng-model="$ctrl.advertisement.title" required>
     <br>
     <label>Content *:</label>
-    <textarea name="content" ng-model="$ctrl.advertisement.content" required></textarea>
-    <br>
-    <label>Placement date *:</label>
-    <input name="placementDate" ng-model="$ctrl.advertisement.placementDate" type="date" required>
+    <textarea name="description" ng-model="$ctrl.advertisement.description" required></textarea>
     <br>
     <label>Expiration date *:</label>
     <input name="expirationDate" ng-model="$ctrl.advertisement.expirationDate" type="date" required>

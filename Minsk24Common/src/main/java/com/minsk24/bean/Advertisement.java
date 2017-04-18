@@ -6,29 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "ADVERTISEMENT")
 public class Advertisement {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ADVERTISEMENT_SEQ")
-    @SequenceGenerator(name="ADVERTISEMENT_SEQ", sequenceName="ADVERTISEMENT_SEQ", allocationSize=1)
-    private int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "ADV_ID")
+    private Integer id;
+    @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "HOLDER_ACCOUNT_ID", nullable = false)
     private Account holder;
-    @Column(length=1000)
+    @Column(name = "DESCRIPTION", length = 1000, nullable = false)
     private String description;
-    @Column(name = "PLACEMENT_DATE")
+    @Column(name = "PLACEMENT_DATE", nullable = false)
     private Date placementDate;
-    @Column(name = "EXPIRATION_DATE")
+    @Column(name = "EXPIRATION_DATE", nullable = false)
     private Date expirationDate;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

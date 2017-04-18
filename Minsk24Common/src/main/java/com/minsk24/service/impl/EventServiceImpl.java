@@ -1,7 +1,7 @@
 package com.minsk24.service.impl;
 
 import com.minsk24.bean.Event;
-import com.minsk24.dao.EventDAO;
+import com.minsk24.repository.EventRepository;
 import com.minsk24.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
     @Autowired
-    private EventDAO eventDAO;
+    private EventRepository eventDAO;
 
     @Override
     public Event save(String title, String location, String description) {
@@ -23,7 +23,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getEvents() {
-        return eventDAO.getEvents();
+    public Iterable<Event> getEvents() {
+        return eventDAO.findAll();
     }
 }

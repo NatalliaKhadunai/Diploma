@@ -3,24 +3,25 @@ package com.minsk24.bean;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "ACCOUNT")
 public class Account {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ACCOUNT_SEQ")
-    @SequenceGenerator(name="ACCOUNT_SEQ", sequenceName="ACCOUNT_SEQ", allocationSize=1)
-    private int id;
-    @Column(length = 30)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="ACC_ID")
+    private Integer id;
+    @Column(name = "LOGIN", unique = true, length = 30, nullable = false)
     private String login;
-    @Column(length = 30)
+    @Column(name="PASSWORD", length = 30, nullable = false)
     private String password;
-    @Column(length = 20)
+    @Column(name = "ROLE", length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

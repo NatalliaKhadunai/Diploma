@@ -1,8 +1,19 @@
+<div class="flex-container">
+    <div class="flex-block" ng-repeat="article in $ctrl.articles">
+        <img src="img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
+        <p>
+            <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
+        </p>
+        <p>{{article.shortDescription}}</p>
+        <p>{{article.publishDate | date}} {{article.tags}}</p>
+    </div>
+</div>
+
 <table class="table">
     <thead>
     <th>Photo</th>
-    <th>Main title</th>
-    <th>Short title</th>
+    <th>Title</th>
+    <th>Description</th>
     <th>Content</th>
     <th>Publish date</th>
     <th>Author</th>
@@ -12,12 +23,12 @@
     </thead>
     <tbody>
     <tr ng-repeat="article in $ctrl.articles">
-        <td><img src="img/articles/{{article.mainPhoto}}" style="max-width: 200px"></td>
-        <td><a ng-click="$ctrl.openArticlePage(article)">{{article.mainTitle}}</a></td>
-        <td>{{article.shortTitle}}</td>
+        <td><img src="img/article/{{article.id + '.jpg'}}" style="max-width: 200px"></td>
+        <td><a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a></td>
+        <td>{{article.shortDescription}}</td>
         <td>{{article.content}}</td>
         <td>{{article.publishDate | date}}</td>
-        <td>{{article.author}}</td>
+        <td>{{article.authors}}</td>
         <td>{{article.tags}}</td>
         <td>{{article.comments}}</td>
         <td>

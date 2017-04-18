@@ -7,22 +7,22 @@ import java.sql.Timestamp;
 @Table(name = "COMMENTS")
 public class Comment {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="COMMENT_SEQ")
-    @SequenceGenerator(name="COMMENT_SEQ", sequenceName="COMMENT_SEQ", allocationSize=1)
-    private int id;
-    @ManyToOne
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "C_ID")
+    private Integer id;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account publisher;
-    @Column(name = "PUBLISH_DATE")
+    @Column(name = "PUBLISH_DATE", nullable = false)
     private Timestamp publishDate;
-    @Column(length = 500)
+    @Column(name = "CONTENT", length = 300, nullable = false)
     private String content;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

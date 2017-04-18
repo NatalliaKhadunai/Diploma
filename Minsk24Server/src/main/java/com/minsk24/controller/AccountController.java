@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
 
@@ -23,13 +26,10 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserDetailsService userDetailsService;
-
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     @ResponseBody
-    public List<Account> getUsers() {
+    public Iterable<Account> getUsers() {
         return accountService.getAccounts();
     }
 
@@ -48,9 +48,12 @@ public class AccountController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+            model.addAttribute("error", "Your username and password are invalid.");
+        if (logout != null)
+            model.addAttribute("logout", "You were successfully logout");
         return "login/loginPage";
     }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
         return "registration/registrationPage";
@@ -59,12 +62,13 @@ public class AccountController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("login") String login,
                                @ModelAttribute("password") String password,
-                               @ModelAttribute("passwordConfirm") String passwordConfirm) {
+                               @ModelAttribute("passwordConfirm") String passwordConfirm,
+                               HttpServletRequest request) {
         if (!password.equals(passwordConfirm)) {
             return "Your username and password is invalid.";
         }
-        Account account = accountService.save(login, password, Role.VISITOR);
-        autologin(account.getLogin(), account.getPassword());
+        Account account = accountService.save(login, password, Role.GUEST);
+        autologin(account.getLogin(), account.getPassword(), request);
         return "redirect:/home";
     }
 
@@ -80,7 +84,7 @@ public class AccountController {
     @ResponseBody
     public void removeAuthorPermissions(@RequestBody String login) {
         Account account = accountService.getAccountByLogin(login);
-        account.setRole(Role.VISITOR);
+        account.setRole(Role.GUEST);
         accountService.update(account);
     }
 
@@ -93,12 +97,10 @@ public class AccountController {
         }
         else return ResponseEntity.unprocessableEntity().body(null);
     }
-    public void autologin(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
+    public void autologin(String username, String password, HttpServletRequest request) {
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
+        token.setDetails(new WebAuthenticationDetails(request));
+        Authentication authenticatedUser = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
     }
 }

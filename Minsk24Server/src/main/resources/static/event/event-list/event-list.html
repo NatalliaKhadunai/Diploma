@@ -8,8 +8,8 @@
     </thead>
     <tbody>
     <tr ng-repeat="event in $ctrl.events">
-        <td><img src="img/events/{{event.mainPhoto}}" style="max-width: 200px"></td>
-        <td><a ng-click="$ctrl.openEventPage(event)">{{event.name}}</a></td>
+        <td><img src="img/event/{{event.mainPhoto + '.jpg'}}" style="max-width: 200px"></td>
+        <td><a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a></td>
         <td>{{event.location}}</td>
         <td>{{event.description}}</td>
         <td>

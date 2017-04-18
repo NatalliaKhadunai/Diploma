@@ -3,25 +3,28 @@ package com.minsk24.bean;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER_AFTER_EVENT_RATE")
-public class UserAfterEventRate {
+@Table(name = "BEFORE_EVENT_RATE",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"EVENT_ID", "ACCOUNT_ID"})})
+public class BeforeEventRate {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="USER_AFTER_EVENT_RATE_SEQ")
-    @SequenceGenerator(name="USER_AFTER_EVENT_RATE_SEQ", sequenceName="USER_AFTER_EVENT_RATE_SEQ", allocationSize=1)
-    private int id;
-    @ManyToOne
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "BER_ID")
+    private Integer id;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "EVENT_ID", nullable = false)
     private Event event;
-    @ManyToOne
-    @JoinColumn(name = "USER_ACCOUNT_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account user;
-    private int rate;
+    @Column(name = "USER_CHOICE", length = 15, nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EventUserChoice eventUserChoice;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,12 +44,12 @@ public class UserAfterEventRate {
         this.user = user;
     }
 
-    public int getRate() {
-        return rate;
+    public EventUserChoice getEventUserChoice() {
+        return eventUserChoice;
     }
 
-    public void setRate(int rate) {
-        this.rate = rate;
+    public void setEventUserChoice(EventUserChoice eventUserChoice) {
+        this.eventUserChoice = eventUserChoice;
     }
 
     @Override
@@ -54,12 +57,12 @@ public class UserAfterEventRate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserAfterEventRate that = (UserAfterEventRate) o;
+        BeforeEventRate that = (BeforeEventRate) o;
 
         if (id != that.id) return false;
-        if (rate != that.rate) return false;
         if (!event.equals(that.event)) return false;
-        return user.equals(that.user);
+        if (!user.equals(that.user)) return false;
+        return eventUserChoice == that.eventUserChoice;
     }
 
     @Override
@@ -67,17 +70,17 @@ public class UserAfterEventRate {
         int result = id;
         result = 31 * result + event.hashCode();
         result = 31 * result + user.hashCode();
-        result = 31 * result + rate;
+        result = 31 * result + eventUserChoice.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "\nUserAfterEventRate{" +
+        return "\nUserBeforeEventRate{" +
                 "id=" + id +
                 ", event=" + event +
                 ", user=" + user +
-                ", rate=" + rate +
+                ", eventUserChoice=" + eventUserChoice +
                 '}';
     }
 }

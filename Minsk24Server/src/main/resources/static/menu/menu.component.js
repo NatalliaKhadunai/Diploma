@@ -3,9 +3,16 @@
     angular.module('app')
         .component('menuComponent', {
             templateUrl: 'menu/menu.html',
-            controller : function(userSrv) {
+            controller : function($http) {
                 let $ctrl = this;
-                $ctrl.currentUser = userSrv.getCurrentUser();
+                $ctrl.currentUser = {};
+                $ctrl.getCurrentUser = function () {
+                    $http.get('/currentUser').then(function(response){
+                        $ctrl.currentUser = response.data;
+                        console.log($ctrl.currentUser);
+                    });
+                };
+                $ctrl.getCurrentUser();
             }
         });
 })();

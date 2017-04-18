@@ -8,54 +8,57 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "ARTICLE")
 public class Article {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="ARTICLE_SEQ")
-    @SequenceGenerator(name="ARTICLE_SEQ", sequenceName="ARTICLE_SEQ", allocationSize=1)
-    private int id;
-    @Column(name = "MAIN_TITLE")
-    private String mainTitle;
-    @Column(name = "SHORT_TITLE", length=200)
-    private String shortTitle;
-    @Column(name = "PUBLISH_DATE")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ART_ID")
+    private Integer id;
+    @Column(name = "TITLE", length = 100, nullable = false)
+    private String title;
+    @Column(name = "SHORT_DESCRIPTION", length=200, nullable = false)
+    private String shortDescription;
+    @Column(name = "PUBLISH_DATE", nullable = false)
     private Timestamp publishDate;
-    @Column(length = 2000)
+    @Column(name = "CONTENT", length = 2000, nullable = false)
     private String content;
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Comment> comments;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ARTICLE_AUTHOR", joinColumns = {
             @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "AUTHOR_ACCOUNT_ID", nullable = false, updatable = false) })
-    private Set<Account> authors;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+            inverseJoinColumns = { @JoinColumn(name = "AUTHOR_ACCOUNT_ID",
+                    nullable = false, updatable = false) })
+    private Set<Account> authors = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ARTICLE_TAG", joinColumns = {
             @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "TAG_ID", nullable = false, updatable = false) })
-    private Set<Tag> tags;
+            inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
+                    nullable = false, updatable = false) })
+    private Set<Tag> tags = new HashSet<>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getMainTitle() {
-        return mainTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setMainTitle(String mainTitle) {
-        this.mainTitle = mainTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getShortTitle() {
-        return shortTitle;
+    public String getShortDescription() {
+        return shortDescription;
     }
 
-    public void setShortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public Timestamp getPublishDate() {
@@ -90,9 +93,8 @@ public class Article {
         this.authors = authors;
     }
 
-    public void addAuthor(Account author) {
-        if (authors == null) authors = new HashSet<Account>();
-        authors.add(author);
+    public void addAuthor(Account account) {
+        authors.add(account);
     }
 
     public Set<Tag> getTags() {
@@ -103,22 +105,42 @@ public class Article {
         this.tags = tags;
     }
 
-    public void addTag(Tag tag) {
-        if (tags == null) tags = new HashSet<Tag>();
-        tags.add(tag);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Article article = (Article) o;
+
+        if (id != article.id) return false;
+        if (!title.equals(article.title)) return false;
+        if (!shortDescription.equals(article.shortDescription)) return false;
+        if (!publishDate.equals(article.publishDate)) return false;
+        if (!content.equals(article.content)) return false;
+        if (comments != null ? !comments.equals(article.comments) : article.comments != null) return false;
+        if (!authors.equals(article.authors)) return false;
+        return tags.equals(article.tags);
     }
 
-    public void addComment(Comment comment) {
-        if (comments == null) comments = new ArrayList<Comment>();
-        comments.add(comment);
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + title.hashCode();
+        result = 31 * result + shortDescription.hashCode();
+        result = 31 * result + publishDate.hashCode();
+        result = 31 * result + content.hashCode();
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + authors.hashCode();
+        result = 31 * result + tags.hashCode();
+        return result;
     }
 
     @Override
     public String toString() {
-        return "\nArticle{" +
+        return "Article{" +
                 "id=" + id +
-                ", mainTitle='" + mainTitle + '\'' +
-                ", shortTitle='" + shortTitle + '\'' +
+                ", title='" + title + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
                 ", publishDate=" + publishDate +
                 ", content='" + content + '\'' +
                 ", comments=" + comments +
