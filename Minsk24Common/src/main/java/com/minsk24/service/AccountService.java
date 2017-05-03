@@ -9,6 +9,7 @@ public interface AccountService {
     Account save(String login, String password, Role role);
     void update(Account account);
     void delete(Account account);
+    Account getAccountById(Integer id);
     Account getAccountByLogin(String login);
     Iterable<Account> getAccounts();
 }

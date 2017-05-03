@@ -1,0 +1,12 @@
+<div class="flex-container">
+    <div class="flex-block" ng-repeat="advertisement in $ctrl.advertisements">
+        <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
+        <p>
+            <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
+                {{advertisement.title}}
+            </a>
+        </p>
+        <p>Placement date: {{advertisement.placementDate | date}}</p>
+        <p>Expiration date: {{advertisement.expirationDate | date}}</p>
+    </div>
+</div>

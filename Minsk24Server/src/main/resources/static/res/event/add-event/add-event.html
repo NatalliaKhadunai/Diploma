@@ -1,0 +1,19 @@
+<form name="addEventForm" action="/events" method="post" enctype="multipart/form-data">
+    <input name="id" type="hidden" value="{{$ctrl.event.id}}">
+    <label>Title *:</label>
+    <input name="title" ng-model="$ctrl.event.title" required>
+    <br>
+    <label>Location *:</label>
+    <input name="location" ng-model="$ctrl.event.location" required>
+    <br>
+    <label>Description *:</label>
+    <textarea name="description" ng-model="$ctrl.event.description"></textarea>
+    <label>Main photo *:</label>
+    <input type="file" name="mainPhoto" required>
+    <div ng-show="$ctrl.event.id != null">
+        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}">
+    </div>
+    <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
+        Add event
+    </button>
+</form>

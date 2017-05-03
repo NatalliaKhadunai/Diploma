@@ -1,7 +1,6 @@
 package com.minsk24.controller;
 
 import com.minsk24.bean.Advertisement;
-import com.minsk24.dto.AdvertisementMinDTO;
 import com.minsk24.service.AccountService;
 import com.minsk24.service.AdvertisementService;
 import com.minsk24.service.ImageService;
@@ -22,22 +21,34 @@ public class AdvertisementController {
     @Autowired
     private ImageService imageService;
 
-    @RequestMapping (value = "/advertisements", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisements", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<AdvertisementMinDTO> getAdvertisements() {
+    public Iterable<Advertisement> getAdvertisements() {
         return advertisementService.getAdvertisements();
     }
 
-    @RequestMapping (value = "/addAdvertisement", method = RequestMethod.POST)
+    @RequestMapping(value = "/advertisements/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Advertisement getAdvertisement(@PathVariable Integer id) {
+        return advertisementService.getAdvertisementById(id);
+    }
+
+
+    @RequestMapping(value = "/advertisements", method = RequestMethod.POST)
     public String addAdvertisement(Principal principal,
-                                 @RequestParam(value = "title") String title,
-                                 @RequestParam(value = "description") String description,
-                                 @RequestParam(value = "expirationDate") Date expirationDate,
-                                 @RequestParam(value = "mainPhoto") MultipartFile mainPhoto) {
-        Advertisement advertisement = advertisementService.save(title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
-        String newFilename = imageService.saveImage(mainPhoto,
-                "Minsk24Server\\src\\main\\resources\\static\\img\\advertisement",
+                                   @RequestParam(required = false) Integer id,
+                                   @RequestParam String title,
+                                   @RequestParam String description,
+                                   @RequestParam Date expirationDate,
+                                   @RequestParam MultipartFile mainPhoto) {
+        Advertisement advertisement = null;
+        if (id != null)
+            advertisement = advertisementService.save(id, title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
+        else
+            advertisement = advertisementService.save(title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
+        imageService.saveImage(mainPhoto,
+                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\advertisement",
                 Integer.toString(advertisement.getId()));
         return "redirect:/home";
-        }
+    }
 }

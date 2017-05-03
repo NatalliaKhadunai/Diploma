@@ -23,7 +23,22 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event save(Integer id, String title, String location, String description) {
+        Event event = new Event();
+        event.setId(id);
+        event.setTitle(title);
+        event.setLocation(location);
+        event.setDescription(description);
+        return eventDAO.save(event);
+    }
+
+    @Override
     public Iterable<Event> getEvents() {
         return eventDAO.findAll();
+    }
+
+    @Override
+    public Event getEventById(Integer id) {
+        return eventDAO.findOne(id);
     }
 }

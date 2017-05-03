@@ -1,5 +1,7 @@
 package com.minsk24.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity

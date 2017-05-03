@@ -1,0 +1,10 @@
+<div class="flex-container">
+    <div class="flex-block" ng-repeat="article in $ctrl.articles">
+        <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
+        <p>
+            <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
+        </p>
+        <p>{{article.shortDescription}}</p>
+        <p>Publish date: {{article.publishDate | date}} {{article.tags}}</p>
+    </div>
+</div>

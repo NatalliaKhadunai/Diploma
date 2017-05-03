@@ -1,0 +1,15 @@
+<div class="row">
+    <label>Name *:</label>
+    <input name="name" ng-model="$ctrl.tagName" required>
+    <button type="submit" class="btn" ng-disabled="addTagForm.$invalid"
+            ng-click="$ctrl.addTag()">
+        Add tag
+    </button>
+</div>
+<p>Or choose tag to remove: </p>
+<select multiple ng-model="$ctrl.chosenTags"
+        ng-options="x.name for x in $ctrl.tags track by x.id">
+</select>
+<button ng-click="$ctrl.deleteTags()">
+    Delete tags
+</button>

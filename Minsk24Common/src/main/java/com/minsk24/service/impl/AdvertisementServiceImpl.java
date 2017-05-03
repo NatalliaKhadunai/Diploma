@@ -2,7 +2,6 @@ package com.minsk24.service.impl;
 
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Advertisement;
-import com.minsk24.dto.AdvertisementMinDTO;
 import com.minsk24.repository.AdvertisementRepository;
 import com.minsk24.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +28,24 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Iterable<AdvertisementMinDTO> getAdvertisements() {
-        Iterable<Advertisement> advertisements = advertisementDAO.findAll();
-        List<AdvertisementMinDTO> advertisementMinDTOS = new ArrayList<>();
-        for (Advertisement advertisement : advertisements) {
-            AdvertisementMinDTO advertisementMinDTO = new AdvertisementMinDTO();
-            advertisementMinDTO.setId(advertisement.getId());
-            advertisementMinDTO.setTitle(advertisement.getTitle());
-            advertisementMinDTO.setExpirationDate(advertisement.getExpirationDate());
-            advertisementMinDTO.setDescription(advertisement.getTitle());
-            advertisementMinDTOS.add(advertisementMinDTO);
-        }
-        return advertisementMinDTOS;
+    public Advertisement save(Integer id, String title, String description, Account publisher, Date expirationDate) {
+        Advertisement advertisement = new Advertisement();
+        advertisement.setId(id);
+        advertisement.setTitle(title);
+        advertisement.setDescription(description);
+        advertisement.setPlacementDate(new Date(System.currentTimeMillis()));
+        advertisement.setExpirationDate(expirationDate);
+        advertisement.setHolder(publisher);
+        return advertisementDAO.save(advertisement);
+    }
+
+    @Override
+    public Iterable<Advertisement> getAdvertisements() {
+        return advertisementDAO.findAll();
+    }
+
+    @Override
+    public Advertisement getAdvertisementById(Integer id) {
+        return advertisementDAO.findOne(id);
     }
 }

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="login">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        var app = angular.module('login', []);
+        app.controller('loginCtrl', function($location){
+            let $ctrl = this;
+            $ctrl.error = $location.absUrl().split('?').length > 1 ? true : false;
+        });
+    </script>
+    <style>
+        form {
+            width: 300px;
+        }
+        input {
+            margin: 20px 0px;
+        }
+    </style>
+</head>
+<body ng-controller="loginCtrl as $ctrl" ng-cloak>
+<div class="container">
+    <form method="POST" action="/login" class="form-signin">
+        <h2 class="form-heading">Log in</h2>
+        <div class="alert alert-danger" ng-show="$ctrl.error">Invalid username or password</div>
+        <input name="username" type="text" class="form-control" placeholder="Username"
+               autofocus="true"/>
+        <input name="password" type="password" class="form-control" placeholder="Password"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+    </form>
+    <a href="/registration">Registration</a>
+</div>
+</body>
+</html>

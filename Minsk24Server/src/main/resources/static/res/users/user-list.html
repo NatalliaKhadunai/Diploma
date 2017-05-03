@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+    <th>Login</th>
+    <th>Role</th>
+    <th>Actions</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in $ctrl.users">
+        <td>{{user.login}}</td>
+        <td>{{user.role}}</td>
+        <td>
+            <label>Author permissions:</label>
+            <button class="btn" ng-click="$ctrl.addAuthorPermissions(user)">
+                Add
+            </button>
+            <button class="btn" ng-click="$ctrl.removeAuthorPermissions(user)">
+                Remove
+            </button>
+            <button class="btn" ng-click="$ctrl.removeUser(user)">Remove user</button>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -7,9 +7,6 @@ import com.minsk24.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class AccountServiceImpl implements AccountService{
     @Autowired
@@ -32,6 +29,11 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public void delete(Account account) {
         accountDAO.delete(account);
+    }
+
+    @Override
+    public Account getAccountById(Integer id) {
+        return accountDAO.findOne(id);
     }
 
     @Override

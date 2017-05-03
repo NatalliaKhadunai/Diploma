@@ -1,0 +1,9 @@
+<div class="flex-container">
+    <div class="flex-block" ng-repeat="event in $ctrl.events">
+        <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
+        <p>
+            <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
+        </p>
+        <p>{{event.location}}</p>
+    </div>
+</div>

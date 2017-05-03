@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO: add date field
 @Entity
 @Table(name = "EVENT")
 public class Event {

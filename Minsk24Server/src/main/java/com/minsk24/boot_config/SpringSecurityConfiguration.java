@@ -28,6 +28,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/home")
                 .access("hasAnyAuthority('GUEST', 'ADMIN', 'AUTHOR')")
+                .antMatchers("/admin")
+                .access("hasAuthority('ADMIN')")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().loginPage("/login")

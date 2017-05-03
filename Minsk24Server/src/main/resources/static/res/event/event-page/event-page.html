@@ -1,0 +1,13 @@
+<button ng-click="$ctrl.editEvent()">
+    Edit
+</button>
+<div class="row">
+    <h3>{{$ctrl.event.title}}</h3>
+</div>
+<div class="row">
+    <h5>{{$ctrl.event.location}}</h5>
+</div>
+<div class="row">
+    <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}">
+</div>
+<p>{{$ctrl.event.description}}</p>

@@ -1,0 +1,35 @@
+<ul class="nav nav-tabs">
+    <li ui-sref-active="home">
+        <a ui-sref="home">Home</a>
+    </li>
+    <li ui-sref-active="articles">
+        <a ui-sref="articles">Articles</a>
+    </li>
+    <li ui-sref-active="advertisements">
+        <a ui-sref="advertisements">Advertisements</a>
+    </li>
+    <li ui-sref-active="events">
+        <a ui-sref="events">Events</a>
+    </li>
+    <li ui-sref-active="addAdvertisement"
+        ng-show="$ctrl.currentUser.role==='ADMIN' || $ctrl.currentUser.role==='AUTHOR' || $ctrl.currentUser.role==='GUEST'">
+        <a ui-sref="addAdvertisement">Add Advertisement</a>
+    </li>
+    <li ui-sref-active="users"
+        ng-show="$ctrl.currentUser.role==='ADMIN'">
+        <a ui-sref="users">Users</a>
+    </li>
+    <li ui-sref-active="addArticle"
+        ng-show="$ctrl.currentUser.role==='ADMIN' || $ctrl.currentUser.role==='AUTHOR'">
+        <a ui-sref="addArticle">Add Article</a>
+    </li>
+    <li ui-sref-active="addEvent"
+        ng-show="$ctrl.currentUser.role==='ADMIN'">
+        <a ui-sref="addEvent">Add Event</a>
+    </li>
+    <li ui-sref-active="addRemoveTag"
+        ng-show="$ctrl.currentUser.role==='ADMIN'">
+        <a ui-sref="addRemoveTag">Add/Remove Tag</a>
+    </li>
+    <li><a href="/logout">Logout</a></li>
+</ul>

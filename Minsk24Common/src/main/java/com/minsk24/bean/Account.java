@@ -1,9 +1,12 @@
 package com.minsk24.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ACCOUNT")
+@JsonIgnoreProperties({"id", "password"})
 public class Account {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

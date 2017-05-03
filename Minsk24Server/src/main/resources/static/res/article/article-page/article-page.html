@@ -1,0 +1,23 @@
+<button ng-click="$ctrl.editArticle()">
+    Edit
+</button>
+<div class="row">
+    <h3>{{$ctrl.article.title}}</h3>
+</div>
+<div class="row">
+    <h5>{{$ctrl.article.shortDescription}}</h5>
+</div>
+<div class="row">
+    <h5>by {{$ctrl.article.author.login}} at {{$ctrl.article.publishDate | date}}</h5>
+</div>
+<div class="row">
+    <span ng-repeat="tag in $ctrl.article.tags">{{tag.name}},</span>
+</div>
+<div class="row">
+    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}">
+</div>
+<p>{{$ctrl.article.content}}</p>
+<div ng-repeat="comment in $ctrl.article.comments">
+    <p>{{comment.user.username}} {{comment.date | date : "M/d/yy h:mm a"}}</p>
+    <p>{{comment.content}}</p>
+</div>

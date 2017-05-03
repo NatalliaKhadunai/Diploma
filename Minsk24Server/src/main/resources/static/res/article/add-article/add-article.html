@@ -1,0 +1,31 @@
+<form name="addArticleForm" action="/articles" method="post" enctype="multipart/form-data">
+    <input name="id" type="hidden" value="{{$ctrl.article.id}}">
+    <label>Title *:</label>
+    <input name="title" ng-model="$ctrl.article.title" required>
+    <!--TODO: add length checks everywhere-->
+    <p>Length: {{$ctrl.article.title.length}}</p>
+    <br>
+    <label>Short title *:</label>
+    <input name="shortDescription" ng-model="$ctrl.article.shortDescription" required>
+    <p>Length: {{$ctrl.article.shortTitle.length}}</p>
+    <br>
+    <label>Content *:</label>
+    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+    <p>Length: {{$ctrl.article.content.length}}</p>
+    <br>
+    <label>Tags *:</label>
+    <!--TODO: add highlight of used tags-->
+    <select multiple name="tags"
+            ng-options="x.name for x in $ctrl.tags track by x.id"
+            ng-model="$ctrl.article.tags" required>
+    </select>
+    <label>Main photo *:</label>
+    <!--TODO: when update no need to require photo-->
+    <input type="file" name="mainPhoto" required>
+    <div ng-show="$ctrl.article.id != null">
+        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}">
+    </div>
+    <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
+        Add article
+    </button>
+</form>
