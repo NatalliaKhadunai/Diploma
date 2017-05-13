@@ -24,12 +24,8 @@ public class Article {
     private String content;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "ARTICLE_AUTHOR", joinColumns = {
-            @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "AUTHOR_ACCOUNT_ID",
-                    nullable = false, updatable = false) })
-    private Set<Account> authors = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Account author;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "ARTICLE_TAG", joinColumns = {
             @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
@@ -81,20 +77,20 @@ public class Article {
         return comments;
     }
 
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
-    public Set<Account> getAuthors() {
-        return authors;
+    public Account getAuthor() {
+        return author;
     }
 
-    public void setAuthors(Set<Account> authors) {
-        this.authors = authors;
-    }
-
-    public void addAuthor(Account account) {
-        authors.add(account);
+    public void setAuthor(Account author) {
+        this.author = author;
     }
 
     public Set<Tag> getTags() {
@@ -118,7 +114,7 @@ public class Article {
         if (!publishDate.equals(article.publishDate)) return false;
         if (!content.equals(article.content)) return false;
         if (comments != null ? !comments.equals(article.comments) : article.comments != null) return false;
-        if (!authors.equals(article.authors)) return false;
+        if (!author.equals(article.author)) return false;
         return tags.equals(article.tags);
     }
 
@@ -130,7 +126,7 @@ public class Article {
         result = 31 * result + publishDate.hashCode();
         result = 31 * result + content.hashCode();
         result = 31 * result + (comments != null ? comments.hashCode() : 0);
-        result = 31 * result + authors.hashCode();
+        result = 31 * result + author.hashCode();
         result = 31 * result + tags.hashCode();
         return result;
     }
@@ -144,7 +140,7 @@ public class Article {
                 ", publishDate=" + publishDate +
                 ", content='" + content + '\'' +
                 ", comments=" + comments +
-                ", authors=" + authors +
+                ", author=" + author +
                 ", tags=" + tags +
                 '}';
     }

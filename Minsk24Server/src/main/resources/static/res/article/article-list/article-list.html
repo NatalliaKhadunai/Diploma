@@ -1,4 +1,9 @@
 <div class="flex-container">
+    <ul>
+       <li ng-repeat="tag in $ctrl.popularTags">
+           <a href="" ng-click="$ctrl.loadArticlesByTag(tag.id)">#{{tag.name}}</a>
+       </li>
+    </ul>
     <div class="flex-block" ng-repeat="article in $ctrl.articles">
         <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
         <p>

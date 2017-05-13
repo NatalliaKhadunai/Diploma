@@ -31,5 +31,8 @@
         ng-show="$ctrl.currentUser.role==='ADMIN'">
         <a ui-sref="addRemoveTag">Add/Remove Tag</a>
     </li>
+    <li ui-sref-active="userPage">
+        <a ui-sref="userPage">My page</a>
+    </li>
     <li><a href="/logout">Logout</a></li>
 </ul>

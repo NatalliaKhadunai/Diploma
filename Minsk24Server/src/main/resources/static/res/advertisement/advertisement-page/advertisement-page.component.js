@@ -16,6 +16,18 @@
                 $ctrl.editAdvertisement = function() {
                     $state.go('addAdvertisement', { 'advertisement' : $ctrl.advertisement });
                 };
+                $ctrl.addComment = function () {
+                    $http({
+                        url: '/advertisements/' + $ctrl.advertisement.id + '/comments',
+                        method: 'POST',
+                        data: $ctrl.comment
+                    }).then(function (response) {
+                        $ctrl.advertisement = response.data;
+                        $ctrl.comment.content = "";
+                    }, function (response) {
+                        alert('Status code : ' + response.data.httpStatusCode + '\n' + 'Message : ' + response.data.developerMessage);
+                    });
+                };
                 $ctrl.getAdvertisement();
             }
         });

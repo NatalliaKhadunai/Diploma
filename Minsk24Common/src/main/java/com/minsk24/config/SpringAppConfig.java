@@ -41,6 +41,7 @@ public class SpringAppConfig {
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         jpaProperties.put("hibernate.show_sql", "false");
         jpaProperties.put("hibernate.format_sql", "true");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
         return entityManagerFactoryBean;

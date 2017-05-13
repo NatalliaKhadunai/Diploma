@@ -1,6 +1,8 @@
 package com.minsk24.controller;
 
+import com.minsk24.bean.Account;
 import com.minsk24.bean.Advertisement;
+import com.minsk24.bean.Comment;
 import com.minsk24.service.AccountService;
 import com.minsk24.service.AdvertisementService;
 import com.minsk24.service.ImageService;
@@ -11,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Controller
 public class AdvertisementController {
@@ -50,5 +53,17 @@ public class AdvertisementController {
                 "Minsk24Server\\src\\main\\resources\\static\\res\\img\\advertisement",
                 Integer.toString(advertisement.getId()));
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/advertisements/{id}/comments", method = RequestMethod.POST)
+    @ResponseBody
+    public Advertisement addComment(Principal principal, @PathVariable Integer id,
+                              @RequestBody Comment comment) {
+        Advertisement advertisement = advertisementService.getAdvertisementById(id);
+        Account account = accountService.getAccountByLogin(principal.getName());
+        comment.setPublisher(account);
+        comment.setPublishDate(new Timestamp(System.currentTimeMillis()));
+        advertisement.addComment(comment);
+        return advertisementService.save(advertisement);
     }
 }

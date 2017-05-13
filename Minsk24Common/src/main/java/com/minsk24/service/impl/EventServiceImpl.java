@@ -33,6 +33,11 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event save(Event event) {
+        return eventDAO.save(event);
+    }
+
+    @Override
     public Iterable<Event> getEvents() {
         return eventDAO.findAll();
     }

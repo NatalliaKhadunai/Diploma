@@ -2,6 +2,7 @@ package com.minsk24.service;
 
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Article;
+import com.minsk24.bean.Tag;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,9 @@ import java.util.List;
 public interface ArticleService {
     Article saveArticle(String mainTitle, String shortTitle, Account author, String content, String[] tags);
     Article saveArticle(Integer id, String mainTitle, String shortTitle, Account author, String content, String[] tags);
+    Article saveArticle(Article article);
     Iterable<Article> getArticles();
     Article getArticle(Integer id);
+    Iterable<Article> getArticlesByTag(Tag tag);
+    Iterable<Article> getArticlesByAuthor(Account author);
 }

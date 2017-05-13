@@ -1,6 +1,7 @@
 package com.minsk24.bean;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,8 @@ public class Event {
     private String title;
     @Column(name = "LOCATION", length = 100, nullable = false)
     private String location;
+    @Column(name = "TIME", nullable = false)
+    private Timestamp time;
     @Column(name = "DESCRIPTION", length = 1000, nullable = false)
     private String description;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -45,12 +48,32 @@ public class Event {
         this.location = location;
     }
 
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 
     @Override
@@ -60,28 +83,34 @@ public class Event {
 
         Event event = (Event) o;
 
-        if (id != event.id) return false;
-        if (!title.equals(event.title)) return false;
-        if (!location.equals(event.location)) return false;
-        return description.equals(event.description);
+        if (id != null ? !id.equals(event.id) : event.id != null) return false;
+        if (title != null ? !title.equals(event.title) : event.title != null) return false;
+        if (location != null ? !location.equals(event.location) : event.location != null) return false;
+        if (time != null ? !time.equals(event.time) : event.time != null) return false;
+        if (description != null ? !description.equals(event.description) : event.description != null) return false;
+        return comments != null ? comments.equals(event.comments) : event.comments == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + title.hashCode();
-        result = 31 * result + location.hashCode();
-        result = 31 * result + description.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "\nEvent{" +
+        return "Event{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", location=" + location +
+                ", location='" + location + '\'' +
+                ", time=" + time +
                 ", description='" + description + '\'' +
+                ", comments=" + comments +
                 '}';
     }
 }

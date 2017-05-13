@@ -17,6 +17,7 @@ public class Comment {
     private Timestamp publishDate;
     @Column(name = "CONTENT", length = 300, nullable = false)
     private String content;
+    @Column(name = "DESTINATION",length = 10, nullable = false)
 
     public Integer getId() {
         return id;
@@ -57,24 +58,24 @@ public class Comment {
 
         Comment comment = (Comment) o;
 
-        if (id != comment.id) return false;
-        if (!publisher.equals(comment.publisher)) return false;
-        if (!publishDate.equals(comment.publishDate)) return false;
-        return content.equals(comment.content);
+        if (id != null ? !id.equals(comment.id) : comment.id != null) return false;
+        if (publisher != null ? !publisher.equals(comment.publisher) : comment.publisher != null) return false;
+        if (publishDate != null ? !publishDate.equals(comment.publishDate) : comment.publishDate != null) return false;
+        return content != null ? content.equals(comment.content) : comment.content == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + publisher.hashCode();
-        result = 31 * result + publishDate.hashCode();
-        result = 31 * result + content.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (publisher != null ? publisher.hashCode() : 0);
+        result = 31 * result + (publishDate != null ? publishDate.hashCode() : 0);
+        result = 31 * result + (content != null ? content.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "\nComment{" +
+        return "Comment{" +
                 "id=" + id +
                 ", publisher=" + publisher +
                 ", publishDate=" + publishDate +

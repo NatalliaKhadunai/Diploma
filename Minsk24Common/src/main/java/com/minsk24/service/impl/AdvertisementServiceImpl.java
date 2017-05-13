@@ -40,6 +40,11 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
+    public Advertisement save(Advertisement advertisement) {
+        return advertisementDAO.save(advertisement);
+    }
+
+    @Override
     public Iterable<Advertisement> getAdvertisements() {
         return advertisementDAO.findAll();
     }

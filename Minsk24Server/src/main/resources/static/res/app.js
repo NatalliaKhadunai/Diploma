@@ -14,10 +14,8 @@
             .state('articles', {
                 url: '/articles',
                 template: '<article-list articles="$resolve.articles"></article-list>',
-                resolve : {
-                    articles: function(articleSrv) {
-                        return articleSrv.getArticles();
-                    }
+                params: {
+                    'author': {}
                 }
             })
             .state('articlePage', {
@@ -92,7 +90,13 @@
                         return userSrv.getUsers();
                     }
                 }
+            })
+            .state('userPage', {
+                url: '/userPage',
+                template: '<user-page></user-page>',
+                params: {
+                    'user': {}
+                }
             });
-
     });
 })();

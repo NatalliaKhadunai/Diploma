@@ -8,7 +8,10 @@
     <h5>{{$ctrl.article.shortDescription}}</h5>
 </div>
 <div class="row">
-    <h5>by {{$ctrl.article.author.login}} at {{$ctrl.article.publishDate | date}}</h5>
+    <h5>by <a href="" ng-click="$ctrl.getArticlesOfAuthor($ctrl.article.author)">
+        {{$ctrl.article.author.login}}</a>
+        at {{$ctrl.article.publishDate | date}}
+    </h5>
 </div>
 <div class="row">
     <span ng-repeat="tag in $ctrl.article.tags">{{tag.name}},</span>
@@ -18,6 +21,11 @@
 </div>
 <p>{{$ctrl.article.content}}</p>
 <div ng-repeat="comment in $ctrl.article.comments">
-    <p>{{comment.user.username}} {{comment.date | date : "M/d/yy h:mm a"}}</p>
+    <p>{{comment.publisher.login}} {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
     <p>{{comment.content}}</p>
+</div>
+<div class="row">
+    <textarea ng-model="$ctrl.comment.content">
+    </textarea>
+    <button ng-click="$ctrl.addComment()">Add</button>
 </div>

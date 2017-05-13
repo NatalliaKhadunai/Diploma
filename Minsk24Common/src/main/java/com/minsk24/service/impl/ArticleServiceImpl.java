@@ -27,7 +27,7 @@ public class ArticleServiceImpl implements ArticleService{
             Article article = new Article();
             article.setTitle(mainTitle);
             article.setShortDescription(shortTitle);
-            article.addAuthor(author);
+            article.setAuthor(author);
             article.setContent(content);
             article.setTags(new HashSet<Tag>());
             for (String tagStr : tags) {
@@ -43,13 +43,18 @@ public class ArticleServiceImpl implements ArticleService{
         article.setId(id);
         article.setTitle(mainTitle);
         article.setShortDescription(shortTitle);
-        article.addAuthor(author);
+        article.setAuthor(author);
         article.setContent(content);
         article.setTags(new HashSet<Tag>());
         for (String tagStr : tags) {
             article.getTags().add(tagRepository.findByName(tagStr));
         }
         article.setPublishDate(new Timestamp(System.currentTimeMillis()));
+        return articleDAO.save(article);
+    }
+
+    @Override
+    public Article saveArticle(Article article) {
         return articleDAO.save(article);
     }
 
@@ -61,5 +66,15 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public Article getArticle(Integer id) {
         return articleDAO.findOne(id);
+    }
+
+    @Override
+    public Iterable<Article> getArticlesByTag(Tag tag) {
+        return articleDAO.findByTags(tag);
+    }
+
+    @Override
+    public Iterable<Article> getArticlesByAuthor(Account author) {
+        return articleDAO.findByAuthor(author);
     }
 }

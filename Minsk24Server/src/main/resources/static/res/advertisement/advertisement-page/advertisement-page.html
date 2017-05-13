@@ -18,6 +18,11 @@
 </div>
 <p>{{$ctrl.advertisement.description}}</p>
 <div ng-repeat="comment in $ctrl.advertisement.comments">
-    <p>{{comment.user.username}} {{comment.date | date : "M/d/yy h:mm a"}}</p>
+    <p>{{comment.publisher.login}} {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
     <p>{{comment.content}}</p>
+</div>
+<div class="row">
+    <textarea ng-model="$ctrl.comment.content">
+    </textarea>
+    <button ng-click="$ctrl.addComment()">Add</button>
 </div>

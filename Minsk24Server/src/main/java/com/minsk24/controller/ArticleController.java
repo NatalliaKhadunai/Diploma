@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -18,22 +20,40 @@ public class ArticleController {
     private ImageService imageService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private TagService tagService;
+    @Autowired
+    private CommentService commentService;
 
     private Integer ARTICLE_PER_PAGE = 10;
 
-    @RequestMapping (value = "/articles", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles", method = RequestMethod.GET)
     @ResponseBody
     public Iterable<Article> getArticles() {
         return articleService.getArticles();
     }
 
-    @RequestMapping (value = "/articles/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles/tags/{tagId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Article> getArticlesByTag(@PathVariable Integer tagId) {
+        Tag tag = tagService.getTagById(tagId);
+        return articleService.getArticlesByTag(tag);
+    }
+
+    @RequestMapping(value = "/articles/authors/{login}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Article> getArticlesByAuthor(@PathVariable String login) {
+        Account author = accountService.getAccountByLogin(login);
+        return articleService.getArticlesByAuthor(author);
+    }
+
+    @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Article getArticle(@PathVariable Integer id) {
         return articleService.getArticle(id);
     }
 
-    @RequestMapping (value = "/articles", method = RequestMethod.POST)
+    @RequestMapping(value = "/articles", method = RequestMethod.POST)
     public String addArticle(Principal principal,
                              @RequestParam(required = false) Integer id,
                              @RequestParam(value = "title") String mainTitle,
@@ -50,5 +70,17 @@ public class ArticleController {
                         "Minsk24Server\\src\\main\\resources\\static\\res\\img\\article",
                         Integer.toString(article.getId()));
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/articles/{id}/comments", method = RequestMethod.POST)
+    @ResponseBody
+    public Article addComment(Principal principal, @PathVariable Integer id,
+                              @RequestBody Comment comment) {
+        Article article = articleService.getArticle(id);
+        Account account = accountService.getAccountByLogin(principal.getName());
+        comment.setPublisher(account);
+        comment.setPublishDate(new Timestamp(System.currentTimeMillis()));
+        article.addComment(comment);
+        return articleService.saveArticle(article);
     }
 }

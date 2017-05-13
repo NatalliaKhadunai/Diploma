@@ -17,6 +17,10 @@ public class TagController {
         return tagService.getTags();
     }
 
+    @RequestMapping(value = "/tags/popular", method = RequestMethod.GET)
+    public Iterable<Tag> getPopularTags() {
+        return tagService.getPopularTags();
+    }
 
     @RequestMapping(value = "/tags", method = RequestMethod.POST)
     public Tag addTag(@RequestBody String name) {

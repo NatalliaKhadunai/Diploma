@@ -1,0 +1,26 @@
+<div class="row">
+    <img src="res/img/account/{{$ctrl.user.id + '.jpg'}}" style="max-width: 300px;">
+    <h3>{{$ctrl.user.login}}</h3>
+    <p>{{$ctrl.user.role}}</p>
+</div>
+<div class="row">
+    <h3>Recent comments: </h3>
+    <div class="col-md-12" ng-repeat="comment in $ctrl.recentComments">
+        <span>{{comment.publishDate | date : "M/d/yy h:mm a"}}</span>
+        <span>{{comment.content}}</span>
+    </div>
+</div>
+<div class="row">
+    <h3>Recent before event rates: </h3>
+    <div class="col-md-12" ng-repeat="ber in $ctrl.recentBeforeEventRates">
+        <a href="" ng-click="$ctrl.openEventPage(ber.event)">{{ber.event.title}}</a>
+        <span>{{ber.eventUserChoice}}</span>
+    </div>
+</div>
+<div class="row">
+    <h3>Recent after event rates: </h3>
+    <div class="col-md-12" ng-repeat="aer in $ctrl.recentAfterEventRates">
+        <a href="" ng-click="$ctrl.openEventPage(aer.event)">{{aer.event.title}}</a>
+        <span>{{aer.rate}}</span>
+    </div>
+</div>
