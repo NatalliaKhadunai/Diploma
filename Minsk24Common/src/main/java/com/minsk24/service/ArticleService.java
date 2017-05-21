@@ -14,8 +14,9 @@ public interface ArticleService {
     Article saveArticle(Article article);
     Iterable<Article> getArticles(Integer pageNum);
     Article getArticle(Integer id);
-    Iterable<Article> getArticlesByTag(Tag tag);
+    Iterable<Article> getArticlesByTag(Tag tag, Integer pageNum);
     Iterable<Article> getArticlesByAuthor(Account author, Integer pageNum);
     Integer getNumberOfArticles();
     Integer getNumberOfArticlesOfAuthor(Account author);
+    Integer getNumberOfArticlesByTag(Tag tag);
 }

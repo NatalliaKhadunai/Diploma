@@ -46,12 +46,19 @@ public class ArticleController {
         return articleService.getNumberOfArticlesOfAuthor(account);
     }
 
-
     @RequestMapping(value = "/articles/tags/{tagId}", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Article> getArticlesByTag(@PathVariable Integer tagId) {
+    public Iterable<Article> getArticlesByTag(@PathVariable Integer tagId,
+                                              @RequestParam Integer pageNum) {
         Tag tag = tagService.getTagById(tagId);
-        return articleService.getArticlesByTag(tag);
+        return articleService.getArticlesByTag(tag, pageNum);
+    }
+
+    @RequestMapping(value = "/articles/tags/{tagId}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getArticlesByTag(@PathVariable Integer tagId) {
+        Tag tag = tagService.getTagById(tagId);
+        return articleService.getNumberOfArticlesByTag(tag);
     }
 
     @RequestMapping(value = "/articles/authors/{login}", method = RequestMethod.GET)

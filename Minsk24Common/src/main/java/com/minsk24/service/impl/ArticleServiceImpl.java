@@ -73,8 +73,9 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Iterable<Article> getArticlesByTag(Tag tag) {
-        return articleDAO.findByTags(tag);
+    public Iterable<Article> getArticlesByTag(Tag tag, Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        return articleDAO.findByTags(tag, pageRequest);
     }
 
     @Override
@@ -91,5 +92,10 @@ public class ArticleServiceImpl implements ArticleService{
     @Override
     public Integer getNumberOfArticlesOfAuthor(Account author) {
         return (int)Math.ceil((double)articleDAO.countByAuthor(author) / PAGE_SIZE);
+    }
+
+    @Override
+    public Integer getNumberOfArticlesByTag(Tag tag) {
+        return (int)Math.ceil((double)articleDAO.countByTags(tag) / PAGE_SIZE);
     }
 }

@@ -9,7 +9,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
-    List<Article> findByTags(Tag tag);
+    List<Article> findByTags(Tag tag, Pageable pageable);
     List<Article> findByAuthor(Account account, Pageable pageable);
     Integer countByAuthor(Account account);
+    Integer countByTags(Tag tag);
 }

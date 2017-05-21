@@ -3,6 +3,8 @@ package com.minsk24.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -19,6 +21,12 @@ public class Account {
     @Column(name = "ROLE", length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "ACCOUNT_EXCLUDED_TAGS", joinColumns = {
+            @JoinColumn(name = "ACCOUNT_ID", nullable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
+                    nullable = false, updatable = false) })
+    private Set<Tag> exculdedTags = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -52,6 +60,18 @@ public class Account {
         this.role = role;
     }
 
+    public Set<Tag> getExculdedTags() {
+        return exculdedTags;
+    }
+
+    public void setExculdedTags(Set<Tag> exculdedTags) {
+        this.exculdedTags = exculdedTags;
+    }
+
+    public void addExcludedTag(Tag tag) {
+        exculdedTags.add(tag);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,18 +79,20 @@ public class Account {
 
         Account account = (Account) o;
 
-        if (id != account.id) return false;
+        if (!id.equals(account.id)) return false;
         if (!login.equals(account.login)) return false;
         if (!password.equals(account.password)) return false;
-        return role == account.role;
+        if (role != account.role) return false;
+        return exculdedTags != null ? exculdedTags.equals(account.exculdedTags) : account.exculdedTags == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id.hashCode();
         result = 31 * result + login.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + role.hashCode();
+        result = 31 * result + (exculdedTags != null ? exculdedTags.hashCode() : 0);
         return result;
     }
 
@@ -81,6 +103,7 @@ public class Account {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", exculdedTags=" + exculdedTags +
                 '}';
     }
 }

@@ -1,10 +1,13 @@
 package com.minsk24.controller;
 
+import com.google.common.collect.Lists;
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Role;
+import com.minsk24.bean.Tag;
 import com.minsk24.exception.BadRequestException;
 import com.minsk24.exception.UserNotFoundException;
 import com.minsk24.service.AccountService;
+import com.minsk24.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class AccountController {
@@ -24,6 +28,8 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TagService tagService;
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @ResponseBody
@@ -61,6 +67,37 @@ public class AccountController {
         Account account = accountService.save(login, password, Role.GUEST);
         autologin(account.getLogin(), account.getPassword(), request);
         return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/account/tags/interesting", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tag> getInterstingTags(Principal principal) {
+        List<Tag> tags = Lists.newArrayList(tagService.getTags());
+        Account account = accountService.getAccountByLogin(principal.getName());
+        for (Tag excludedTag : account.getExculdedTags()) {
+            tags.remove(excludedTag);
+        }
+        return tags;
+    }
+
+    @RequestMapping(value = "/account/tags/{tagId}/add", method = RequestMethod.POST)
+    @ResponseBody
+    public Tag addInterestingTag(@PathVariable Integer tagId, Principal principal) {
+        Account account = accountService.getAccountByLogin(principal.getName());
+        Tag tag = tagService.getTagById(tagId);
+        account.getExculdedTags().remove(tag);
+        accountService.update(account);
+        return tag;
+    }
+
+    @RequestMapping(value = "/account/tags/{tagId}/exclude", method = RequestMethod.POST)
+    @ResponseBody
+    public Tag excludeUninterestingTag(@PathVariable Integer tagId, Principal principal) {
+        Account account = accountService.getAccountByLogin(principal.getName());
+        Tag tag = tagService.getTagById(tagId);
+        account.addExcludedTag(tag);
+        accountService.update(account);
+        return tag;
     }
 
     public void autologin(String username, String password, HttpServletRequest request) {

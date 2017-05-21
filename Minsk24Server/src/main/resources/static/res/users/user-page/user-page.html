@@ -4,6 +4,19 @@
     <p>{{$ctrl.user.role}}</p>
 </div>
 <div class="row">
+    <button type="button" class="btn btn-default btn-lg"
+        ng-repeat="tag in $ctrl.tags"
+            ng-click="$ctrl.addOrExcludeTag(tag)">
+        <span class="glyphicon glyphicon-plus"
+              ng-show="$ctrl.isExcluded(tag)"
+              aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-remove"
+              ng-show="!$ctrl.isExcluded(tag)"
+              aria-hidden="true"></span>
+        {{tag.name}}
+    </button>
+</div>
+<div class="row">
     <h3>Recent comments: </h3>
     <div class="col-md-12" ng-repeat="comment in $ctrl.recentComments">
         <span>{{comment.publishDate | date : "M/d/yy h:mm a"}}</span>

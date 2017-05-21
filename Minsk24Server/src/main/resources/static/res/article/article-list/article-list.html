@@ -2,7 +2,7 @@
     <div class="flex-container">
         <ul>
             <li ng-repeat="tag in $ctrl.popularTags">
-                <a href="" ng-click="$ctrl.loadArticlesByTag(tag.id)">#{{tag.name}}</a>
+                <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
             </li>
         </ul>
         <div class="flex-block" ng-repeat="article in $ctrl.articles">

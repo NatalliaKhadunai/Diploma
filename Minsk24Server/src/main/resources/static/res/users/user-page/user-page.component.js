@@ -36,7 +36,45 @@
                 $ctrl.openEventPage = function (event) {
                     $state.go('eventPage', { 'event' : event });
                 };
+                $ctrl.initializeTagSelect = function () {
+                    $http.get('/tags')
+                        .then(function (response) {
+                            $ctrl.tags = response.data;
+                        });
+                };
+                $ctrl.initializeInterestingTags = function () {
+                    $http.get('/account/tags/interesting')
+                        .then(function (response) {
+                            $ctrl.interestingTags = response.data;
+                        });
+                };
+                $ctrl.isExcluded = function (tag) {
+                      for (var i=0;i<$ctrl.interestingTags.length;i++) {
+                          if ($ctrl.interestingTags[i].id == tag.id) return false;
+                      }
+                      return true;
+                };
+                $ctrl.addOrExcludeTag = function (tag) {
+                     if ($ctrl.isExcluded(tag)) {
+                         $http.post('/account/tags/' + tag.id + '/add')
+                             .then(function (response) {
+                                 $ctrl.interestingTags.push(response.data);
+                             })
+                     }
+                     else {
+                         $http.post('/account/tags/' + tag.id + '/exclude')
+                             .then(function () {
+                                 var index = -1;
+                                 for (var i=0;i<$ctrl.interestingTags.length;i++) {
+                                     if ($ctrl.interestingTags[i].id == tag.id) index = i;
+                                 }
+                                 $ctrl.interestingTags.splice(index, 1);
+                             })
+                     }
+                };
                 $ctrl.getUser();
+                $ctrl.initializeTagSelect();
+                $ctrl.initializeInterestingTags();
             }
         });
 })();
