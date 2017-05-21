@@ -29,9 +29,23 @@ public class ArticleController {
 
     @RequestMapping(value = "/articles", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Article> getArticles() {
-        return articleService.getArticles();
+    public Iterable<Article> getArticles(@RequestParam Integer pageNum) {
+        return articleService.getArticles(pageNum);
     }
+
+    @RequestMapping(value = "/articles/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfArticles() {
+        return articleService.getNumberOfArticles();
+    }
+
+    @RequestMapping(value = "/articles/author/{login}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfArticlesOfAuthor(@PathVariable String login) {
+        Account account = accountService.getAccountByLogin(login);
+        return articleService.getNumberOfArticlesOfAuthor(account);
+    }
+
 
     @RequestMapping(value = "/articles/tags/{tagId}", method = RequestMethod.GET)
     @ResponseBody
@@ -42,9 +56,10 @@ public class ArticleController {
 
     @RequestMapping(value = "/articles/authors/{login}", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Article> getArticlesByAuthor(@PathVariable String login) {
+    public Iterable<Article> getArticlesByAuthor(@PathVariable String login,
+                                                 @RequestParam Integer pageNum) {
         Account author = accountService.getAccountByLogin(login);
-        return articleService.getArticlesByAuthor(author);
+        return articleService.getArticlesByAuthor(author, pageNum);
     }
 
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
@@ -60,7 +75,7 @@ public class ArticleController {
                            @RequestParam(value = "shortDescription") String shortTitle,
                            @RequestParam(value = "content") String content,
                            @RequestParam(value = "mainPhoto") MultipartFile mainPhoto,
-                           @RequestParam(value = "tags") String[] tags) {
+                           @RequestParam(value = "tags") Integer[] tags) {
         Article article = null;
         if (id != null) article = articleService.saveArticle(id, mainTitle, shortTitle,
                 accountService.getAccountByLogin(principal.getName()), content, tags);

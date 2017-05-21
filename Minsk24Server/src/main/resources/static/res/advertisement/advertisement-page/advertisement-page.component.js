@@ -13,6 +13,9 @@
                             $ctrl.advertisement = response.data;
                         });
                 };
+                $ctrl.getAdvertisementsOfHolder = function (holder) {
+                    $state.go('advertisements', { 'holder' : holder });
+                };
                 $ctrl.editAdvertisement = function() {
                     $state.go('addAdvertisement', { 'advertisement' : $ctrl.advertisement });
                 };

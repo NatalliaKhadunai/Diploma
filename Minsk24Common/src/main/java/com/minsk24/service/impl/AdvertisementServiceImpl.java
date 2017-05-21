@@ -5,6 +5,7 @@ import com.minsk24.bean.Advertisement;
 import com.minsk24.repository.AdvertisementRepository;
 import com.minsk24.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.util.List;
 public class AdvertisementServiceImpl implements AdvertisementService {
     @Autowired
     private AdvertisementRepository advertisementDAO;
+    private int PAGE_SIZE = 3;
 
     @Override
     public Advertisement save(String title, String description, Account publisher, Date expirationDate) {
@@ -45,12 +47,29 @@ public class AdvertisementServiceImpl implements AdvertisementService {
     }
 
     @Override
-    public Iterable<Advertisement> getAdvertisements() {
-        return advertisementDAO.findAll();
+    public Iterable<Advertisement> getAdvertisements(Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        return advertisementDAO.findAll(pageRequest).getContent();
     }
 
     @Override
     public Advertisement getAdvertisementById(Integer id) {
         return advertisementDAO.findOne(id);
+    }
+
+    @Override
+    public Integer getNumberOfAdvertisements() {
+        return (int)Math.ceil((double)advertisementDAO.count() / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Advertisement> getAdvertisementsByHolder(Account account, Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        return advertisementDAO.findByHolder(account, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfAdvertisementsOfHolder(Account account) {
+        return (int)Math.ceil((double)advertisementDAO.countByHolder(account) / PAGE_SIZE);
     }
 }

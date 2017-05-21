@@ -19,10 +19,13 @@
         <h3>{{$ctrl.event.title}}</h3>
     </div>
     <div class="row">
-        <h5>{{$ctrl.event.location}}</h5>
+        <a href="" ng-click="$ctrl.getEventsOfLocation($ctrl.event.location)">
+            {{$ctrl.event.location}}
+        </a>
     </div>
     <div class="row">
-        <h5>{{$ctrl.event.time | date : "M/d/yy h:mm a"}}</h5>
+        <a href="" ng-click="$ctrl.getEventsOfTime($ctrl.event.time)">
+            {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a>
     </div>
     <div class="row">
         <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}">

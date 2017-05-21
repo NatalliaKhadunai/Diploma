@@ -17,6 +17,12 @@
                 $ctrl.editEvent = function() {
                     $state.go('addEvent', { 'event' : $ctrl.event });
                 };
+                $ctrl.getEventsOfTime = function (time) {
+                    $state.go('events', { 'time' : time });
+                };
+                $ctrl.getEventsOfLocation = function (location) {
+                    $state.go('events', { 'location' : location });
+                };
                 $ctrl.addComment = function () {
                     $http({
                         url: '/events/' + $ctrl.event.id + '/comments',

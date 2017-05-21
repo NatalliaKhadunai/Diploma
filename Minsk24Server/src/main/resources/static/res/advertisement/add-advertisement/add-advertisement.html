@@ -3,12 +3,18 @@
     <input name="id" type="hidden" value="{{$ctrl.advertisement.id}}">
     <label>Title *:</label>
     <input name="title" ng-model="$ctrl.advertisement.title" required>
+    <p>Length: {{$ctrl.advertisement.title.length}}</p>
+    <p>Max length: 100</p>
     <br>
     <label>Description *:</label>
     <textarea name="description" ng-model="$ctrl.advertisement.description" required></textarea>
+    <p>Length: {{$ctrl.advertisement.description.length}}</p>
+    <p>Max length: 1000</p>
     <br>
     <label>Expiration date *:</label>
-    <input name="expirationDate" ng-model="$ctrl.advertisement.expirationDate" type="date" required>
+    <input type="date" name="expirationDate"
+           ng-model="$ctrl.advertisement.expirationDate"
+           min="{{$ctrl.dateNow | date:'yyyy-MM-dd'}}" required>
     <br>
     <label>Main photo *:</label>
     <input type="file" name="mainPhoto" required>

@@ -4,16 +4,11 @@
         $stateProvider
             .state('home', {
                 url: '/',
-                template: '<home-component articles="$resolve.articles"></home-component>',
-                resolve : {
-                    articles: function(articleSrv) {
-                        return articleSrv.getArticles();
-                    }
-                }
+                template: '<home-component></home-component>'
             })
             .state('articles', {
                 url: '/articles',
-                template: '<article-list articles="$resolve.articles"></article-list>',
+                template: '<article-list></article-list>',
                 params: {
                     'author': {}
                 }
@@ -34,11 +29,9 @@
             })
             .state('advertisements', {
                 url: '/advertisements',
-                template: '<advertisement-list advertisements="$resolve.advertisements"></advertisement-list>',
-                resolve : {
-                    advertisements: function(advertisementSrv) {
-                        return advertisementSrv.getAdvertisements();
-                    }
+                template: '<advertisement-list></advertisement-list>',
+                params: {
+                    'holder': {}
                 }
             })
             .state('advertisementPage', {
@@ -57,11 +50,10 @@
             })
             .state('events', {
                 url: '/events',
-                template: '<event-list events="$resolve.events"></event-list>',
-                resolve : {
-                    events: function(eventSrv) {
-                        return eventSrv.getEvents();
-                    }
+                template: '<event-list></event-list>',
+                params: {
+                    'time': {},
+                    'location': {}
                 }
             })
             .state('eventPage', {

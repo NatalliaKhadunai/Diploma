@@ -7,14 +7,29 @@
                 let $ctrl = this;
                 $ctrl.currentUser = userSrv.getCurrentUser();
                 $ctrl.initializeArticles = function () {
-                    if (typeof $stateParams['author'].login == 'undefined') {
-                        $http.get('/articles').then(function (response) {
+                    if (typeof $stateParams['author'].login != 'undefined') {
+                        $http.get('/articles/authors/' + $stateParams['author'].login,
+                            {params: {pageNum: 1}})
+                            .then(function (response) {
+                                $ctrl.articles = response.data;
+                            });
+                    }
+                    else {
+                        $http.get('/articles', {params: {pageNum: 1}}).then(function (response) {
                             $ctrl.articles = response.data;
                         });
                     }
-                    else {
-                        $http.get('/articles/authors/' + $stateParams['author'].login)
+                };
+                $ctrl.getArticles = function (pageNum) {
+                    if (typeof $stateParams['author'].login != 'undefined') {
+                        $http.get('/articles/authors/' + $stateParams['author'].login,
+                            {params: {pageNum: pageNum}})
                             .then(function (response) {
+                                $ctrl.articles = response.data;
+                            });
+                    }
+                    else {
+                        $http.get('/articles', {params: {pageNum: pageNum}}).then(function (response) {
                             $ctrl.articles = response.data;
                         });
                     }
@@ -34,8 +49,26 @@
                             $ctrl.articles = response.data;
                     });
                 };
+                $ctrl.getPageCount = function () {
+                    if (typeof $stateParams['author'].login != 'undefined') {
+                        $http.get('/articles/author/' + $stateParams['author'].login + '/count')
+                            .then(function (response) {
+                                $ctrl.pageCount = response.data;
+                            });
+                    }
+                    else {
+                        $http.get('/articles/count/')
+                            .then(function (response) {
+                                $ctrl.pageCount = response.data;
+                            });
+                    }
+                };
+                $ctrl.getPageNumber = function() {
+                    return new Array($ctrl.pageCount);
+                };
                 $ctrl.initializeArticles();
                 $ctrl.initializePopularTags();
+                $ctrl.getPageCount();
             }
         });
 })();

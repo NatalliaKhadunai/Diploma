@@ -1,15 +1,26 @@
-<div class="flex-container">
-    <ul>
-       <li ng-repeat="tag in $ctrl.popularTags">
-           <a href="" ng-click="$ctrl.loadArticlesByTag(tag.id)">#{{tag.name}}</a>
-       </li>
-    </ul>
-    <div class="flex-block" ng-repeat="article in $ctrl.articles">
-        <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
-        <p>
-            <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
-        </p>
-        <p>{{article.shortDescription}}</p>
-        <p>Publish date: {{article.publishDate | date}} {{article.tags}}</p>
+<div class="row">
+    <div class="flex-container">
+        <ul>
+            <li ng-repeat="tag in $ctrl.popularTags">
+                <a href="" ng-click="$ctrl.loadArticlesByTag(tag.id)">#{{tag.name}}</a>
+            </li>
+        </ul>
+        <div class="flex-block" ng-repeat="article in $ctrl.articles">
+            <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
+            <p>
+                <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
+            </p>
+            <p>{{article.shortDescription}}</p>
+            <p>Publish date: {{article.publishDate | date}} {{article.tags}}</p>
+        </div>
     </div>
+</div>
+<div class="row">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li ng-repeat="pageNum in $ctrl.getPageNumber() track by $index">
+                <a href="" ng-click="$ctrl.getArticles($index+1)">{{$index+1}}</a>
+            </li>
+        </ul>
+    </nav>
 </div>

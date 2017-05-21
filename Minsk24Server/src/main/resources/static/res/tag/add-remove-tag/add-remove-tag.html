@@ -1,6 +1,8 @@
 <div class="row">
     <label>Name *:</label>
     <input name="name" ng-model="$ctrl.tagName" required>
+    <p>Length: {{$ctrl.tagName.length}}</p>
+    <p>Max length: 30</p>
     <button type="submit" class="btn" ng-disabled="addTagForm.$invalid"
             ng-click="$ctrl.addTag()">
         Add tag

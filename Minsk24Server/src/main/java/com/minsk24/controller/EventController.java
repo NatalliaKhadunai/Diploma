@@ -4,6 +4,7 @@ import com.minsk24.bean.*;
 import com.minsk24.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,8 +27,14 @@ public class EventController {
 
     @RequestMapping(value = "/events", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Event> getEvents() {
-        return eventService.getEvents();
+    public Iterable<Event> getEvents(@RequestParam Integer pageNum) {
+        return eventService.getEvents(pageNum);
+    }
+
+    @RequestMapping(value = "/events/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfEvents() {
+        return eventService.getNumberOfEvents();
     }
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.GET)
@@ -36,16 +43,47 @@ public class EventController {
         return eventService.getEventById(id);
     }
 
+    @RequestMapping(value = "/events/time/{time}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Event> getEventsByTime(@PathVariable Long time,
+                                       @RequestParam Integer pageNum) {
+        Timestamp timestamp = new Timestamp(time);
+        return eventService.getEventByDate(timestamp, pageNum);
+    }
+
+    @RequestMapping(value = "/events/location/{location}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Event> getEventsByLocation(@PathVariable String location,
+                                           @RequestParam Integer pageNum) {
+        return eventService.getEventByLocation(location, pageNum);
+    }
+
+    @RequestMapping(value = "/events/time/{time}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberEventsByTime(@PathVariable Long time) {
+        Timestamp timestamp = new Timestamp(time);
+        return eventService.getNumberOfEventsByTime(timestamp);
+    }
+
+    @RequestMapping(value = "/events/location/{location}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberEventsByLocation(@PathVariable String location) {
+        return eventService.getNumberOfEventsByLocation(location);
+    }
+
     @RequestMapping(value = "/events", method = RequestMethod.POST)
     public String addEvent(@RequestParam(required = false) Integer id,
                            @RequestParam(value = "title") String title,
                            @RequestParam(value = "location") String location,
+                           @RequestParam(value = "time") String timeStr,
                            @RequestParam(value = "description") String description,
                            @RequestParam(value = "mainPhoto") MultipartFile mainPhoto) {
         Event event = null;
-        if (id != null) event = eventService.save(id, title, location, description);
-        else event = eventService.save(title, location, description);
-        String newFilename = imageService.saveImage(mainPhoto,
+        if (StringUtils.countOccurrencesOf(timeStr, ":") == 1) timeStr += ":00";
+        Timestamp time = Timestamp.valueOf(timeStr.replace("T"," "));
+        if (id != null) event = eventService.save(id, title, location, time, description);
+        else event = eventService.save(title, location, time, description);
+        imageService.saveImage(mainPhoto,
                 "Minsk24Server\\src\\main\\resources\\static\\res\\img\\event",
                 Integer.toString(event.getId()));
         return "redirect:/home";

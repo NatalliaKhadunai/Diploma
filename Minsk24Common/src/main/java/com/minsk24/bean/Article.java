@@ -16,7 +16,7 @@ public class Article {
     private Integer id;
     @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
-    @Column(name = "SHORT_DESCRIPTION", length=200, nullable = false)
+    @Column(name = "SHORT_DESCRIPTION", length = 200, nullable = false)
     private String shortDescription;
     @Column(name = "PUBLISH_DATE", nullable = false)
     private Timestamp publishDate;

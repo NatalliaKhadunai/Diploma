@@ -9,11 +9,13 @@ import java.util.List;
 
 @Service
 public interface ArticleService {
-    Article saveArticle(String mainTitle, String shortTitle, Account author, String content, String[] tags);
-    Article saveArticle(Integer id, String mainTitle, String shortTitle, Account author, String content, String[] tags);
+    Article saveArticle(String mainTitle, String shortTitle, Account author, String content, Integer[] tags);
+    Article saveArticle(Integer id, String mainTitle, String shortTitle, Account author, String content, Integer[] tags);
     Article saveArticle(Article article);
-    Iterable<Article> getArticles();
+    Iterable<Article> getArticles(Integer pageNum);
     Article getArticle(Integer id);
     Iterable<Article> getArticlesByTag(Tag tag);
-    Iterable<Article> getArticlesByAuthor(Account author);
+    Iterable<Article> getArticlesByAuthor(Account author, Integer pageNum);
+    Integer getNumberOfArticles();
+    Integer getNumberOfArticlesOfAuthor(Account author);
 }

@@ -6,6 +6,7 @@
             controller: function($state, $stateParams) {
                 let $ctrl = this;
                 $ctrl.advertisement = $stateParams['advertisement'];
+                $ctrl.dateNow = new Date();
             }
         });
 })();

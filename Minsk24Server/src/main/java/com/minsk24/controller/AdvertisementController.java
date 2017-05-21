@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Controller
 public class AdvertisementController {
@@ -26,8 +27,29 @@ public class AdvertisementController {
 
     @RequestMapping(value = "/advertisements", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Advertisement> getAdvertisements() {
-        return advertisementService.getAdvertisements();
+    public Iterable<Advertisement> getAdvertisements(@RequestParam Integer pageNum) {
+        return advertisementService.getAdvertisements(pageNum);
+    }
+
+    @RequestMapping(value = "/advertisements/holder/{holderId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Advertisement> getAdvertisementsByHolder(@PathVariable Integer holderId,
+                                                         @RequestParam Integer pageNum) {
+        Account account = accountService.getAccountById(holderId);
+        return advertisementService.getAdvertisementsByHolder(account, pageNum);
+    }
+
+    @RequestMapping(value = "/advertisements/holder/{holderId}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfAdvertisementsOfHolder(@PathVariable Integer holderId) {
+        Account account = accountService.getAccountById(holderId);
+        return advertisementService.getNumberOfAdvertisementsOfHolder(account);
+    }
+
+    @RequestMapping(value = "/advertisements/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfAdvertisements() {
+        return advertisementService.getNumberOfAdvertisements();
     }
 
     @RequestMapping(value = "/advertisements/{id}", method = RequestMethod.GET)
@@ -35,7 +57,6 @@ public class AdvertisementController {
     public Advertisement getAdvertisement(@PathVariable Integer id) {
         return advertisementService.getAdvertisementById(id);
     }
-
 
     @RequestMapping(value = "/advertisements", method = RequestMethod.POST)
     public String addAdvertisement(Principal principal,

@@ -2,6 +2,7 @@ package com.minsk24.controller;
 
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Role;
+import com.minsk24.exception.BadRequestException;
 import com.minsk24.exception.UserNotFoundException;
 import com.minsk24.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,9 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public String login(Model model, String error) {
         if (error != null)
             model.addAttribute("error", "Your username and password are invalid.");
-        if (logout != null)
-            model.addAttribute("logout", "You were successfully logout");
         return "res/login/loginPage";
     }
 
@@ -57,7 +56,7 @@ public class AccountController {
                                @ModelAttribute("passwordConfirm") String passwordConfirm,
                                HttpServletRequest request) {
         if (!password.equals(passwordConfirm)) {
-            return "Your username and password is invalid.";
+            throw new BadRequestException("Your username and password is invalid");
         }
         Account account = accountService.save(login, password, Role.GUEST);
         autologin(account.getLogin(), account.getPassword(), request);

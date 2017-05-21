@@ -2,16 +2,18 @@
     <input name="id" type="hidden" value="{{$ctrl.article.id}}">
     <label>Title *:</label>
     <input name="title" ng-model="$ctrl.article.title" required>
-    <!--TODO: add length checks everywhere-->
     <p>Length: {{$ctrl.article.title.length}}</p>
+    <p>Max length: 100</p>
     <br>
     <label>Short title *:</label>
     <input name="shortDescription" ng-model="$ctrl.article.shortDescription" required>
-    <p>Length: {{$ctrl.article.shortTitle.length}}</p>
+    <p>Length: {{$ctrl.article.shortDescription.length}}</p>
+    <p>Max length: 200</p>
     <br>
     <label>Content *:</label>
     <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
     <p>Length: {{$ctrl.article.content.length}}</p>
+    <p>Max length: 2000</p>
     <br>
     <label>Tags *:</label>
     <!--TODO: add highlight of used tags-->
@@ -19,6 +21,7 @@
             ng-options="x.name for x in $ctrl.tags track by x.id"
             ng-model="$ctrl.article.tags" required>
     </select>
+    <br>
     <label>Main photo *:</label>
     <!--TODO: when update no need to require photo-->
     <input type="file" name="mainPhoto" required>

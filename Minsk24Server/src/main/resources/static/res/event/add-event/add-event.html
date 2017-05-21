@@ -2,15 +2,23 @@
     <input name="id" type="hidden" value="{{$ctrl.event.id}}">
     <label>Title *:</label>
     <input name="title" ng-model="$ctrl.event.title" required>
+    <p>Length: {{$ctrl.event.title.length}}</p>
+    <p>Max length: 100</p>
     <br>
     <label>Location *:</label>
     <input name="location" ng-model="$ctrl.event.location" required>
+    <p>Length: {{$ctrl.event.location.length}}</p>
+    <p>Max length: 100</p>
     <br>
     <label>Time *:</label>
-    <input name="time" type="datetime" ng-model="$ctrl.event.time" required>
+    <input name="time" type="datetime-local" ng-model="$ctrl.timeStr"
+           min="{{$ctrl.dateNow | date:'yyyy-MM-ddTHH:mm'}}" required>
     <br>
     <label>Description *:</label>
     <textarea name="description" ng-model="$ctrl.event.description"></textarea>
+    <p>Length: {{$ctrl.event.description.length}}</p>
+    <p>Max length: 1000</p>
+    <br>
     <label>Main photo *:</label>
     <input type="file" name="mainPhoto" required>
     <div ng-show="$ctrl.event.id != null">

@@ -5,7 +5,9 @@
     <h3>{{$ctrl.advertisement.title}}</h3>
 </div>
 <div class="row">
-    <h5>{{$ctrl.advertisement.holder.login}}</h5>
+    <a href="" ng-click="$ctrl.getAdvertisementsOfHolder($ctrl.advertisement.holder)">
+        {{$ctrl.advertisement.holder.login}}
+    </a>
 </div>
 <div class="row">
     <h5>Placement date: {{$ctrl.advertisement.placementDate | date}}</h5>
