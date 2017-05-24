@@ -3,7 +3,9 @@ package com.minsk24.bean;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,11 +24,11 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private Role role;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "ACCOUNT_EXCLUDED_TAGS", joinColumns = {
+    @JoinTable(name = "ACCOUNT_INTERESTING_TAGS", joinColumns = {
             @JoinColumn(name = "ACCOUNT_ID", nullable = false) },
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
                     nullable = false, updatable = false) })
-    private Set<Tag> exculdedTags = new HashSet<>();
+    private List<Tag> interestingTags = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -60,16 +62,12 @@ public class Account {
         this.role = role;
     }
 
-    public Set<Tag> getExculdedTags() {
-        return exculdedTags;
+    public List<Tag> getInterestingTags() {
+        return interestingTags;
     }
 
-    public void setExculdedTags(Set<Tag> exculdedTags) {
-        this.exculdedTags = exculdedTags;
-    }
-
-    public void addExcludedTag(Tag tag) {
-        exculdedTags.add(tag);
+    public void setInterestingTags(List<Tag> interestingTags) {
+        this.interestingTags = interestingTags;
     }
 
     @Override
@@ -83,7 +81,9 @@ public class Account {
         if (!login.equals(account.login)) return false;
         if (!password.equals(account.password)) return false;
         if (role != account.role) return false;
-        return exculdedTags != null ? exculdedTags.equals(account.exculdedTags) : account.exculdedTags == null;
+        return interestingTags != null
+                ? interestingTags.equals(account.interestingTags)
+                : account.interestingTags == null;
     }
 
     @Override
@@ -92,7 +92,7 @@ public class Account {
         result = 31 * result + login.hashCode();
         result = 31 * result + password.hashCode();
         result = 31 * result + role.hashCode();
-        result = 31 * result + (exculdedTags != null ? exculdedTags.hashCode() : 0);
+        result = 31 * result + (interestingTags != null ? interestingTags.hashCode() : 0);
         return result;
     }
 
@@ -103,7 +103,7 @@ public class Account {
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", exculdedTags=" + exculdedTags +
+                ", interestingTags=" + interestingTags +
                 '}';
     }
 }

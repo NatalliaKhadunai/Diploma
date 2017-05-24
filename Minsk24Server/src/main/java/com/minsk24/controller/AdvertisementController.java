@@ -31,18 +31,18 @@ public class AdvertisementController {
         return advertisementService.getAdvertisements(pageNum);
     }
 
-    @RequestMapping(value = "/advertisements/holder/{holderId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisements/holder/{holderLogin}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Advertisement> getAdvertisementsByHolder(@PathVariable Integer holderId,
+    public List<Advertisement> getAdvertisementsByHolder(@PathVariable String holderLogin,
                                                          @RequestParam Integer pageNum) {
-        Account account = accountService.getAccountById(holderId);
+        Account account = accountService.getAccountByLogin(holderLogin);
         return advertisementService.getAdvertisementsByHolder(account, pageNum);
     }
 
-    @RequestMapping(value = "/advertisements/holder/{holderId}/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/advertisements/holder/{holderLogin}/count", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getNumberOfAdvertisementsOfHolder(@PathVariable Integer holderId) {
-        Account account = accountService.getAccountById(holderId);
+    public Integer getNumberOfAdvertisementsOfHolder(@PathVariable String holderLogin) {
+        Account account = accountService.getAccountByLogin(holderLogin);
         return advertisementService.getNumberOfAdvertisementsOfHolder(account);
     }
 

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular.module('app')
-        .component('eventList', {
+        .component('eventListByLocation', {
             templateUrl: 'res/event/event-list/event-list.html',
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
@@ -9,18 +9,21 @@
                     $state.go('eventPage', {'eventId': event.id});
                 };
                 $ctrl.initializeEvents = function () {
-                    $http.get('/events', {params: {pageNum: 1}}).then(function (response) {
-                        $ctrl.events = response.data;
-                    });
+                    $http.get('/events/location/' + $stateParams['location'],
+                        {params: {pageNum: 1}})
+                        .then(function (response) {
+                            $ctrl.events = response.data;
+                        });
                 };
                 $ctrl.getEvents = function (pageNum) {
-                    $http.get('/events', {params: {pageNum: pageNum}})
+                    $http.get('/events/location/' + $stateParams['location'],
+                        {params: {pageNum: pageNum}})
                         .then(function (response) {
                             $ctrl.events = response.data;
                         });
                 };
                 $ctrl.getPageCount = function () {
-                    $http.get('/events/count/')
+                    $http.get('/events/location/' + $stateParams['location'] + '/count')
                         .then(function (response) {
                             $ctrl.pageCount = response.data;
                         });

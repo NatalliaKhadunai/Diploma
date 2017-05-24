@@ -48,7 +48,7 @@ public class EventController {
     public List<Event> getEventsByTime(@PathVariable Long time,
                                        @RequestParam Integer pageNum) {
         Timestamp timestamp = new Timestamp(time);
-        return eventService.getEventByDate(timestamp, pageNum);
+        return eventService.getEventByTime(timestamp, pageNum);
     }
 
     @RequestMapping(value = "/events/location/{location}", method = RequestMethod.GET)

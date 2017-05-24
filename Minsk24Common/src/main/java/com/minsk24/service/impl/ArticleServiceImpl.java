@@ -16,6 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService{
@@ -62,7 +63,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Iterable<Article> getArticles(Integer pageNum) {
+    public List<Article> getArticles(Integer pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
         return articleDAO.findAll(pageRequest).getContent();
     }
@@ -73,13 +74,13 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Iterable<Article> getArticlesByTag(Tag tag, Integer pageNum) {
+    public List<Article> getArticlesByTag(Tag tag, Integer pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
         return articleDAO.findByTags(tag, pageRequest);
     }
 
     @Override
-    public Iterable<Article> getArticlesByAuthor(Account author, Integer pageNum) {
+    public List<Article> getArticlesByAuthor(Account author, Integer pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
         return articleDAO.findByAuthor(author, pageRequest);
     }
@@ -103,5 +104,16 @@ public class ArticleServiceImpl implements ArticleService{
     public List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum) {
     	PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
     	return articleDAO.findByAuthorAndTags(author, tag, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfArticlesByAuthorAndTag(Account author, Tag tag) {
+        return (int)Math.ceil((double)articleDAO.countByAuthorAndTags(author, tag) / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Article> getArticlesByInterestingTags(List<Tag> tags) {
+        List<Integer> tagIds = tags.stream().map(n -> n.getId()).collect(Collectors.toList());
+        return articleDAO.findByInterestingTags(tagIds);
     }
 }

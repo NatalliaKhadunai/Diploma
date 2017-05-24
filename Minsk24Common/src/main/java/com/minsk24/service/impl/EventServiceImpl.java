@@ -61,12 +61,9 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getEventByDate(Timestamp timestamp, Integer pageNum) {
-        Date today = new Date(timestamp.getTime());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.add(Calendar.DATE, 1);
-        Date tomorrow = new Date(calendar.getTimeInMillis());
+    public List<Event> getEventByTime(Timestamp timestamp, Integer pageNum) {
+        Date today = getTodayDate(timestamp);
+        Date tomorrow = getTomorrowDate(timestamp);
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
         return eventDAO.findByTimeBetween(today, tomorrow, pageRequest);
     }
@@ -79,16 +76,33 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Integer getNumberOfEventsByTime(Timestamp timestamp) {
-        Date today = new Date(timestamp.getTime());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(today);
-        calendar.add(Calendar.DATE, 1);
-        Date tomorrow = new Date(calendar.getTimeInMillis());
+        Date today = getTodayDate(timestamp);
+        Date tomorrow = getTomorrowDate(timestamp);
         return (int)Math.ceil((double)eventDAO.countByTimeBetween(today, tomorrow) / PAGE_SIZE);
     }
 
     @Override
     public Integer getNumberOfEventsByLocation(String location) {
         return (int)Math.ceil((double)eventDAO.countByLocationIgnoreCaseContaining(location) / PAGE_SIZE);
+    }
+
+    private Date getTodayDate(Timestamp timestamp) {
+        Date specTime = new Date(timestamp.getTime());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(specTime);
+        int hourOfDate = calendar.get(Calendar.HOUR_OF_DAY);
+        calendar.add(Calendar.HOUR_OF_DAY, -hourOfDate);
+        Date today = new Date(calendar.getTimeInMillis());
+        return today;
+    }
+
+    private Date getTomorrowDate(Timestamp timestamp) {
+        Date specTime = new Date(timestamp.getTime());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(specTime);
+        int hourOfDate = calendar.get(Calendar.HOUR_OF_DAY);
+        calendar.add(Calendar.HOUR_OF_DAY, 24-hourOfDate);
+        Date tomorrow = new Date(calendar.getTimeInMillis());
+        return tomorrow;
     }
 }

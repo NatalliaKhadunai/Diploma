@@ -1,26 +1,29 @@
 (function () {
     'use strict';
     angular.module('app')
-        .component('advertisementList', {
+        .component('advertisementListByHolder', {
             templateUrl: 'res/advertisement/advertisement-list/advertisement-list.html',
-            controller: function ($state, $stateParams, userSrv, $http) {
+            controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
-                $ctrl.currentUser = userSrv.getCurrentUser();
                 $ctrl.openAdvertisementPage = function (advertisement) {
                     $state.go('advertisementPage', {'advertisementId': advertisement.id});
                 };
                 $ctrl.initializeAdvertisements = function () {
-                    $http.get('/advertisements', {params: {pageNum: 1}}).then(function (response) {
-                        $ctrl.advertisements = response.data;
-                    });
+                    $http.get('/advertisements/holder/' + $stateParams['holderLogin'],
+                        {params: {pageNum: 1}})
+                        .then(function (response) {
+                            $ctrl.advertisements = response.data;
+                        });
                 };
                 $ctrl.getAdvertisements = function (pageNum) {
-                    $http.get('/advertisements', {params: {pageNum: pageNum}}).then(function (response) {
-                        $ctrl.advertisements = response.data;
-                    });
+                    $http.get('/advertisements/holder/' + $stateParams['holderLogin'],
+                        {params: {pageNum: pageNum}})
+                        .then(function (response) {
+                            $ctrl.advertisements = response.data;
+                        });
                 };
                 $ctrl.getPageCount = function () {
-                    $http.get('/advertisements/count/')
+                    $http.get('/advertisements/holder/' + $stateParams['holderLogin'] + '/count')
                         .then(function (response) {
                             $ctrl.pageCount = response.data;
                         });

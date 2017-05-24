@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,14 @@ public class ArticleController {
     @ResponseBody
     public Iterable<Article> getArticles(@RequestParam Integer pageNum) {
         return articleService.getArticles(pageNum);
+    }
+
+    @RequestMapping(value = "/articles/interesting", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Article> getInterestingArticles(@RequestParam Integer pageNum,
+                                         Principal principal) {
+        Account account = accountService.getAccountByLogin(principal.getName());
+        return articleService.getArticlesByInterestingTags(account.getInterestingTags());
     }
 
     @RequestMapping(value = "/articles/count", method = RequestMethod.GET)
@@ -71,11 +80,20 @@ public class ArticleController {
     
     @RequestMapping(value = "/articles/authors/{login}/tags/{tagName}", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Article> getArticlesByAuthor(@PathVariable String login, @PathVariable String tagName,
+    public Iterable<Article> getArticlesByAuthorAndTag(@PathVariable String login,
+                                                       @PathVariable String tagName,
                                                  @RequestParam Integer pageNum) {
         Account author = accountService.getAccountByLogin(login);
         Tag tag = tagService.getTagByName(tagName);
-        return articleService.getArticlesByAuthorAndTag(author, tagName, pageNum);
+        return articleService.getArticlesByAuthorAndTag(author, tag, pageNum);
+    }
+
+    @RequestMapping(value = "/articles/authors/{login}/tags/{tagName}/count", method = RequestMethod.GET)
+    @ResponseBody
+    public Integer getNumberOfArticlesByAuthorAndTag(@PathVariable String login, @PathVariable String tagName) {
+        Account author = accountService.getAccountByLogin(login);
+        Tag tag = tagService.getTagByName(tagName);
+        return articleService.getNumberOfArticlesByAuthorAndTag(author, tag);
     }
 
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)

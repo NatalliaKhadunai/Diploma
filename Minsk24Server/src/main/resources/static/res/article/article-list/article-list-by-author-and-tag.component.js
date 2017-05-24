@@ -1,26 +1,30 @@
 (function () {
     'use strict';
     angular.module('app')
-        .component('articleListByAuthor', {
+        .component('articleListByAuthorAndTag', {
             templateUrl: 'res/article/article-list/article-list.html',
-            controller: function($state, $stateParams, $http, userSrv) {
+            controller: function($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.initializeArticles = function () {
-                    let authorLogin = $stateParams['authorlogin'];
-                        $http.get('/articles/authors/' + $stateParams['authorLogin'],
-                            {params: {pageNum: 1}})
-                            .then(function (response) {
-                                $ctrl.articles = response.data;
-                            });
+                    let authorLogin = $stateParams['authorLogin'];
+                    let tagName = $stateParams['tagName'];
+                    $http.get('/articles/authors/' + $stateParams['authorLogin']
+                        + '/tags/' + tagName,
+                        {params: {pageNum: 1}})
+                        .then(function (response) {
+                            $ctrl.articles = response.data;
+                        });
                 };
                 $ctrl.getArticles = function (pageNum) {
                     let authorLogin = $stateParams['authorLogin'];
-                        $http.get('/articles/authors/' + $stateParams['authorLogin'],
-                            {params: {pageNum: pageNum}})
-                            .then(function (response) {
-                                $ctrl.articles = response.data;
-                            });
-                    };
+                    let tagName = $stateParams['tagName'];
+                    $http.get('/articles/authors/' + $stateParams['authorLogin']
+                        + '/tags/' + tagName,
+                        {params: {pageNum: pageNum}})
+                        .then(function (response) {
+                            $ctrl.articles = response.data;
+                        });
+                };
                 $ctrl.openArticlePage = function(article) {
                     $state.go('articlePage', { 'articleId' : article.id });
                 };
@@ -33,15 +37,16 @@
                 $ctrl.loadArticlesByTag = function (tag) {
                     $state.go('articlesByAuthorAndTag',
                         { 'authorLogin' : $stateParams['authorLogin'],
-                            'tagName' : tag.name});
+                        'tagName' : tag.name});
                 };
                 $ctrl.getPageCount = function () {
                     let authorLogin = $stateParams['authorLogin'];
-                    $http.get('/articles/author/' + $stateParams['authorLogin'] + '/count')
-                            .then(function (response) {
-                                $ctrl.pageCount = response.data;
-                            });
-                    };
+                    let tagName = $stateParams['tagName'];
+                    $http.get('/articles/author/' + authorLogin + '/tags/' + tagName + '/count')
+                        .then(function (response) {
+                            $ctrl.pageCount = response.data;
+                        });
+                };
                 $ctrl.getPageNumber = function() {
                     return new Array($ctrl.pageCount);
                 };

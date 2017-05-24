@@ -72,12 +72,8 @@ public class AccountController {
     @RequestMapping(value = "/account/tags/interesting", method = RequestMethod.GET)
     @ResponseBody
     public List<Tag> getInterstingTags(Principal principal) {
-        List<Tag> tags = Lists.newArrayList(tagService.getTags());
         Account account = accountService.getAccountByLogin(principal.getName());
-        for (Tag excludedTag : account.getExculdedTags()) {
-            tags.remove(excludedTag);
-        }
-        return tags;
+        return account.getInterestingTags();
     }
 
     @RequestMapping(value = "/account/tags/{tagId}/add", method = RequestMethod.POST)
@@ -85,17 +81,17 @@ public class AccountController {
     public Tag addInterestingTag(@PathVariable Integer tagId, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
         Tag tag = tagService.getTagById(tagId);
-        account.getExculdedTags().remove(tag);
+        account.getInterestingTags().add(tag);
         accountService.update(account);
         return tag;
     }
 
     @RequestMapping(value = "/account/tags/{tagId}/exclude", method = RequestMethod.POST)
     @ResponseBody
-    public Tag excludeUninterestingTag(@PathVariable Integer tagId, Principal principal) {
+    public Tag excludeInterestingTag(@PathVariable Integer tagId, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
         Tag tag = tagService.getTagById(tagId);
-        account.addExcludedTag(tag);
+        account.getInterestingTags().remove(tag);
         accountService.update(account);
         return tag;
     }

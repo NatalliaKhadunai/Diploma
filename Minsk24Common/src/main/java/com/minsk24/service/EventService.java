@@ -12,7 +12,7 @@ public interface EventService {
     Iterable<Event> getEvents(Integer pageNum);
     Event getEventById(Integer id);
     Integer getNumberOfEvents();
-    List<Event> getEventByDate(Timestamp timestamp, Integer pageNum);
+    List<Event> getEventByTime(Timestamp timestamp, Integer pageNum);
     List<Event> getEventByLocation(String location, Integer pageNum);
     Integer getNumberOfEventsByTime(Timestamp timestamp);
     Integer getNumberOfEventsByLocation(String location);

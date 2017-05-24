@@ -1,5 +1,6 @@
 package com.minsk24.service.impl;
 
+import com.minsk24.bean.Account;
 import com.minsk24.bean.Tag;
 import com.minsk24.repository.TagRepository;
 import com.minsk24.service.TagService;
@@ -48,5 +49,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public void deleteTags(List<Tag> tagList) {
         tagRepository.delete(tagList);
+    }
+
+    @Override
+    public List<Tag> interestingTagsForAccount(Account account) {
+        return null;
     }
 }

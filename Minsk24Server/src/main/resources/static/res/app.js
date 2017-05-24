@@ -4,7 +4,7 @@
         $stateProvider
             .state('home', {
                 url: '/',
-                template: '<home-component></home-component>'
+                template: '<home></home>'
             })
             .state('articles', {
                 url: '/articles',
@@ -21,6 +21,10 @@
                 url: '/articles/tags/{tagName}',
                 template: '<article-list-by-tag></article-list-by-tag>'
             })
+            .state('articlesByAuthorAndTag', {
+                url: '/articles/authors/{authorLogin}/tags/{tagName}',
+                template: '<article-list-by-author-and-tag></article-list-by-author-and-tag>'
+            })
             .state('articlePage', {
                 url: '/articles/{articleId}',
                 template: '<article-page></article-page>'
@@ -34,10 +38,11 @@
             })
             .state('advertisements', {
                 url: '/advertisements',
-                template: '<advertisement-list></advertisement-list>',
-                params: {
-                    'holder': {}
-                }
+                template: '<advertisement-list></advertisement-list>'
+            })
+            .state('advertisementsByHolder', {
+                url: '/advertisements/holder/{holderLogin}',
+                template: '<advertisement-list-by-holder></advertisement-list-by-holder>'
             })
             .state('advertisementPage', {
                 url: '/advertisements/{advertisementId}',
@@ -52,11 +57,15 @@
             })
             .state('events', {
                 url: '/events',
-                template: '<event-list></event-list>',
-                params: {
-                    'time': {},
-                    'location': {}
-                }
+                template: '<event-list></event-list>'
+            })
+            .state('eventsByTime', {
+                url: '/events/time/{time}',
+                template: '<event-list-by-time></event-list-by-time>'
+            })
+            .state('eventsByLocation', {
+                url: '/events/location/{location}',
+                template: '<event-list-by-location></event-list-by-location>'
             })
             .state('eventPage', {
                 url: '/events/{eventId}',

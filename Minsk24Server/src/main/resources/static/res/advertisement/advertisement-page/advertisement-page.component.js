@@ -14,7 +14,7 @@
                         });
                 };
                 $ctrl.getAdvertisementsOfHolder = function (holder) {
-                    $state.go('advertisements', { 'holder' : holder });
+                    $state.go('advertisementsByHolder', { 'holderLogin' : holder.login });
                 };
                 $ctrl.editAdvertisement = function() {
                     $state.go('addAdvertisement', { 'advertisement' : $ctrl.advertisement });
