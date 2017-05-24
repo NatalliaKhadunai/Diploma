@@ -13,12 +13,17 @@
                     'author': {}
                 }
             })
+            .state('articlesByAuthor', {
+                url: '/articles/authors/{authorLogin}',
+                template: '<article-list-by-author></article-list-by-author>'
+            })
+            .state('articlesByTag', {
+                url: '/articles/tags/{tagName}',
+                template: '<article-list-by-tag></article-list-by-tag>'
+            })
             .state('articlePage', {
-                url: '/articlePage',
-                template: '<article-page></article-page>',
-                params: {
-                    'article': {}
-                }
+                url: '/articles/{articleId}',
+                template: '<article-page></article-page>'
             })
             .state('addArticle', {
                 url: '/addArticle',
@@ -35,11 +40,8 @@
                 }
             })
             .state('advertisementPage', {
-                url: '/advertisementPage',
-                template: '<advertisement-page></advertisement-page>',
-                params: {
-                    'advertisement': {}
-                }
+                url: '/advertisements/{advertisementId}',
+                template: '<advertisement-page></advertisement-page>'
             })
             .state('addAdvertisement', {
                 url: '/addAdvertisement',
@@ -57,11 +59,8 @@
                 }
             })
             .state('eventPage', {
-                url: '/eventPage',
-                template: '<event-page></event-page>',
-                params: {
-                    'event': {}
-                }
+                url: '/events/{eventId}',
+                template: '<event-page></event-page>'
             })
             .state('addEvent', {
                 url: '/addEvent',
@@ -87,7 +86,7 @@
                 url: '/userPage',
                 template: '<user-page></user-page>',
                 params: {
-                    'user': {}
+                	user: {}
                 }
             });
     });

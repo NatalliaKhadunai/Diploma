@@ -8,8 +8,8 @@
                 $ctrl.article = {};
                 $ctrl.comment = {};
                 $ctrl.getArticle = function() {
-                    var article = $stateParams['article'];
-                    $http.get('/articles/' + article.id)
+                    var articleId = $stateParams['articleId'];
+                    $http.get('/articles/' + articleId)
                         .then(function (response) {
                             $ctrl.article = response.data;
                         });
@@ -18,7 +18,7 @@
                     $state.go('addArticle', { 'article' : $ctrl.article });
                 };
                 $ctrl.getArticlesOfAuthor = function (author) {
-                    $state.go('articles', { 'author' : author });
+                    $state.go('articlesByAuthor', { 'authorLogin' : author.login });
                 };
                 $ctrl.addComment = function () {
                     $http({

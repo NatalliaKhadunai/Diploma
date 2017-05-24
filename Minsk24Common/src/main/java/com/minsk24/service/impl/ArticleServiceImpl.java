@@ -98,4 +98,10 @@ public class ArticleServiceImpl implements ArticleService{
     public Integer getNumberOfArticlesByTag(Tag tag) {
         return (int)Math.ceil((double)articleDAO.countByTags(tag) / PAGE_SIZE);
     }
+    
+    @Override 
+    public List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum) {
+    	PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+    	return articleDAO.findByAuthorAndTags(author, tag, pageRequest);
+    }
 }

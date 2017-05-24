@@ -7,7 +7,7 @@
                 let $ctrl = this;
                 $ctrl.currentUser = userSrv.getCurrentUser();
                 $ctrl.openEventPage = function(event) {
-                    $state.go('eventPage', { 'event' : event });
+                    $state.go('eventPage', { 'eventId' : event.id });
                 };
                 $ctrl.initializeEvents = function () {
                     if (typeof $stateParams['time'] == 'number') {

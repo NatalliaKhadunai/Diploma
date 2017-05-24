@@ -12,11 +12,12 @@ public interface ArticleService {
     Article saveArticle(String mainTitle, String shortTitle, Account author, String content, Integer[] tags);
     Article saveArticle(Integer id, String mainTitle, String shortTitle, Account author, String content, Integer[] tags);
     Article saveArticle(Article article);
-    Iterable<Article> getArticles(Integer pageNum);
+    List<Article> getArticles(Integer pageNum);
     Article getArticle(Integer id);
-    Iterable<Article> getArticlesByTag(Tag tag, Integer pageNum);
-    Iterable<Article> getArticlesByAuthor(Account author, Integer pageNum);
+    List<Article> getArticlesByTag(Tag tag, Integer pageNum);
+    List<Article> getArticlesByAuthor(Account author, Integer pageNum);
     Integer getNumberOfArticles();
     Integer getNumberOfArticlesOfAuthor(Account author);
     Integer getNumberOfArticlesByTag(Tag tag);
+    List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum);
 }

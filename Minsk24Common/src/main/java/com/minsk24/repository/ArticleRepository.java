@@ -11,6 +11,7 @@ import java.util.List;
 public interface ArticleRepository extends PagingAndSortingRepository<Article, Integer> {
     List<Article> findByTags(Tag tag, Pageable pageable);
     List<Article> findByAuthor(Account account, Pageable pageable);
+    List<Article> findByAuthorAndTags(Account author, Tag tag, Pageable pageable);
     Integer countByAuthor(Account account);
     Integer countByTags(Tag tag);
 }

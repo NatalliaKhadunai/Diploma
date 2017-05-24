@@ -23,6 +23,11 @@ public class TagServiceImpl implements TagService {
     public Tag getTagById(Integer id) {
         return tagRepository.findOne(id);
     }
+    
+    @Override
+    public Tag getTagByName(String name) {
+        return tagRepository.findByName(name);
+    }
 
     @Override
     public List<Tag> getPopularTags() {

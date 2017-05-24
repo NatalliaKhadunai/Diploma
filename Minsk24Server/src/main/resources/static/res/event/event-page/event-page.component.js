@@ -8,8 +8,8 @@
                 $ctrl.event = {};
                 $ctrl.now = new Date();
                 $ctrl.getEvent = function() {
-                    var event = $stateParams['event'];
-                    $http.get('/events/' + event.id)
+                    var eventId = $stateParams['eventId'];
+                    $http.get('/events/' + eventId)
                         .then(function (response) {
                             $ctrl.event = response.data;
                         })

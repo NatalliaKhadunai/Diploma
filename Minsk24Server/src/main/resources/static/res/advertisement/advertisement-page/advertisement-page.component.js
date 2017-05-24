@@ -7,8 +7,8 @@
                 let $ctrl = this;
                 $ctrl.advertisement = {};
                 $ctrl.getAdvertisement = function() {
-                    var advertisement = $stateParams['advertisement'];
-                    $http.get('/advertisements/' + advertisement.id)
+                    var advertisementId = $stateParams['advertisementId'];
+                    $http.get('/advertisements/' + advertisementId)
                         .then(function (response) {
                             $ctrl.advertisement = response.data;
                         });

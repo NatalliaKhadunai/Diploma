@@ -7,7 +7,7 @@
                 let $ctrl = this;
                 $ctrl.currentUser = userSrv.getCurrentUser();
                 $ctrl.openAdvertisementPage = function(advertisement) {
-                    $state.go('advertisementPage', { 'advertisement' : advertisement });
+                    $state.go('advertisementPage', { 'advertisementId' : advertisement.id });
                 };
                 $ctrl.initializeAdvertisements = function () {
                     if (typeof $stateParams['holder'].id != 'undefined') {

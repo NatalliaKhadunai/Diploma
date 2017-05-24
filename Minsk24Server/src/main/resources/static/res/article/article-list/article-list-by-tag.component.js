@@ -1,19 +1,24 @@
 (function () {
     'use strict';
     angular.module('app')
-        .component('articleList', {
+        .component('articleListByTag', {
             templateUrl: 'res/article/article-list/article-list.html',
             controller: function($state, $stateParams, $http, userSrv) {
                 let $ctrl = this;
+                $ctrl.activeTag = '';
                 $ctrl.initializeArticles = function () {
-                        $http.get('/articles', {params: {pageNum: 1}}).then(function (response) {
+                	let tagName = $stateParams['tagName'];
+                        $http.get('/articles/tags/' + tagName, {params: {pageNum: 1}})
+                        .then(function(response){
                             $ctrl.articles = response.data;
                         });
                 };
                 $ctrl.getArticles = function (pageNum) {
-                        $http.get('/articles', {params: {pageNum: pageNum}}).then(function (response) {
-                            $ctrl.articles = response.data;
-                        });
+                	let tagName = $stateParams['tagName'];
+                        $http.get('/articles/tags/' + tagName, {params: {pageNum: pageNum}})
+                            .then(function(response){
+                                $ctrl.articles = response.data;
+                            });
                 };
                 $ctrl.openArticlePage = function(article) {
                     $state.go('articlePage', { 'articleId' : article.id });
@@ -28,8 +33,9 @@
                 	$state.go('articlesByTag', { 'tagName' : tag.name });
                 };
                 $ctrl.getPageCount = function () {
-                        $http.get('/articles/count/')
-                            .then(function (response) {
+                	let tagName = $stateParams['tagName'];
+                        $http.get('/articles/tags/' + tagName + '/count')
+                            .then(function(response){
                                 $ctrl.pageCount = response.data;
                             });
                 };

@@ -46,18 +46,18 @@ public class ArticleController {
         return articleService.getNumberOfArticlesOfAuthor(account);
     }
 
-    @RequestMapping(value = "/articles/tags/{tagId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles/tags/{tagName}", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Article> getArticlesByTag(@PathVariable Integer tagId,
+    public Iterable<Article> getArticlesByTag(@PathVariable String tagName,
                                               @RequestParam Integer pageNum) {
-        Tag tag = tagService.getTagById(tagId);
+        Tag tag = tagService.getTagByName(tagName);
         return articleService.getArticlesByTag(tag, pageNum);
     }
 
-    @RequestMapping(value = "/articles/tags/{tagId}/count", method = RequestMethod.GET)
+    @RequestMapping(value = "/articles/tags/{tagName}/count", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getArticlesByTag(@PathVariable Integer tagId) {
-        Tag tag = tagService.getTagById(tagId);
+    public Integer getArticlesByTag(@PathVariable String tagName) {
+        Tag tag = tagService.getTagByName(tagName);
         return articleService.getNumberOfArticlesByTag(tag);
     }
 
@@ -67,6 +67,15 @@ public class ArticleController {
                                                  @RequestParam Integer pageNum) {
         Account author = accountService.getAccountByLogin(login);
         return articleService.getArticlesByAuthor(author, pageNum);
+    }
+    
+    @RequestMapping(value = "/articles/authors/{login}/tags/{tagName}", method = RequestMethod.GET)
+    @ResponseBody
+    public Iterable<Article> getArticlesByAuthor(@PathVariable String login, @PathVariable String tagName,
+                                                 @RequestParam Integer pageNum) {
+        Account author = accountService.getAccountByLogin(login);
+        Tag tag = tagService.getTagByName(tagName);
+        return articleService.getArticlesByAuthorAndTag(author, tagName, pageNum);
     }
 
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
