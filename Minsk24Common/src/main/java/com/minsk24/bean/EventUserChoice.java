@@ -1,7 +1,7 @@
 package com.minsk24.bean;
 
 public enum EventUserChoice {
-    WILL_GO("Will go"), DONT_KNOW("Don't know"), WONT_GO("Won't go");
+    WILL_GO("Will go"), WONT_GO("Won't go");
 
     private String value;
     EventUserChoice(String value) {

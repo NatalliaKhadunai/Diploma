@@ -1,0 +1,22 @@
+<h3>Choose tags, that are interesting for you:</h3>
+<div class="row">
+    <button type="button" class="btn btn-default"
+            ng-repeat="tag in $ctrl.tags"
+            ng-click="$ctrl.addOrExcludeTag(tag)"
+            id="{{tag.name}}">
+        <span class="glyphicon glyphicon-plus"
+              ng-show="$ctrl.isExcluded(tag)"
+              aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-remove"
+              ng-show="!$ctrl.isExcluded(tag)"
+              aria-hidden="true"></span>
+        {{tag.name}}
+    </button>
+</div>
+<h3>Choose another photo for your account:</h3>
+<div class="row">
+    <form action="/account/photo" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit">
+    </form>
+</div>

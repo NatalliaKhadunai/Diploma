@@ -7,6 +7,7 @@ import com.minsk24.bean.Tag;
 import com.minsk24.exception.BadRequestException;
 import com.minsk24.exception.UserNotFoundException;
 import com.minsk24.service.AccountService;
+import com.minsk24.service.ImageService;
 import com.minsk24.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -30,6 +32,8 @@ public class AccountController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @ResponseBody
@@ -94,6 +98,19 @@ public class AccountController {
         account.getInterestingTags().remove(tag);
         accountService.update(account);
         return tag;
+    }
+
+    @RequestMapping(value = "account/photo", method = RequestMethod.POST)
+    public String chanheAccountPhoto(@RequestParam MultipartFile file, Principal principal) {
+        Account account = accountService.getAccountByLogin(principal.getName());
+        imageService.saveImage(file,
+                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\account",
+                Integer.toString(account.getId()));
+        if (!account.getPhoto().equals(account.getId().toString())) {
+            account.setPhoto(account.getId().toString());
+            accountService.update(account);
+        }
+        return "redirect:/home";
     }
 
     public void autologin(String username, String password, HttpServletRequest request) {

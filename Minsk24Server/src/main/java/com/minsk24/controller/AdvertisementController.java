@@ -27,29 +27,30 @@ public class AdvertisementController {
 
     @RequestMapping(value = "/advertisements", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Advertisement> getAdvertisements(@RequestParam Integer pageNum) {
-        return advertisementService.getAdvertisements(pageNum);
-    }
-
-    @RequestMapping(value = "/advertisements/holder/{holderLogin}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Advertisement> getAdvertisementsByHolder(@PathVariable String holderLogin,
-                                                         @RequestParam Integer pageNum) {
-        Account account = accountService.getAccountByLogin(holderLogin);
-        return advertisementService.getAdvertisementsByHolder(account, pageNum);
-    }
-
-    @RequestMapping(value = "/advertisements/holder/{holderLogin}/count", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getNumberOfAdvertisementsOfHolder(@PathVariable String holderLogin) {
-        Account account = accountService.getAccountByLogin(holderLogin);
-        return advertisementService.getNumberOfAdvertisementsOfHolder(account);
+    public Iterable<Advertisement> getAdvertisements(@RequestParam Integer page,
+                                                     @RequestParam(value = "holder", required = false)
+                                                             String holderLogin,
+                                                     @RequestParam(value = "sort", required = false)
+                                                        String sort) {
+        if (holderLogin != null) {
+            Account holder = accountService.getAccountByLogin(holderLogin);
+            return advertisementService.getAdvertisementsByHolder(holder, page);
+        }
+        else if (sort != null && sort.equals("expirationDate")) {
+            return advertisementService.getExpiringAdvertisements(page);
+        }
+        else return advertisementService.getAdvertisements(page);
     }
 
     @RequestMapping(value = "/advertisements/count", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getNumberOfAdvertisements() {
-        return advertisementService.getNumberOfAdvertisements();
+    public Integer getNumberOfAdvertisements(@RequestParam(value = "holder", required = false)
+                                                         String holderLogin) {
+        if (holderLogin != null) {
+            Account holder = accountService.getAccountByLogin(holderLogin);
+            return advertisementService.getNumberOfAdvertisementsOfHolder(holder);
+        }
+        else return advertisementService.getNumberOfAdvertisements();
     }
 
     @RequestMapping(value = "/advertisements/{id}", method = RequestMethod.GET)
@@ -70,6 +71,7 @@ public class AdvertisementController {
             advertisement = advertisementService.save(id, title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
         else
             advertisement = advertisementService.save(title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
+        if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
         imageService.saveImage(mainPhoto,
                 "Minsk24Server\\src\\main\\resources\\static\\res\\img\\advertisement",
                 Integer.toString(advertisement.getId()));

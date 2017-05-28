@@ -27,48 +27,44 @@ public class EventController {
 
     @RequestMapping(value = "/events", method = RequestMethod.GET)
     @ResponseBody
-    public Iterable<Event> getEvents(@RequestParam Integer pageNum) {
-        return eventService.getEvents(pageNum);
+    public Iterable<Event> getEvents(@RequestParam Integer page,
+                                     @RequestParam(required = false) Long time,
+                                     @RequestParam(required = false) String location,
+                                     @RequestParam(required = false)
+                                                 String sort) {
+        Timestamp timestamp = null;
+        if (time != null) timestamp = new Timestamp(time);
+        if (sort != null && sort.equals("rating")) {
+            if (time != null)
+                return eventService.getTopRatedUpcomingEventsByTime(page, timestamp);
+            else if (location != null)
+                return eventService.getTopRatedUpcomingEventsByLocation(page, location);
+            else return eventService.getTopRatedUpcomingEvents(page);
+        }
+        else {
+            if (time != null)
+                return eventService.getEventByTime(timestamp, page);
+            else if (location != null) return eventService.getEventByLocation(location, page);
+            else return eventService.getEvents(page);
+        }
     }
 
     @RequestMapping(value = "/events/count", method = RequestMethod.GET)
     @ResponseBody
-    public Integer getNumberOfEvents() {
-        return eventService.getNumberOfEvents();
+    public Integer getNumberOfEvents(@RequestParam(required = false) Long time,
+                                     @RequestParam(required = false) String location) {
+        if (time != null) {
+            Timestamp timestamp = new Timestamp(time);
+            return eventService.getNumberOfEventsByTime(timestamp);
+        }
+        else if (location != null) return eventService.getNumberOfEventsByLocation(location);
+        else return eventService.getNumberOfEvents();
     }
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEventById(id);
-    }
-
-    @RequestMapping(value = "/events/time/{time}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Event> getEventsByTime(@PathVariable Long time,
-                                       @RequestParam Integer pageNum) {
-        Timestamp timestamp = new Timestamp(time);
-        return eventService.getEventByTime(timestamp, pageNum);
-    }
-
-    @RequestMapping(value = "/events/location/{location}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Event> getEventsByLocation(@PathVariable String location,
-                                           @RequestParam Integer pageNum) {
-        return eventService.getEventByLocation(location, pageNum);
-    }
-
-    @RequestMapping(value = "/events/time/{time}/count", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getNumberEventsByTime(@PathVariable Long time) {
-        Timestamp timestamp = new Timestamp(time);
-        return eventService.getNumberOfEventsByTime(timestamp);
-    }
-
-    @RequestMapping(value = "/events/location/{location}/count", method = RequestMethod.GET)
-    @ResponseBody
-    public Integer getNumberEventsByLocation(@PathVariable String location) {
-        return eventService.getNumberOfEventsByLocation(location);
     }
 
     @RequestMapping(value = "/events", method = RequestMethod.POST)
@@ -83,6 +79,7 @@ public class EventController {
         Timestamp time = Timestamp.valueOf(timeStr.replace("T"," "));
         if (id != null) event = eventService.save(id, title, location, time, description);
         else event = eventService.save(title, location, time, description);
+        if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
         imageService.saveImage(mainPhoto,
                 "Minsk24Server\\src\\main\\resources\\static\\res\\img\\event",
                 Integer.toString(event.getId()));
@@ -103,8 +100,9 @@ public class EventController {
 
     @RequestMapping(value = "/events/{id}/beforeEventRate", method = RequestMethod.POST)
     @ResponseBody
-    public void addBeforeEventChoice(Principal principal, @PathVariable Integer id,
-                                     @RequestBody String eventUserChoice) {
+    public void addBeforeEventChoice(@PathVariable Integer id,
+                                     @RequestBody String eventUserChoice,
+                                     Principal principal) {
         Event event = eventService.getEventById(id);
         Account account = accountService.getAccountByLogin(principal.getName());
         BeforeEventRate beforeEventRate = new BeforeEventRate();
@@ -116,8 +114,9 @@ public class EventController {
 
     @RequestMapping(value = "/events/{id}/afterEventRate", method = RequestMethod.POST)
     @ResponseBody
-    public void addAfterEventChoice(Principal principal, @PathVariable Integer id,
-                                     @RequestBody Integer rate) {
+    public void addAfterEventChoice(@PathVariable Integer id,
+                                     @RequestBody Integer rate,
+                                    Principal principal) {
         Event event = eventService.getEventById(id);
         Account account = accountService.getAccountByLogin(principal.getName());
         AfterEventRate afterEventRate = new AfterEventRate();

@@ -7,23 +7,8 @@
                 template: '<home></home>'
             })
             .state('articles', {
-                url: '/articles',
-                template: '<article-list></article-list>',
-                params: {
-                    'author': {}
-                }
-            })
-            .state('articlesByAuthor', {
-                url: '/articles/authors/{authorLogin}',
-                template: '<article-list-by-author></article-list-by-author>'
-            })
-            .state('articlesByTag', {
-                url: '/articles/tags/{tagName}',
-                template: '<article-list-by-tag></article-list-by-tag>'
-            })
-            .state('articlesByAuthorAndTag', {
-                url: '/articles/authors/{authorLogin}/tags/{tagName}',
-                template: '<article-list-by-author-and-tag></article-list-by-author-and-tag>'
+                url: '/articles?{page}&{author}&{tag}&{interesting}',
+                template: '<article-list></article-list>'
             })
             .state('articlePage', {
                 url: '/articles/{articleId}',
@@ -37,12 +22,8 @@
                 }
             })
             .state('advertisements', {
-                url: '/advertisements',
+                url: '/advertisements?{page}&{sort}',
                 template: '<advertisement-list></advertisement-list>'
-            })
-            .state('advertisementsByHolder', {
-                url: '/advertisements/holder/{holderLogin}',
-                template: '<advertisement-list-by-holder></advertisement-list-by-holder>'
             })
             .state('advertisementPage', {
                 url: '/advertisements/{advertisementId}',
@@ -56,16 +37,8 @@
                 }
             })
             .state('events', {
-                url: '/events',
+                url: '/events?{page}&{sort}&{time}&{location}',
                 template: '<event-list></event-list>'
-            })
-            .state('eventsByTime', {
-                url: '/events/time/{time}',
-                template: '<event-list-by-time></event-list-by-time>'
-            })
-            .state('eventsByLocation', {
-                url: '/events/location/{location}',
-                template: '<event-list-by-location></event-list-by-location>'
             })
             .state('eventPage', {
                 url: '/events/{eventId}',
@@ -97,6 +70,18 @@
                 params: {
                 	user: {}
                 }
+            })
+            .state('userPage.recentActions', {
+                url: '/recent-actions',
+                template: '<user-page-recent-actions></user-page-recent-actions>'
+            })
+            .state('userPage.settings', {
+                url: '/settings',
+                template: '<user-page-settings></user-page-settings>'
+            })
+            .state('userPage.advertisements', {
+                url: '/advertisements?{page}',
+                template: '<user-page-advertisements></user-page-advertisements>'
             });
     });
 })();

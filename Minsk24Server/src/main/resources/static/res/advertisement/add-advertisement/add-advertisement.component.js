@@ -7,6 +7,9 @@
                 let $ctrl = this;
                 $ctrl.advertisement = $stateParams['advertisement'];
                 $ctrl.dateNow = new Date();
+                $ctrl.dateStr = new Date($ctrl.advertisement.expirationDate);
+                $ctrl.required = typeof $stateParams['advertisement'].id != 'undefined'?
+                    false : true;
             }
         });
 })();

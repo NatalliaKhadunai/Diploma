@@ -6,7 +6,8 @@
     <p>Max length: 100</p>
     <br>
     <label>Short title *:</label>
-    <input name="shortDescription" ng-model="$ctrl.article.shortDescription" required>
+    <input name="shortDescription" ng-model="$ctrl.article.shortDescription"
+           required>
     <p>Length: {{$ctrl.article.shortDescription.length}}</p>
     <p>Max length: 200</p>
     <br>
@@ -16,17 +17,15 @@
     <p>Max length: 2000</p>
     <br>
     <label>Tags *:</label>
-    <!--TODO: add highlight of used tags-->
     <select multiple name="tags"
             ng-options="x.name for x in $ctrl.tags track by x.id"
             ng-model="$ctrl.article.tags" required>
     </select>
     <br>
     <label>Main photo *:</label>
-    <!--TODO: when update no need to require photo-->
-    <input type="file" name="mainPhoto" required>
+    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
     <div ng-show="$ctrl.article.id != null">
-        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}">
+        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}" style="max-width: 300px;">
     </div>
     <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
         Add article

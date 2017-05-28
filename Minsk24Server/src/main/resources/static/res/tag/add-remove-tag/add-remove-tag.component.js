@@ -14,10 +14,13 @@
                         });
                 };
                 $ctrl.addTag = function () {
-                    $http.post('/tags', $ctrl.tagName)
-                        .then(function(response) {
-                            $ctrl.tags.push(response.data);
-                        });
+                    if ($ctrl.tagName.length != 0) {
+                        $http.post('/tags', $ctrl.tagName)
+                            .then(function (response) {
+                                $ctrl.tags.push(response.data);
+                                $ctrl.tagName = '';
+                            });
+                    }
                 };
                 $ctrl.deleteTags = function () {
                     $http({

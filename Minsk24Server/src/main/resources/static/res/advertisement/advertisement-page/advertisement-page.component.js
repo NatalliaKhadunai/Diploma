@@ -7,14 +7,14 @@
                 let $ctrl = this;
                 $ctrl.advertisement = {};
                 $ctrl.getAdvertisement = function() {
-                    var advertisementId = $stateParams['advertisementId'];
+                    let advertisementId = $stateParams['advertisementId'];
                     $http.get('/advertisements/' + advertisementId)
                         .then(function (response) {
                             $ctrl.advertisement = response.data;
                         });
                 };
                 $ctrl.getAdvertisementsOfHolder = function (holder) {
-                    $state.go('advertisementsByHolder', { 'holderLogin' : holder.login });
+                    $state.go('advertisements', { 'holder' : holder.login });
                 };
                 $ctrl.editAdvertisement = function() {
                     $state.go('addAdvertisement', { 'advertisement' : $ctrl.advertisement });

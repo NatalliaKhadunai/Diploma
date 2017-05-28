@@ -6,6 +6,8 @@
             controller: function($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.article = $stateParams['article'];
+                $ctrl.required = typeof $stateParams['article'].id != 'undefined'?
+                    false : true;
                 $ctrl.tags = [];
                 $ctrl.initializeTagSelect = function () {
                     $http.get('/tags')

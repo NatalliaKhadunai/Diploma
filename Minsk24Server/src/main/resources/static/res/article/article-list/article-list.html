@@ -1,10 +1,12 @@
 <div class="row">
     <div class="flex-container">
-        <ul>
+        <ul ng-show="!$ctrl.showOnlyInteresting">
             <li ng-repeat="tag in $ctrl.popularTags">
                 <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
             </li>
         </ul>
+        <input type="checkbox" ng-model="$ctrl.showOnlyInteresting"
+               ng-change="$ctrl.loadInterestingArticles()">Show only interesting
         <div class="flex-block" ng-repeat="article in $ctrl.articles">
             <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
             <p>
@@ -19,7 +21,7 @@
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li ng-repeat="pageNum in $ctrl.getPageNumber() track by $index">
-                <a href="" ng-click="$ctrl.getArticles($index+1)">{{$index+1}}</a>
+                <a href="" ng-click="$ctrl.loadArticlesByPage($index+1)">{{$index+1}}</a>
             </li>
         </ul>
     </nav>

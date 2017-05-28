@@ -21,5 +21,6 @@ public interface ArticleService {
     Integer getNumberOfArticlesByTag(Tag tag);
     List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum);
     Integer getNumberOfArticlesByAuthorAndTag(Account author, Tag tag);
-    List<Article> getArticlesByInterestingTags(List<Tag> tags);
+    List<Article> getArticlesByInterestingTags(List<Tag> tags, Integer pageNum);
+    Integer getNumberOfArticlesByInterestingTags(List<Tag> tags);
 }

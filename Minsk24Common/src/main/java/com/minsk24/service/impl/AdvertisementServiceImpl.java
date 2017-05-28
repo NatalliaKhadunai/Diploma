@@ -6,6 +6,7 @@ import com.minsk24.repository.AdvertisementRepository;
 import com.minsk24.service.AdvertisementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -48,8 +49,10 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Iterable<Advertisement> getAdvertisements(Integer pageNum) {
-        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
-        return advertisementDAO.findAll(pageRequest).getContent();
+        Date date = new Date(System.currentTimeMillis());
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "placementDate"));
+        return advertisementDAO.findByExpirationDateGreaterThan(date, pageRequest);
     }
 
     @Override
@@ -64,12 +67,21 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public List<Advertisement> getAdvertisementsByHolder(Account account, Integer pageNum) {
-        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "placementDate"));
         return advertisementDAO.findByHolder(account, pageRequest);
     }
 
     @Override
     public Integer getNumberOfAdvertisementsOfHolder(Account account) {
         return (int)Math.ceil((double)advertisementDAO.countByHolder(account) / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Advertisement> getExpiringAdvertisements(Integer pageNum) {
+        Date date = new Date(System.currentTimeMillis());
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.ASC, "expirationDate"));
+        return advertisementDAO.findByExpirationDateGreaterThan(date, pageRequest);
     }
 }

@@ -15,14 +15,15 @@
            min="{{$ctrl.dateNow | date:'yyyy-MM-ddTHH:mm'}}" required>
     <br>
     <label>Description *:</label>
-    <textarea name="description" ng-model="$ctrl.event.description"></textarea>
+    <textarea name="description" ng-model="$ctrl.event.description"
+              required></textarea>
     <p>Length: {{$ctrl.event.description.length}}</p>
     <p>Max length: 1000</p>
     <br>
     <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" required>
+    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
     <div ng-show="$ctrl.event.id != null">
-        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}">
+        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}" style="max-width: 300px;">
     </div>
     <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
         Add event

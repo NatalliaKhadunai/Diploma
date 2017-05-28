@@ -29,6 +29,8 @@ public class Account {
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
                     nullable = false, updatable = false) })
     private List<Tag> interestingTags = new ArrayList<>();
+    @Column(name = "PHOTO", length = 10, columnDefinition="default 'default'")
+    private String photo;
 
     public Integer getId() {
         return id;
@@ -70,6 +72,14 @@ public class Account {
         this.interestingTags = interestingTags;
     }
 
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,22 +87,23 @@ public class Account {
 
         Account account = (Account) o;
 
-        if (!id.equals(account.id)) return false;
-        if (!login.equals(account.login)) return false;
-        if (!password.equals(account.password)) return false;
+        if (id != null ? !id.equals(account.id) : account.id != null) return false;
+        if (login != null ? !login.equals(account.login) : account.login != null) return false;
+        if (password != null ? !password.equals(account.password) : account.password != null) return false;
         if (role != account.role) return false;
-        return interestingTags != null
-                ? interestingTags.equals(account.interestingTags)
-                : account.interestingTags == null;
+        if (interestingTags != null ? !interestingTags.equals(account.interestingTags) : account.interestingTags != null)
+            return false;
+        return photo != null ? photo.equals(account.photo) : account.photo == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + login.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (interestingTags != null ? interestingTags.hashCode() : 0);
+        result = 31 * result + (photo != null ? photo.hashCode() : 0);
         return result;
     }
 
@@ -104,6 +115,7 @@ public class Account {
                 ", password='" + password + '\'' +
                 ", role=" + role +
                 ", interestingTags=" + interestingTags +
+                ", photo='" + photo + '\'' +
                 '}';
     }
 }

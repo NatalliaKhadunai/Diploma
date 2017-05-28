@@ -15,4 +15,5 @@ public interface AdvertisementService {
     Integer getNumberOfAdvertisements();
     List<Advertisement> getAdvertisementsByHolder(Account account, Integer pageNum);
     Integer getNumberOfAdvertisementsOfHolder(Account account);
+    List<Advertisement> getExpiringAdvertisements(Integer pageNum);
 }

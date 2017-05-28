@@ -13,11 +13,11 @@
     <br>
     <label>Expiration date *:</label>
     <input type="date" name="expirationDate"
-           ng-model="$ctrl.advertisement.expirationDate"
+           ng-model="$ctrl.dateStr"
            min="{{$ctrl.dateNow | date:'yyyy-MM-dd'}}" required>
     <br>
     <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" required>
+    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
     <div ng-show="$ctrl.advertisement.id != null">
         <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}">
     </div>

@@ -28,12 +28,14 @@
             {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a>
     </div>
     <div class="row">
-        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}">
+        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}" style="max-width: 300px;">
     </div>
     <p>{{$ctrl.event.description}}</p>
 </div>
 <div ng-repeat="comment in $ctrl.event.comments">
-    <p>{{comment.publisher.login}} {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+        {{comment.publisher.login}}
+    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
     <p>{{comment.content}}</p>
 </div>
 <div class="row">

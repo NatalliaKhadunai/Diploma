@@ -8,6 +8,8 @@
                 $ctrl.event = $stateParams['event'];
                 $ctrl.timeStr = new Date($ctrl.event.time);
                 $ctrl.dateNow = new Date();
+                $ctrl.required = typeof $stateParams['event'].id != 'undefined'?
+                    false : true;
             }
         });
 })();

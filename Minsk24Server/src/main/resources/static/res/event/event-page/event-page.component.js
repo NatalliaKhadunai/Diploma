@@ -18,10 +18,10 @@
                     $state.go('addEvent', { 'event' : $ctrl.event });
                 };
                 $ctrl.getEventsOfTime = function (time) {
-                    $state.go('eventsByTime', { 'time' : time });
+                    $state.go('events', { 'time' : time });
                 };
                 $ctrl.getEventsOfLocation = function (location) {
-                    $state.go('eventsByLocation', { 'location' : location });
+                    $state.go('events', { 'location' : location });
                 };
                 $ctrl.addComment = function () {
                     $http({

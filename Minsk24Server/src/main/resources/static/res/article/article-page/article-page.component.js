@@ -18,7 +18,7 @@
                     $state.go('addArticle', { 'article' : $ctrl.article });
                 };
                 $ctrl.getArticlesOfAuthor = function (author) {
-                    $state.go('articlesByAuthor', { 'authorLogin' : author.login });
+                    $state.go('articles', {'author': author.login});
                 };
                 $ctrl.addComment = function () {
                     $http({

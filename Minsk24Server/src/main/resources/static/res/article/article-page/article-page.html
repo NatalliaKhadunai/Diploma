@@ -17,11 +17,13 @@
     <span ng-repeat="tag in $ctrl.article.tags">{{tag.name}},</span>
 </div>
 <div class="row">
-    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}">
+    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}" style="max-width: 300px;">
 </div>
 <p>{{$ctrl.article.content}}</p>
 <div ng-repeat="comment in $ctrl.article.comments">
-    <p>{{comment.publisher.login}} {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+        {{comment.publisher.login}}
+    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
     <p>{{comment.content}}</p>
 </div>
 <div class="row">

@@ -16,11 +16,13 @@
     <h5>Expiration date: {{$ctrl.advertisement.expirationDate | date}}</h5>
 </div>
 <div class="row">
-    <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}">
+    <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}" style="max-width: 300px;">
 </div>
 <p>{{$ctrl.advertisement.description}}</p>
 <div ng-repeat="comment in $ctrl.advertisement.comments">
-    <p>{{comment.publisher.login}} {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+        {{comment.publisher.login}}
+    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
     <p>{{comment.content}}</p>
 </div>
 <div class="row">

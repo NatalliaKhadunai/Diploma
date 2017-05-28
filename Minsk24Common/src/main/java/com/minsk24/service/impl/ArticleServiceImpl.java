@@ -10,6 +10,7 @@ import com.minsk24.service.ArticleService;
 import com.minsk24.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -64,7 +65,8 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public List<Article> getArticles(Integer pageNum) {
-        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "publishDate"));
         return articleDAO.findAll(pageRequest).getContent();
     }
 
@@ -75,13 +77,15 @@ public class ArticleServiceImpl implements ArticleService{
 
     @Override
     public List<Article> getArticlesByTag(Tag tag, Integer pageNum) {
-        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "publishDate"));
         return articleDAO.findByTags(tag, pageRequest);
     }
 
     @Override
     public List<Article> getArticlesByAuthor(Account author, Integer pageNum) {
-        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "publishDate"));
         return articleDAO.findByAuthor(author, pageRequest);
     }
 
@@ -102,7 +106,8 @@ public class ArticleServiceImpl implements ArticleService{
     
     @Override 
     public List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum) {
-    	PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE);
+    	PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "publishDate"));
     	return articleDAO.findByAuthorAndTags(author, tag, pageRequest);
     }
 
@@ -112,8 +117,16 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public List<Article> getArticlesByInterestingTags(List<Tag> tags) {
+    public List<Article> getArticlesByInterestingTags(List<Tag> tags, Integer pageNum) {
         List<Integer> tagIds = tags.stream().map(n -> n.getId()).collect(Collectors.toList());
-        return articleDAO.findByInterestingTags(tagIds);
+        int startIndex = (pageNum - 1) * PAGE_SIZE;
+        int endIndex = pageNum * PAGE_SIZE;
+        return articleDAO.findByInterestingTags(tagIds, startIndex, endIndex);
+    }
+
+    @Override
+    public Integer getNumberOfArticlesByInterestingTags(List<Tag> tags) {
+        List<Integer> tagIds = tags.stream().map(n -> n.getId()).collect(Collectors.toList());
+        return (int)Math.ceil((double)articleDAO.countByInterestingTags(tagIds) / PAGE_SIZE);
     }
 }

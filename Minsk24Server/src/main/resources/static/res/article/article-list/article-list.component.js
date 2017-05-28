@@ -3,20 +3,19 @@
     angular.module('app')
         .component('articleList', {
             templateUrl: 'res/article/article-list/article-list.html',
-            controller: function($state, $stateParams, $http, userSrv) {
+            controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
-                $ctrl.initializeArticles = function () {
-                        $http.get('/articles', {params: {pageNum: 1}}).then(function (response) {
-                            $ctrl.articles = response.data;
-                        });
+                $ctrl.showOnlyInteresting =
+                    typeof $stateParams['interesting'] != 'undefined' ?
+                        $stateParams['interesting'] : false;
+                $ctrl.getArticles = function () {
+                    let params = $ctrl.defineParams();
+                    $http.get('/articles', {params: params}).then(function (response) {
+                        $ctrl.articles = response.data;
+                    });
                 };
-                $ctrl.getArticles = function (pageNum) {
-                        $http.get('/articles', {params: {pageNum: pageNum}}).then(function (response) {
-                            $ctrl.articles = response.data;
-                        });
-                };
-                $ctrl.openArticlePage = function(article) {
-                    $state.go('articlePage', { 'articleId' : article.id });
+                $ctrl.openArticlePage = function (article) {
+                    $state.go('articlePage', {'articleId': article.id});
                 };
                 $ctrl.initializePopularTags = function () {
                     $http.get('/tags/popular')
@@ -25,18 +24,40 @@
                         });
                 };
                 $ctrl.loadArticlesByTag = function (tag) {
-                	$state.go('articlesByTag', { 'tagName' : tag.name });
+                    $state.go('articles', {'tag': tag.name});
+                };
+                $ctrl.loadArticlesByPage = function (page) {
+                    $state.go('articles', {page : page});
+                };
+                $ctrl.loadInterestingArticles = function () {
+                    $stateParams['author'] = null;
+                    $stateParams['tag'] = null;
+                    $stateParams['page'] = null;
+                    $state.go('articles', {'interesting': $ctrl.showOnlyInteresting});
                 };
                 $ctrl.getPageCount = function () {
-                        $http.get('/articles/count/')
-                            .then(function (response) {
-                                $ctrl.pageCount = response.data;
-                            });
+                    let params = $ctrl.defineParams();
+                    $http.get('/articles/count/', {params: params})
+                        .then(function (response) {
+                            $ctrl.pageCount = response.data;
+                        });
                 };
-                $ctrl.getPageNumber = function() {
+                $ctrl.getPageNumber = function () {
                     return new Array($ctrl.pageCount);
                 };
-                $ctrl.initializeArticles();
+                $ctrl.defineParams = function () {
+                    let params = {};
+                    if (typeof $stateParams['author'] != 'undefined')
+                        params.author = $stateParams['author'];
+                    if (typeof $stateParams['tag'] != 'undefined')
+                        params.tag = $stateParams['tag'];
+                    if (typeof $stateParams['page'] != 'undefined')
+                        params.page = $stateParams['page'];
+                    else params.page = 1;
+                    params.interesting = $ctrl.showOnlyInteresting;
+                    return params;
+                };
+                $ctrl.getArticles(1);
                 $ctrl.initializePopularTags();
                 $ctrl.getPageCount();
             }

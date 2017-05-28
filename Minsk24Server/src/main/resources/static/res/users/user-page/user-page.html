@@ -1,39 +1,17 @@
 <div class="row">
-    <img src="res/img/account/{{$ctrl.user.id + '.jpg'}}" style="max-width: 300px;">
+    <img src="res/img/account/{{$ctrl.user.photo + '.jpg'}}" style="max-width: 300px;">
     <h3>{{$ctrl.user.login}}</h3>
     <p>{{$ctrl.user.role}}</p>
 </div>
-<div class="row">
-    <button type="button" class="btn btn-default btn-lg"
-        ng-repeat="tag in $ctrl.tags"
-            ng-click="$ctrl.addOrExcludeTag(tag)">
-        <span class="glyphicon glyphicon-plus"
-              ng-show="$ctrl.isExcluded(tag)"
-              aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-remove"
-              ng-show="!$ctrl.isExcluded(tag)"
-              aria-hidden="true"></span>
-        {{tag.name}}
-    </button>
-</div>
-<div class="row">
-    <h3>Recent comments: </h3>
-    <div class="col-md-12" ng-repeat="comment in $ctrl.recentComments">
-        <span>{{comment.publishDate | date : "M/d/yy h:mm a"}}</span>
-        <span>{{comment.content}}</span>
-    </div>
-</div>
-<div class="row">
-    <h3>Recent before event rates: </h3>
-    <div class="col-md-12" ng-repeat="ber in $ctrl.recentBeforeEventRates">
-        <a href="" ng-click="$ctrl.openEventPage(ber.event)">{{ber.event.title}}</a>
-        <span>{{ber.eventUserChoice}}</span>
-    </div>
-</div>
-<div class="row">
-    <h3>Recent after event rates: </h3>
-    <div class="col-md-12" ng-repeat="aer in $ctrl.recentAfterEventRates">
-        <a href="" ng-click="$ctrl.openEventPage(aer.event)">{{aer.event.title}}</a>
-        <span>{{aer.rate}}</span>
-    </div>
-</div>
+<ul class="nav nav-tabs">
+    <li ui-sref-active="userPage.recentActions">
+        <a ui-sref="userPage.recentActions">Recent actions</a>
+    </li>
+    <li ui-sref-active="userPage.settings" ng-show="$ctrl.isCurrent">
+        <a ui-sref="userPage.settings">Settings</a>
+    </li>
+    <li ui-sref-active="userPage.advertisements">
+        <a ui-sref="userPage.advertisements">User advertisements</a>
+    </li>
+</ul>
+<ui-view></ui-view>
