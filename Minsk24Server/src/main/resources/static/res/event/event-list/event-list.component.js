@@ -15,6 +15,14 @@
                             $ctrl.events = response.data;
                         });
                 };
+                $ctrl.getPastTopRatedEvents = function () {
+                    let params = $ctrl.defineParams();
+                    params.past = true;
+                    $http.get('/events', {params: params})
+                        .then(function (response) {
+                            $ctrl.pastTopRatedEvents = response.data;
+                        });
+                };
                 $ctrl.loadEventsByPage = function (page) {
                     $state.go('events', {page : page});
                 };

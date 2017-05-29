@@ -7,6 +7,7 @@ import com.minsk24.service.BeforeEventRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -21,6 +22,7 @@ public class BeforeEventRateServiceImpl implements BeforeEventRateService {
 
     @Override
     public List<BeforeEventRate> getBeforeEventRatesByAccount(Account account) {
-        return beforeEventRateRepository.findByUser(account);
+        return beforeEventRateRepository.findByUser(new Date(System.currentTimeMillis()),
+                account);
     }
 }

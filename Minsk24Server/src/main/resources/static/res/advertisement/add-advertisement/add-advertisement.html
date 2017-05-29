@@ -1,27 +1,52 @@
-<form name="addAdvertisementForm" action="/advertisements"
-      method="post" enctype="multipart/form-data">
-    <input name="id" type="hidden" value="{{$ctrl.advertisement.id}}">
-    <label>Title *:</label>
-    <input name="title" ng-model="$ctrl.advertisement.title" required>
-    <p>Length: {{$ctrl.advertisement.title.length}}</p>
-    <p>Max length: 100</p>
-    <br>
-    <label>Description *:</label>
-    <textarea name="description" ng-model="$ctrl.advertisement.description" required></textarea>
-    <p>Length: {{$ctrl.advertisement.description.length}}</p>
-    <p>Max length: 1000</p>
-    <br>
-    <label>Expiration date *:</label>
-    <input type="date" name="expirationDate"
-           ng-model="$ctrl.dateStr"
-           min="{{$ctrl.dateNow | date:'yyyy-MM-dd'}}" required>
-    <br>
-    <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
-    <div ng-show="$ctrl.advertisement.id != null">
-        <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}">
-    </div>
-    <button type="submit" class="btn" ng-disabled="addAdvertisementForm.$invalid">
-        Add advertisement
-    </button>
-</form>
+<div class="row">
+    <form name="addAdvertisementForm" action="/advertisements"
+          method="post" enctype="multipart/form-data">
+        <input name="id" type="hidden" value="{{$ctrl.advertisement.id}}">
+        <table>
+            <tr>
+                <td>
+                    <p>Название *:</p>
+                    <p>Длина названия: {{$ctrl.advertisement.title.length}}</p>
+                    <p>Максимальная длина названия: 100</p>
+                </td>
+                <td>
+                    <input name="title" ng-model="$ctrl.advertisement.title" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Описание *:</p>
+                    <p>Длина описания: {{$ctrl.advertisement.description.length}}</p>
+                    <p>Максимальная длина описания: 1000</p>
+                </td>
+                <td>
+                    <textarea name="description" ng-model="$ctrl.advertisement.description" required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Дата истечения *:</p>
+                </td>
+                <td>
+                    <input type="date" name="expirationDate"
+                           ng-model="$ctrl.dateStr"
+                           min="{{$ctrl.dateNow | date:'yyyy-MM-dd'}}" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Главное фото *:</p>
+                </td>
+                <td>
+                    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
+                    <div ng-show="$ctrl.advertisement.id != null">
+                        <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}" style="max-width: 150px;">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn" ng-disabled="addAdvertisementForm.$invalid">
+            Добавить
+        </button>
+    </form>
+</div>

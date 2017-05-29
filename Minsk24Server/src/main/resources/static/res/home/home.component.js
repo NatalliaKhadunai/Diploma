@@ -31,6 +31,9 @@
                 $ctrl.openEventPage = function (event) {
                     $state.go('eventPage', {'eventId': event.id});
                 };
+                $ctrl.loadArticlesByTag = function (tag) {
+                    $state.go('articles', {'tag': tag.name});
+                };
                 $ctrl.getArticles();
                 $ctrl.getEvents();
                 $ctrl.getAdvertisements();

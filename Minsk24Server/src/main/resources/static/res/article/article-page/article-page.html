@@ -1,6 +1,3 @@
-<button ng-click="$ctrl.editArticle()">
-    Edit
-</button>
 <div class="row">
     <h3>{{$ctrl.article.title}}</h3>
 </div>
@@ -8,26 +5,40 @@
     <h5>{{$ctrl.article.shortDescription}}</h5>
 </div>
 <div class="row">
-    <h5>by <a href="" ng-click="$ctrl.getArticlesOfAuthor($ctrl.article.author)">
+    <h5>Автор: <a href="" ng-click="$ctrl.loadArticlesByAuthor($ctrl.article.author)">
         {{$ctrl.article.author.login}}</a>
-        at {{$ctrl.article.publishDate | date}}
+        добавил(а) в {{$ctrl.article.publishDate | date}}
     </h5>
 </div>
 <div class="row">
-    <span ng-repeat="tag in $ctrl.article.tags">{{tag.name}},</span>
+    <span ng-repeat="tag in $ctrl.article.tags">
+                <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
+            </span>
 </div>
 <div class="row">
-    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}" style="max-width: 300px;">
-</div>
-<p>{{$ctrl.article.content}}</p>
-<div ng-repeat="comment in $ctrl.article.comments">
-    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-        {{comment.publisher.login}}
-    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-    <p>{{comment.content}}</p>
+    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}"
+         style="max-width: 300px;" class="img-rounded">
 </div>
 <div class="row">
+    <button ng-click="$ctrl.editArticle()" class="btn btn-default">
+        Редактировать
+    </button>
+</div>
+<div class="row">
+    {{$ctrl.article.content}}
+</div>
+<div class="row">
+    <h3>Комментарии:</h3>
+    <div ng-repeat="comment in $ctrl.article.comments">
+        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+            {{comment.publisher.login}}
+        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+        <p>{{comment.content}}</p>
+    </div>
+</div>
+<div class="row">
+    <h3>Ваш комментарий:</h3>
     <textarea ng-model="$ctrl.comment.content">
     </textarea>
-    <button ng-click="$ctrl.addComment()">Add</button>
+    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
 </div>

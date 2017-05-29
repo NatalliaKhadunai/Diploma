@@ -1,17 +1,17 @@
 <div class="row">
-    <label>Name *:</label>
+    <label>Название *:</label>
     <input name="name" ng-model="$ctrl.tagName" required>
-    <p>Length: {{$ctrl.tagName.length}}</p>
-    <p>Max length: 30</p>
+    <p>Длина названия: {{$ctrl.tagName.length}}</p>
+    <p>Максимальная длина названия: 30</p>
     <button type="submit" class="btn" ng-disabled="addTagForm.$invalid"
             ng-click="$ctrl.addTag()">
-        Add tag
+        Добавить
     </button>
 </div>
-<p>Or choose tag to remove: </p>
+<p>Выберите тэг(и) для удаления: </p>
 <select multiple ng-model="$ctrl.chosenTags"
         ng-options="x.name for x in $ctrl.tags track by x.id">
 </select>
 <button ng-click="$ctrl.deleteTags()">
-    Delete tags
+    Удалить
 </button>

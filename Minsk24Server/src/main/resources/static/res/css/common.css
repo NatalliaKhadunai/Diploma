@@ -1,0 +1,15 @@
+.row {
+    margin-top: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.tr {
+    border-top: gray 1px;
+}
+
+.td {
+    padding-top: 10px;
+}

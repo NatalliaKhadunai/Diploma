@@ -1,5 +1,5 @@
 <div class="row">
-    <h2>Interesting articles for you:</h2>
+    <h2>Интересные новости для вас:</h2>
 </div>
 <div class="row">
     <div class="flex-container">
@@ -9,12 +9,15 @@
                 <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
             </p>
             <p>{{article.shortDescription}}</p>
-            <p>Publish date: {{article.publishDate | date}} {{article.tags}}</p>
+            <p>Дата публикации: {{article.publishDate | date}}</p>
+            <span ng-repeat="tag in article.tags">
+                <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
+            </span>
         </div>
     </div>
 </div>
 <div class="row">
-    <h2>Interesting events for you:</h2>
+    <h2>Топ рейтинговых предстоящих событий:</h2>
 </div>
 <div class="row">
     <div class="flex-container">
@@ -28,7 +31,7 @@
     </div>
 </div>
 <div class="row">
-    <h2>New advertisements:</h2>
+    <h2>Новые объявления:</h2>
 </div>
 <div class="row">
     <div class="flex-container">
@@ -39,13 +42,13 @@
                     {{advertisement.title}}
                 </a>
             </p>
-            <p>Placement date: {{advertisement.placementDate | date}}</p>
-            <p>Expiration date: {{advertisement.expirationDate | date}}</p>
+            <p>Дата добавления: {{advertisement.placementDate | date}}</p>
+            <p>Дата истечения: {{advertisement.expirationDate | date}}</p>
         </div>
     </div>
 </div>
 <div class="row">
-    <h2>Expiring advertisements:</h2>
+    <h2>Закрывающиеся объявления:</h2>
 </div>
 <div class="row">
     <div class="flex-container">
@@ -56,8 +59,8 @@
                     {{advertisement.title}}
                 </a>
             </p>
-            <p>Placement date: {{advertisement.placementDate | date}}</p>
-            <p>Expiration date: {{advertisement.expirationDate | date}}</p>
+            <p>Дата добавления: {{advertisement.placementDate | date}}</p>
+            <p>Дата истечения: {{advertisement.expirationDate | date}}</p>
         </div>
     </div>
 </div>

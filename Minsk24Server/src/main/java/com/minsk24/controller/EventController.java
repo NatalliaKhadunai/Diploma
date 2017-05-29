@@ -31,7 +31,8 @@ public class EventController {
                                      @RequestParam(required = false) Long time,
                                      @RequestParam(required = false) String location,
                                      @RequestParam(required = false)
-                                                 String sort) {
+                                                 String sort,
+                                     @RequestParam(required = false) Boolean past) {
         Timestamp timestamp = null;
         if (time != null) timestamp = new Timestamp(time);
         if (sort != null && sort.equals("rating")) {

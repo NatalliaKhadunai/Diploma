@@ -26,14 +26,15 @@
 <body ng-controller="loginCtrl as $ctrl" ng-cloak>
 <div class="container">
     <form method="POST" action="/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
-        <div class="alert alert-danger" ng-show="$ctrl.error">Invalid username or password</div>
+        <h2 class="form-heading">Вход</h2>
+        <div class="alert alert-danger" ng-show="$ctrl.error">Неверное имя пользователя или пароль</div>
         <input name="username" type="text" class="form-control" placeholder="Username"
                autofocus="true"/>
         <input name="password" type="password" class="form-control" placeholder="Password"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
     </form>
-    <a href="/registration">Registration</a>
+    <br>
+    <a href="/registration">Регистрация</a>
 </div>
 </body>
 </html>

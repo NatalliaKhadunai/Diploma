@@ -43,9 +43,10 @@ public class AccountController {
 
     @RequestMapping(value = "/users/{login}/exists", method = RequestMethod.GET)
     @ResponseBody
-    public void checkUserExists(@PathVariable String login) {
+    public boolean checkUserExists(@PathVariable String login) {
         Account account = accountService.getAccountByLogin(login);
-        if (account == null) throw new UserNotFoundException("User doesn't exist") ;
+        if (account == null) return false;
+        else return true;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

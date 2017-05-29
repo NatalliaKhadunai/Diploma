@@ -1,37 +1,37 @@
 <ul class="nav nav-tabs">
     <li ui-sref-active="home">
-        <a ui-sref="home">Home</a>
+        <a ui-sref="home">Главная</a>
     </li>
     <li ui-sref-active="articles">
-        <a ui-sref="articles">Articles</a>
+        <a href="" ng-click="$ctrl.goToArticles()">Новости</a>
     </li>
     <li ui-sref-active="advertisements">
-        <a ui-sref="advertisements">Advertisements</a>
+        <a href="" ng-click="$ctrl.goToAdvertisements()">Объявления</a>
     </li>
     <li ui-sref-active="events">
-        <a ui-sref="events">Events</a>
+        <a href="" ng-click="$ctrl.goToEvents()">События</a>
     </li>
     <li ui-sref-active="addAdvertisement">
-        <a ui-sref="addAdvertisement">Add Advertisement</a>
+        <a ui-sref="addAdvertisement">Добавить объявление</a>
     </li>
     <li ui-sref-active="users"
         ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="users">Users</a>
+        <a ui-sref="users">Пользователи</a>
     </li>
     <li ui-sref-active="addArticle"
         ng-show="$ctrl.currentUser.role==='ADMIN' || $ctrl.currentUser.role==='AUTHOR'">
-        <a ui-sref="addArticle">Add Article</a>
+        <a ui-sref="addArticle">Добавить новость</a>
     </li>
     <li ui-sref-active="addEvent"
         ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="addEvent">Add Event</a>
+        <a ui-sref="addEvent">Добавить событие</a>
     </li>
     <li ui-sref-active="addRemoveTag"
         ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="addRemoveTag">Add/Remove Tag</a>
+        <a ui-sref="addRemoveTag">Добавить/Удалить тэг</a>
     </li>
-    <li ui-sref-active="userPage">
-        <a ui-sref="userPage.recentActions">My page</a>
+    <li>
+        <a ui-sref="userPage.recentActions">Моя страница</a>
     </li>
-    <li><a href="/logout">Logout</a></li>
+    <li><a href="/logout">Выйти</a></li>
 </ul>

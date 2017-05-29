@@ -17,8 +17,11 @@
                 $ctrl.editArticle = function() {
                     $state.go('addArticle', { 'article' : $ctrl.article });
                 };
-                $ctrl.getArticlesOfAuthor = function (author) {
+                $ctrl.loadArticlesByAuthor = function (author) {
                     $state.go('articles', {'author': author.login});
+                };
+                $ctrl.loadArticlesByTag = function (tag) {
+                    $state.go('articles', {'tag': tag.name});
                 };
                 $ctrl.addComment = function () {
                     $http({

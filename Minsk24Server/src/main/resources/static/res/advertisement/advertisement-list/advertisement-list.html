@@ -3,12 +3,12 @@
         <button class="btn btn-default dropdown-toggle" type="button"
                 id="dropdownMenu1" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
-            Sort by
+            Сортировать по
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li><a href="" ng-click="$ctrl.changeSort('placementDate')">Placement date</a></li>
-            <li><a href="" ng-click="$ctrl.changeSort('expirationDate')">Expiration date</a></li>
+            <li><a href="" ng-click="$ctrl.changeSort('placementDate')">Дате добавления</a></li>
+            <li><a href="" ng-click="$ctrl.changeSort('expirationDate')">Дате истечения</a></li>
         </ul>
     </div>
 </div>
@@ -21,8 +21,8 @@
                     {{advertisement.title}}
                 </a>
             </p>
-            <p>Placement date: {{advertisement.placementDate | date}}</p>
-            <p>Expiration date: {{advertisement.expirationDate | date}}</p>
+            <p>Дата добавления: {{advertisement.placementDate | date}}</p>
+            <p>Дата истечения: {{advertisement.expirationDate | date}}</p>
         </div>
     </div>
 </div>

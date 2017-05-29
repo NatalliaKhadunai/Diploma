@@ -1,31 +1,62 @@
-<form name="addEventForm" action="/events" method="post" enctype="multipart/form-data">
-    <input name="id" type="hidden" value="{{$ctrl.event.id}}">
-    <label>Title *:</label>
-    <input name="title" ng-model="$ctrl.event.title" required>
-    <p>Length: {{$ctrl.event.title.length}}</p>
-    <p>Max length: 100</p>
-    <br>
-    <label>Location *:</label>
-    <input name="location" ng-model="$ctrl.event.location" required>
-    <p>Length: {{$ctrl.event.location.length}}</p>
-    <p>Max length: 100</p>
-    <br>
-    <label>Time *:</label>
-    <input name="time" type="datetime-local" ng-model="$ctrl.timeStr"
-           min="{{$ctrl.dateNow | date:'yyyy-MM-ddTHH:mm'}}" required>
-    <br>
-    <label>Description *:</label>
-    <textarea name="description" ng-model="$ctrl.event.description"
-              required></textarea>
-    <p>Length: {{$ctrl.event.description.length}}</p>
-    <p>Max length: 1000</p>
-    <br>
-    <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
-    <div ng-show="$ctrl.event.id != null">
-        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}" style="max-width: 300px;">
-    </div>
-    <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
-        Add event
-    </button>
-</form>
+<div class="row">
+    <form name="addEventForm" action="/events" method="post" enctype="multipart/form-data">
+        <input name="id" type="hidden" value="{{$ctrl.event.id}}">
+        <table>
+            <tr>
+                <td>
+                    <p>Название *:</p>
+                    <p>Длина названия: {{$ctrl.event.title.length}}</p>
+                    <p>Максимальная длина названия: 100</p>
+                </td>
+                <td>
+                    <input name="title" ng-model="$ctrl.event.title" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Место проведния *:</p>
+                    <p>Длина места проведения: {{$ctrl.event.location.length}}</p>
+                    <p>Максимальная длина места проведения: 100</p>
+                </td>
+                <td>
+                    <input name="location" ng-model="$ctrl.event.location" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Время проведения*:</p>
+                </td>
+                <td>
+                    <input name="time" type="datetime-local" ng-model="$ctrl.timeStr"
+                           min="{{$ctrl.dateNow | date:'yyyy-MM-ddTHH:mm'}}" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Описание *:</p>
+                    <p>Длина описания: {{$ctrl.event.description.length}}</p>
+                    <p>Максимальная длина описания: 1000</p>
+                </td>
+                <td>
+                    <textarea name="description" ng-model="$ctrl.event.description"
+                              required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Главное фото *:</p>
+                </td>
+                <td>
+                    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
+                    <div ng-show="$ctrl.event.id != null">
+                        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}"
+                             style="max-width: 150px;">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn" ng-disabled="addEventForm.$invalid">
+            Добавить
+        </button>
+    </form>
+</div>

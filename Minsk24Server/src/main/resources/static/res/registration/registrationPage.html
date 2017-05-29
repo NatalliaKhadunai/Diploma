@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create an account</title>
+    <title>Регистрация</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -21,9 +21,7 @@
                 $http
                     .get('/users/' + $ctrl.login + '/exists')
                     .then(function (response) {
-                        $ctrl.loginExists = true;
-                    }, function () {
-                        $ctrl.loginExists = false;
+                        $ctrl.loginExists = response.data;
                     });
             };
         });
@@ -42,24 +40,21 @@
 
 <div class="container">
     <form name="registrationForm" method="POST" action="/registration" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
+        <h2 class="form-signin-heading">Регистрация</h2>
+        <div class="alert alert-danger" ng-show="$ctrl.loginExists">Пользователь с таким логином уже существует</div>
         <input type="text" name="login" ng-model="$ctrl.login" ng-blur="$ctrl.checkLogin()"
-               class="form-control" placeholder="Username" required>
-        <p>Length: {{$ctrl.login.length}}</p>
-        <p>Max length: 30</p>
-        <div class="alert alert-danger" ng-show="$ctrl.loginExists">User with such username already exists</div>
-        <input type="password" name="password" ng-model="$ctrl.password" class="form-control"
+               class="form-control" placeholder="Логин" required>
+        <input type="password" name="Пароль" ng-model="$ctrl.password" class="form-control"
                placeholder="Password" required>
-        <p>Length: {{$ctrl.password.length}}</p>
-        <p>Max length: 30</p>
         <input type="password" name="passwordConfirm" class="form-control"
-               placeholder="Confirm your password" required>
+               placeholder="Повтор пароля" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit"
                 ng-disabled="$ctrl.usernameExists || registrationForm.$invalid">
-            Submit
+            Регистрация
         </button>
     </form>
-    <a href="/login">Login</a>
+    <br>
+    <a href="/login">Страница входа</a>
 </div>
 </body>
 </html>

@@ -1,33 +1,63 @@
-<form name="addArticleForm" action="/articles" method="post" enctype="multipart/form-data">
-    <input name="id" type="hidden" value="{{$ctrl.article.id}}">
-    <label>Title *:</label>
-    <input name="title" ng-model="$ctrl.article.title" required>
-    <p>Length: {{$ctrl.article.title.length}}</p>
-    <p>Max length: 100</p>
-    <br>
-    <label>Short title *:</label>
-    <input name="shortDescription" ng-model="$ctrl.article.shortDescription"
-           required>
-    <p>Length: {{$ctrl.article.shortDescription.length}}</p>
-    <p>Max length: 200</p>
-    <br>
-    <label>Content *:</label>
-    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
-    <p>Length: {{$ctrl.article.content.length}}</p>
-    <p>Max length: 2000</p>
-    <br>
-    <label>Tags *:</label>
-    <select multiple name="tags"
-            ng-options="x.name for x in $ctrl.tags track by x.id"
-            ng-model="$ctrl.article.tags" required>
-    </select>
-    <br>
-    <label>Main photo *:</label>
-    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
-    <div ng-show="$ctrl.article.id != null">
-        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}" style="max-width: 300px;">
-    </div>
-    <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
-        Add article
-    </button>
-</form>
+<div class="row">
+    <form name="addArticleForm" action="/articles" method="post" enctype="multipart/form-data">
+        <input name="id" type="hidden" value="{{$ctrl.article.id}}">
+        <table>
+            <tr>
+                <td>
+                    <p>Название *:</p>
+                    <p>Длина названия: {{$ctrl.article.title.length}}</p>
+                    <p>Максимальная длина названия: 100</p>
+                </td>
+                <td>
+                    <input name="title" ng-model="$ctrl.article.title" required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Краткое описание *:</p>
+                    <p>Длина краткого описания:
+                        {{$ctrl.article.shortDescription.length}}</p>
+                    <p>Максимальная длина краткого описания: 200</p>
+                </td>
+                <td>
+                    <input name="shortDescription" ng-model="$ctrl.article.shortDescription"
+                           required>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Содержание *:</p>
+                    <p>Длина содержания: {{$ctrl.article.content.length}}</p>
+                    <p>Максимальная длина содержания: 2000</p>
+                </td>
+                <td>
+                    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Тэги *:</p>
+                </td>
+                <td>
+                    <select multiple name="tags"
+                            ng-options="x.name for x in $ctrl.tags track by x.id"
+                            ng-model="$ctrl.article.tags" required></select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Главное фото *:</p>
+                </td>
+                <td>
+                    <input type="file" name="mainPhoto" ng-required="$ctrl.required">
+                    <div ng-show="$ctrl.article.id != null">
+                        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}" style="max-width: 150px;">
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" class="btn" ng-disabled="addArticleForm.$invalid">
+            Добавить
+        </button>
+    </form>
+</div>

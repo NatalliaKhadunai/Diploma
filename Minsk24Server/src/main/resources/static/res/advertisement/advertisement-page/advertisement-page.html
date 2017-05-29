@@ -1,32 +1,41 @@
-<button ng-click="$ctrl.editAdvertisement()">
-    Edit
-</button>
 <div class="row">
     <h3>{{$ctrl.advertisement.title}}</h3>
 </div>
 <div class="row">
-    <a href="" ng-click="$ctrl.getAdvertisementsOfHolder($ctrl.advertisement.holder)">
-        {{$ctrl.advertisement.holder.login}}
-    </a>
+    <span>Добавлено пользователем
+        <a href="" ng-click="$ctrl.getAdvertisementsOfHolder($ctrl.advertisement.holder)">
+            {{$ctrl.advertisement.holder.login}}
+        </a>
+    </span>
 </div>
 <div class="row">
-    <h5>Placement date: {{$ctrl.advertisement.placementDate | date}}</h5>
+    <h5>Дата добавления: {{$ctrl.advertisement.placementDate | date}}</h5>
+    <h5>Дата истечения: {{$ctrl.advertisement.expirationDate | date}}</h5>
 </div>
 <div class="row">
-    <h5>Expiration date: {{$ctrl.advertisement.expirationDate | date}}</h5>
+    <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
+         class="img-rounded" style="max-width: 300px;">
 </div>
 <div class="row">
-    <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}" style="max-width: 300px;">
-</div>
-<p>{{$ctrl.advertisement.description}}</p>
-<div ng-repeat="comment in $ctrl.advertisement.comments">
-    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-        {{comment.publisher.login}}
-    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-    <p>{{comment.content}}</p>
+    <button ng-click="$ctrl.editAdvertisement()" class="btn btn-default">
+        Редактировать
+    </button>
 </div>
 <div class="row">
+    {{$ctrl.advertisement.description}}
+</div>
+<div class="row">
+    <h3>Комментарии:</h3>
+    <div ng-repeat="comment in $ctrl.advertisement.comments">
+        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+            {{comment.publisher.login}}
+        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+        <p>{{comment.content}}</p>
+    </div>
+</div>
+<div class="row">
+    <h3>Ваш комментарий:</h3>
     <textarea ng-model="$ctrl.comment.content">
     </textarea>
-    <button ng-click="$ctrl.addComment()">Add</button>
+    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
 </div>

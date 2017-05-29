@@ -1,45 +1,47 @@
-<button ng-click="$ctrl.editEvent()">
-    Edit
-</button>
 <div class="row">
     <div ng-show="$ctrl.event.time > $ctrl.now">
-        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Won't go">Won't go</input>
-        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Don't know">Don't know</md-radio-button>
-        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Will go">Will go</input>
-        <button ng-click="$ctrl.sendUserBeforeEventRate()">Submit</button>
+        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Won't go">Не пойду</input>
+        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Will go">Пойду</input>
+        <button ng-click="$ctrl.sendUserBeforeEventRate()">Проголосовать</button>
     </div>
     <div ng-show="$ctrl.event.time < $ctrl.now">
-        <p>Rate event:</p>
+        <p>Оцените событие:</p>
         <input type="number" min="1" max="10" ng-model="$ctrl.afterEventRate">
-        <button ng-click="$ctrl.sendUserAfterEventRate()">Submit</button>
+        <button ng-click="$ctrl.sendUserAfterEventRate()">Оценить</button>
     </div>
 </div>
 <div class="row">
-    <div class="row">
-        <h3>{{$ctrl.event.title}}</h3>
-    </div>
-    <div class="row">
-        <a href="" ng-click="$ctrl.getEventsOfLocation($ctrl.event.location)">
-            {{$ctrl.event.location}}
-        </a>
-    </div>
-    <div class="row">
-        <a href="" ng-click="$ctrl.getEventsOfTime($ctrl.event.time)">
-            {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a>
-    </div>
-    <div class="row">
-        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}" style="max-width: 300px;">
-    </div>
-    <p>{{$ctrl.event.description}}</p>
+    <h3>{{$ctrl.event.title}}</h3>
 </div>
-<div ng-repeat="comment in $ctrl.event.comments">
-    <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-        {{comment.publisher.login}}
-    </a> {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-    <p>{{comment.content}}</p>
+<div class="row">
+    <a href="" ng-click="$ctrl.getEventsOfLocation($ctrl.event.location)">
+        Место: {{$ctrl.event.location}}
+    </a>
+</div>
+<div class="row">
+    <a href="" ng-click="$ctrl.getEventsOfTime($ctrl.event.time)">
+        Время: {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a>
+</div>
+<div class="row">
+    <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}"
+         style="max-width: 300px;" class="img-rounded">
+</div>
+<button ng-click="$ctrl.editEvent()" class="btn btn-default">
+    Редактировать
+</button>
+<div class="row">
+    {{$ctrl.event.description}}
+</div>
+<div class="row">
+    <div ng-repeat="comment in $ctrl.event.comments">
+        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+            {{comment.publisher.login}}
+        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+        <p>{{comment.content}}</p>
+    </div>
 </div>
 <div class="row">
     <textarea ng-model="$ctrl.comment.content">
     </textarea>
-    <button ng-click="$ctrl.addComment()">Add</button>
+    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
 </div>

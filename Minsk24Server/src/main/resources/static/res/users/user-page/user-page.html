@@ -1,17 +1,18 @@
 <div class="row">
-    <img src="res/img/account/{{$ctrl.user.photo + '.jpg'}}" style="max-width: 300px;">
-    <h3>{{$ctrl.user.login}}</h3>
-    <p>{{$ctrl.user.role}}</p>
+    <img src="res/img/account/{{$ctrl.user.photo + '.jpg'}}"
+         class="img-rounded" style="max-width: 300px;">
+    <h3>Имя пользователя: {{$ctrl.user.login}}</h3>
+    <p>Роль: {{$ctrl.user.role}}</p>
 </div>
 <ul class="nav nav-tabs">
     <li ui-sref-active="userPage.recentActions">
-        <a ui-sref="userPage.recentActions">Recent actions</a>
+        <a ui-sref="userPage.recentActions">Недавние действия</a>
     </li>
     <li ui-sref-active="userPage.settings" ng-show="$ctrl.isCurrent">
-        <a ui-sref="userPage.settings">Settings</a>
+        <a ui-sref="userPage.settings">Настройки</a>
     </li>
     <li ui-sref-active="userPage.advertisements">
-        <a ui-sref="userPage.advertisements">User advertisements</a>
+        <a ui-sref="userPage.advertisements">Объявления пользователя</a>
     </li>
 </ul>
 <ui-view></ui-view>
