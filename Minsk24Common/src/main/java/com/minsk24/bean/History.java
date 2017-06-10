@@ -13,9 +13,6 @@ public class History {
     private Integer id;
     @Column(name = "content", length = 4000)
     private String content;
-    @ElementCollection
-    @CollectionTable(name = "HISTORY_IMAGE")
-    private List<String> images = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -31,17 +28,5 @@ public class History {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public List<String> getImages() {
-        return images;
-    }
-
-    public void setImages(List<String> images) {
-        this.images = images;
-    }
-
-    public void addImage(String image) {
-        this.images.add(image);
     }
 }

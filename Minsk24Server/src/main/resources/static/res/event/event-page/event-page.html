@@ -1,61 +1,64 @@
-<div class="row">
-    <div ng-show="$ctrl.event.time > $ctrl.now">
-        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Won't go">Не пойду</input>
-        <input type="radio" ng-model="$ctrl.beforeEventRate" value="Will go">Пойду</input>
-        <button class="btn btn-default" ng-click="$ctrl.sendUserBeforeEventRate()">Проголосовать</button>
+<div class="col-md-8 col-md-offset-2">
+    <div class="row">
+        <div class="page-header">
+            <h3>{{$ctrl.event.title}}</h3>
+        </div>
+        <p>Место: <a href="" ng-click="$ctrl.getEventsOfLocation($ctrl.event.location)">
+            {{$ctrl.event.location}}</a></p>
+        <p>Время: <a href="" ng-click="$ctrl.getEventsOfTime($ctrl.event.time)">
+            {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a></p>
     </div>
-    <div ng-show="$ctrl.event.time < $ctrl.now">
+    <div class="row">
+        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}"
+             style="max-width: 300px;" class="img-rounded">
+    </div>
+    <div class="row" ng-show="$ctrl.user.role == 'ADMIN'">
+        <button ng-click="$ctrl.editEvent()" class="btn btn-default">
+            Редактировать
+        </button>
+        <button ng-click="$ctrl.removeEvent()" class="btn btn-default">
+            Удалить
+        </button>
+    </div>
+    <div class="row description">
+        {{$ctrl.event.description}}
+    </div>
+    <div class="row">
         <p>Оцените событие:</p>
-        <input type="number" min="1" max="10" ng-model="$ctrl.afterEventRate">
-        <button class="btn btn-default" ng-click="$ctrl.sendUserAfterEventRate()">Оценить</button>
+        <div ng-show="$ctrl.event.time > $ctrl.now">
+            <input type="radio" ng-model="$ctrl.beforeEventRate" value="Won't go">Не пойду</input>
+            <br><br>
+            <input type="radio" ng-model="$ctrl.beforeEventRate" value="Will go">Пойду</input>
+            <br><br>
+            <button class="btn btn-default" ng-click="$ctrl.sendUserBeforeEventRate()">Проголосовать</button>
+        </div>
+        <div ng-show="$ctrl.event.time < $ctrl.now">
+            <input type="number" min="1" max="10" ng-model="$ctrl.afterEventRate"> баллов
+            <br><br>
+            <button class="btn btn-default" ng-click="$ctrl.sendUserAfterEventRate()">Оценить</button>
+        </div>
     </div>
-</div>
-<div class="alert alert-success" id="success-alert"
-     hidden role="alert">Оценка добавлена!
-</div>
-<div class="alert alert-danger" id="danger-alert"
-     hidden role="alert">Оценка не добавлена! Вы уже проголосовали за данное событие
-</div>
-<div class="row">
-    <div class="page-header">
-        <h3>{{$ctrl.event.title}}</h3>
+    <div class="alert alert-success" id="success-alert"
+         hidden role="alert">Оценка добавлена!
     </div>
-</div>
-<div class="row">
-    Место: <a href="" ng-click="$ctrl.getEventsOfLocation($ctrl.event.location)">
-    {{$ctrl.event.location}}
-</a>
-</div>
-<div class="row">
-    Время: <a href="" ng-click="$ctrl.getEventsOfTime($ctrl.event.time)">
-    {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}
-</a>
-</div>
-<div class="row">
-    <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}"
-         style="max-width: 300px;" class="img-rounded">
-</div>
-<div class="row" ng-show="$ctrl.user.role == 'ADMIN'">
-    <button ng-click="$ctrl.editEvent()" class="btn btn-default">
-        Редактировать
-    </button>
-    <button ng-click="$ctrl.removeEvent()" class="btn btn-default">
-        Удалить
-    </button>
-</div>
-<div class="row description">
-    {{$ctrl.event.description}}
-</div>
-<div class="row">
-    <div ng-repeat="comment in $ctrl.event.comments">
-        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-            {{comment.publisher.login}}
-        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-        <p>{{comment.content}}</p>
+    <div class="alert alert-danger" id="danger-alert"
+         hidden role="alert">Оценка не добавлена! Вы уже проголосовали за данное событие
     </div>
-</div>
-<div class="row">
-    <textarea ng-model="$ctrl.comment.content">
-    </textarea>
-    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
+    <div class="row">
+        <h3>Комментарии:</h3>
+        <div ng-repeat="comment in $ctrl.event.comments">
+            <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+                {{comment.publisher.login}}
+            </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+            <p>{{comment.content}}</p>
+        </div>
+        <p ng-show="$ctrl.event.comments.length == 0">Комментариев пока нет</p>
+    </div>
+    <div class="row">
+        <h3>Ваш комментарий:</h3>
+        <textarea class="col-md-12" ng-model="$ctrl.comment.content"></textarea>
+        <br>
+        <button ng-click="$ctrl.addComment()"
+                class="btn btn-default" style="margin-top: 10px;">Добавить</button>
+    </div>
 </div>

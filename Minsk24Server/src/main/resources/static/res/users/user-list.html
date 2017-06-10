@@ -9,6 +9,7 @@
         <td>{{user.login}}</td>
         <td>{{user.role}}</td>
         <td>
+            <button class="btn" ng-click="$ctrl.removeUser(user)">Удалить пользователя</button>
             <label>Права автора:</label>
             <button class="btn" ng-click="$ctrl.addAuthorPermissions(user)">
                 Добавить
@@ -16,7 +17,13 @@
             <button class="btn" ng-click="$ctrl.removeAuthorPermissions(user)">
                 Удалить
             </button>
-            <button class="btn" ng-click="$ctrl.removeUser(user)">Удалить пользователя</button>
+            <label>Права администратора:</label>
+            <button class="btn" ng-click="$ctrl.addAdminPermissions(user)">
+                Добавить
+            </button>
+            <button class="btn" ng-click="$ctrl.removeAdminPermissions(user)">
+                Удалить
+            </button>
         </td>
     </tr>
     </tbody>

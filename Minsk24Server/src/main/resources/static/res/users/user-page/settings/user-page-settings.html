@@ -1,4 +1,4 @@
-<h3>Choose tags, that are interesting for you:</h3>
+<h3>Выберите теги интересные для вас:</h3>
 <div class="row">
     <button type="button" class="btn btn-default"
             ng-repeat="tag in $ctrl.tags"
@@ -13,10 +13,12 @@
         {{tag.name}}
     </button>
 </div>
-<h3>Choose another photo for your account:</h3>
+<h3>Поменяйте фото своего аккаунта:</h3>
+<br>
 <div class="row">
     <form action="/account/photo" method="post" enctype="multipart/form-data">
         <input type="file" name="file">
-        <input class="btn btn-default" type="submit">
+        <br>
+        <input class="btn btn-default" type="submit" value="Изменить">
     </form>
 </div>

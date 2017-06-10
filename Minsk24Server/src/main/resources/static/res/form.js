@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var images = [];
+    var chosenImage;
     function readURL(input) {
         if (input.files && input.files[0]) {
             images.push(input.files[0]);
@@ -8,16 +9,18 @@ $(document).ready(function () {
             reader.onload = function (e) {
                 //$('#image_upload_preview').attr('src', e.target.result);
                 let imgUrl = e.target.result;
-                var newImgElem = document.createElement('img');
+                let newImgElem = document.createElement('img');
                 newImgElem.setAttribute('src', imgUrl);
                 newImgElem.setAttribute('id', 'img' + images.length);
-                let newButtonElem = '<button class=\"btn btn-default\" ' +
-                    'ng-click=\"$ctrl.setChosenImage(\''
-                    + newImgElem.getAttribute('id') + '\')\">';
-                newButtonElem += newImgElem.outerHTML;
-                newButtonElem += '</button>';
+                let newButtonElem = document.createElement('button');
+                newButtonElem.setAttribute('class','btn btn-default');
+                newButtonElem.onclick = function () {
+                    chosenImage = this.childNodes[0].attributes['src'].nodeValue;
+                    console.log(this);
+                };
+                newButtonElem.appendChild(newImgElem);
                 var imgContainer = document.getElementById('imageContainer');
-                $('#imageContainer').append(newButtonElem);
+                imgContainer.appendChild(newButtonElem);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -57,5 +60,13 @@ $(document).ready(function () {
         });
 
         return false;
-    })
+    });
+    $('#insertImgButton').mousedown(function (e) {
+         e.preventDefault();
+    });
+    $('#insertImgButton').click(function (e) {
+        let newImgElem = document.createElement('img');
+        newImgElem.setAttribute('src', chosenImage);
+        document.execCommand('insertHTML', false, '<br>' + newImgElem.outerHTML + '<br>');
+    });
 });

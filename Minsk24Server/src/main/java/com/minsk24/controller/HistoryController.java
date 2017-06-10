@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,35 +23,42 @@ public class HistoryController {
     private HistoryService historyService;
 
     private History history;
+    private List<String> images = new ArrayList<>();
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public void addHistory(@RequestBody String historyContent) {
+    public String addHistory(@RequestBody String historyContent) {
         if (history == null) history = new History();
+        int i = 0;
+        while (historyContent.indexOf("INSERT_IMAGE_SRC") != -1) {
+            historyContent = historyContent.replaceFirst("INSERT_IMAGE_SRC", images.get(i));
+            i++;
+        }
         history.setContent(historyContent);
         historyService.addHistoryArticle(history);
+
+        history = null;
+        images.clear();
+
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/images", method = RequestMethod.POST)
     @ResponseBody
-    public void saveImage(MultipartHttpServletRequest request) {
-        /*if (history == null) {
+    public void saveImages(MultipartHttpServletRequest request) {
+        if (history == null) {
             history = new History();
             history = historyService.addHistoryArticle(history);
         }
-        imageService.saveImage(image,
-                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\history",
-                history.getId().toString() + "_" +
-                        Integer.toString(history.getImages().size()));
-        history.addImage("\\res\\img\\history\\" +
-                history.getId().toString() + "_" +
-                        Integer.toString(history.getImages().size()));
-        history = historyService.addHistoryArticle(history);
-        return history.getImages().get(history.getImages().size() - 1);*/
         Map<String, MultipartFile> map = request.getMultiFileMap().toSingleValueMap();
         map.remove("image");
-        for (Map.Entry<String, MultipartFile> entry :
-                request.getMultiFileMap().toSingleValueMap().entrySet()) {
-            System.out.println(entry.getValue().getOriginalFilename());
+        int i = 0;
+        for (Map.Entry<String, MultipartFile> entry : map.entrySet()) {
+            imageService.saveImage(entry.getValue(),
+                    "Minsk24Server\\src\\main\\resources\\static\\res\\img\\history",
+                    history.getId().toString() + "_" + i);
+            images.add("\\\\res\\\\img\\\\history\\\\" +
+                    history.getId().toString() + "_" + i + ".jpg");
+            i++;
         }
     }
 }

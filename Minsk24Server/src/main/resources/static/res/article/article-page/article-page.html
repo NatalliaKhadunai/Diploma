@@ -1,49 +1,57 @@
-<div class="row">
-    <div class="page-header">
-        <h2>{{$ctrl.article.title}} <small>
-            Автор: <a href=""
-                      ui-sref="userPage.articles({user : $ctrl.article.author})">
-            {{$ctrl.article.author.login}}</a>
-            добавил(а) в {{$ctrl.article.publishDate | date}}
-        </small></h2>
-    </div>
-</div>
-<div class="row">
-    <h4 class="description">{{$ctrl.article.shortDescription}}</h4>
-</div>
-<div class="row">
-    <span ng-repeat="tag in $ctrl.article.tags">
+<div class="col-md-8 col-md-offset-2">
+    <div class="row">
+        <div class="page-header">
+            <h3>{{$ctrl.article.title}}
+                <br>
+                <small>
+                    Автор: <a href=""
+                              ui-sref="userPage.articles({user : $ctrl.article.author})">
+                    {{$ctrl.article.author.login}}</a>
+                    добавил(а) в {{$ctrl.article.publishDate | date}}
+                </small>
+            </h3>
+        </div>
+        <div class="row col-md-8">
+            <span ng-repeat="tag in $ctrl.article.tags">
                 <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
             </span>
-</div>
-<div class="row">
-    <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}"
-         style="max-width: 300px;" class="img-rounded">
-</div>
-<div class="row" ng-show="$ctrl.user.login == $ctrl.article.author.login ||
-$ctrl.user.role == 'ADMIN'">
-    <button ng-click="$ctrl.editArticle()" class="btn btn-default">
-        Редактировать
-    </button>
-    <button ng-click="$ctrl.removeArticle()" class="btn btn-default">
-        Удалить
-    </button>
-</div>
-<div class="row description">
-    {{$ctrl.article.content}}
-</div>
-<div class="row">
-    <h3>Комментарии:</h3>
-    <div ng-repeat="comment in $ctrl.article.comments">
-        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-            {{comment.publisher.login}}
-        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-        <p>{{comment.content}}</p>
+        </div>
+        <div class="row col-md-12">
+            <h4 class="description">{{$ctrl.article.shortDescription}}</h4>
+        </div>
     </div>
-</div>
-<div class="row">
-    <h3>Ваш комментарий:</h3>
-    <textarea ng-model="$ctrl.comment.content">
-    </textarea>
-    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
+    <div class="row">
+        <img src="res/img/article/{{$ctrl.article.id + '.jpg'}}"
+             style="max-width: 300px;" class="img-rounded">
+    </div>
+    <div class="row" ng-show="$ctrl.user.login == $ctrl.article.author.login ||
+$ctrl.user.role == 'ADMIN'">
+        <button ng-click="$ctrl.editArticle()" class="btn btn-default">
+            Редактировать
+        </button>
+        <button ng-click="$ctrl.removeArticle()" class="btn btn-default">
+            Удалить
+        </button>
+    </div>
+    <div class="row description">
+        {{$ctrl.article.content}}
+    </div>
+    <div class="row">
+        <h3>Комментарии:</h3>
+        <div ng-repeat="comment in $ctrl.article.comments">
+            <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+                {{comment.publisher.login}}
+            </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+            <p>{{comment.content}}</p>
+        </div>
+        <p ng-show="$ctrl.article.comments.length == 0">Комментариев пока нет</p>
+    </div>
+    <div class="row">
+        <h3>Ваш комментарий:</h3>
+        <textarea class="col-md-12" ng-model="$ctrl.comment.content"></textarea>
+        <br>
+        <button ng-click="$ctrl.addComment()"
+                class="btn btn-default" style="margin-top: 10px;">Добавить
+        </button>
+    </div>
 </div>

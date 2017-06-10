@@ -28,10 +28,14 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="event in $ctrl.events"
              ng-class="$ctrl.isPast(event)">
-            <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p class="title">
-                <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
-            </p>
+                <div class="image">
+                    <img src="res/img/event/{{event.id + '.jpg'}}">
+                    <h6>
+                        <a ng-click="$ctrl.openEventPage(event)">
+                            <span>{{event.title}}</span>
+                        </a>
+                    </h6>
+                </div>
             <p>Место: {{event.location}}</p>
         </div>
     </div>
@@ -44,15 +48,4 @@
             </li>
         </ul>
     </nav>
-</div>
-<div class="row">
-    <div class="flex-container">
-        <div class="flex-block" ng-repeat="event in $ctrl.pastTopRatedEvents">
-            <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p>
-                <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
-            </p>
-            <p>{{event.location}}</p>
-        </div>
-    </div>
 </div>

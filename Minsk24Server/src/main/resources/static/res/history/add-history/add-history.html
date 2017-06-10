@@ -1,5 +1,7 @@
 <textarea ng-model="$ctrl.text" style="width: 100%;"></textarea>
-<div id="historyText">{{$ctrl.text}}</div>
+<div id="historyText">
+    <div>{{$ctrl.text}}</div>
+</div>
 <button ng-mousedown="$ctrl.preventDefault()"
         ng-click="$ctrl.makeSelectedBold()">
     <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
@@ -18,8 +20,7 @@
     <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
     <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 </button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.insertImage()">
+<button id="insertImgButton">
     <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
 </button>
 <button ng-mousedown="$ctrl.preventDefault()"
@@ -31,6 +32,10 @@
         ng-click="$ctrl.insertLink()">
     Link
     </span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.insertBr()">
+    <span>Paragraph</span>
 </button>
 <input name="image" id="imageInput" type="file"/>
 <button id="imageUpload" class="btn btn-default">Upload</button>

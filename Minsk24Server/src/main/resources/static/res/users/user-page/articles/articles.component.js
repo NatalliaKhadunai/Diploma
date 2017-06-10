@@ -6,6 +6,7 @@
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.user = {};
+                $ctrl.showToolbar = false;
                 $ctrl.getUser = function () {
                     if (typeof $stateParams['user'].login != 'undefined') {
                         $ctrl.user = $stateParams['user'];
@@ -39,6 +40,9 @@
                 };
                 $ctrl.loadArticlesByPage = function (page) {
                     $state.go('userPage.articles', {page : page});
+                };
+                $ctrl.loadArticlesByTag = function (tag) {
+                    $state.go('articles', {'tag': tag.name});
                 };
                 $ctrl.getPageCount = function () {
                     let params = $ctrl.defineParams();

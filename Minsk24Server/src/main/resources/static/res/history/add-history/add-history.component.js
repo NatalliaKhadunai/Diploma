@@ -3,22 +3,11 @@
     angular.module('app')
         .component('addHistory', {
             templateUrl: 'res/history/add-history/add-history.html',
-            controller: function($state, $stateParams, $http) {
+            controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.text = '';
                 document.designMode = 'on';
                 $ctrl.headingNum = 6;
-                $ctrl.chosenImage = '';
-                $ctrl.images = [];
-                $ctrl.getSelectionText = function() {
-                    let text = "";
-                    if (window.getSelection) {
-                        text = window.getSelection().toString();
-                    } else if (document.selection && document.selection.type != "Control") {
-                        text = document.selection.createRange().text;
-                    }
-                    return text;
-                };
                 $ctrl.preventDefault = function () {
                     event.preventDefault();
                 };
@@ -42,12 +31,13 @@
                         document.execCommand('formatBlock', false, heading);
                     }
                 };
-                $ctrl.insertImage = function () {
-                    document.execCommand('insertHTML', false,  $ctrl.chosenImage);
-                };
                 $ctrl.addHistory = function () {
-                    let data = document.getElementById('historyText').innerHTML;
-                    $http.post('/history/add', data).then(function () {
+                    let data = document.getElementById('historyText');
+                    let images = data.getElementsByTagName('img');
+                    for (let i = 0; i < images.length; i++) {
+                        images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
+                    }
+                    $http.post('/history/add', data.outerHTML).then(function () {
 
                     });
                 };
@@ -59,6 +49,9 @@
                 };
                 $ctrl.insertLink = function () {
                     document.execCommand('createLink', false, $ctrl.link);
+                };
+                $ctrl.insertBr = function () {
+                    document.execCommand('insertBrOnReturn', false, null);
                 };
             }
         });

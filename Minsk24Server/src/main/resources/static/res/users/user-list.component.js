@@ -26,6 +26,24 @@
                                 + 'Message : ' + response.data.developerMessage);
                         });
                 };
+                $ctrl.addAdminPermissions = function (user) {
+                    $http.post('admin/users/ ' + user.login + '/addAdminPermissions')
+                        .then(function () {
+                            user.role = 'ADMIN';
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
+                        });
+                };
+                $ctrl.removeAdminPermissions = function (user) {
+                    $http.post('admin/users/' + user.login + '/removeAdminPermissions')
+                        .then(function () {
+                            user.role = 'GUEST';
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
+                        });
+                };
                 $ctrl.removeUser = function (user) {
                     $http({
                         url: '/admin/users/' + user.login,

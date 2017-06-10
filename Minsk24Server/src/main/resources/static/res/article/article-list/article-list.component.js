@@ -8,6 +8,7 @@
                 $ctrl.showOnlyInteresting =
                     typeof $stateParams['interesting'] != 'undefined' ?
                         $stateParams['interesting'] : false;
+                $ctrl.showToolbar = true;
                 $ctrl.getArticles = function () {
                     let params = $ctrl.defineParams();
                     $http.get('/articles', {params: params})

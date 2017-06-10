@@ -4,10 +4,14 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="article in $ctrl.articles">
-            <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
-            <p class="title">
-                <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
-            </p>
+            <div class="image">
+                <img src="res/img/article/{{article.id + '.jpg'}}">
+                <h6>
+                    <a ng-click="$ctrl.openArticlePage(article)">
+                        <span>{{article.title}}</span>
+                    </a>
+                </h6>
+            </div>
             <p class="description">{{article.shortDescription}}</p>
             <p>Дата публикации: {{article.publishDate | date}}</p>
             <span ng-repeat="tag in article.tags">
@@ -22,11 +26,15 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="event in $ctrl.upcomingEvents">
-            <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p class="title">
-                <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
-            </p>
-            <p>{{event.location}}</p>
+            <div class="image">
+                <img src="res/img/event/{{event.id + '.jpg'}}">
+                <h6>
+                    <a ng-click="$ctrl.openEventPage(event)">
+                        <span>{{event.title}}</span>
+                    </a>
+                </h6>
+            </div>
+            <p>Место: {{event.location}}</p>
         </div>
     </div>
 </div>
@@ -36,11 +44,15 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="event in $ctrl.pastEvents">
-            <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p class="title">
-                <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
-            </p>
-            <p>{{event.location}}</p>
+            <div class="image">
+                <img src="res/img/event/{{event.id + '.jpg'}}">
+                <h6>
+                    <a ng-click="$ctrl.openEventPage(event)">
+                        <span>{{event.title}}</span>
+                    </a>
+                </h6>
+            </div>
+            <p>Место: {{event.location}}</p>
         </div>
     </div>
 </div>
@@ -50,7 +62,7 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="advertisement in $ctrl.expiringAdvertisements">
-            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
+            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}">
             <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}

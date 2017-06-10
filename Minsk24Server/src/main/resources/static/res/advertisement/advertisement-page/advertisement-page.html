@@ -1,45 +1,49 @@
-<div class="row">
-    <div class="page-header">
-        <h3>{{$ctrl.advertisement.title}}</h3>
-        <small>
-            Автор: <a href=""
-                      ui-sref="userPage.advertisements({user : $ctrl.advertisement.holder})">
-            {{$ctrl.advertisement.holder.login}}</a>
-        </small>
+<div class="col-md-8 col-md-offset-2">
+    <div class="row">
+        <div class="page-header">
+            <h3>{{$ctrl.advertisement.title}}
+                <br>
+                <small>
+                    Автор: <a href=""
+                              ui-sref="userPage.advertisements({user : $ctrl.advertisement.holder})">
+                    {{$ctrl.advertisement.holder.login}}</a>
+                </small>
+            </h3>
+        </div>
+        <h5>Дата добавления: {{$ctrl.advertisement.placementDate | date}}</h5>
+        <h5>Дата истечения: {{$ctrl.advertisement.expirationDate | date}}</h5>
     </div>
-</div>
-<div class="row">
-    <h5>Дата добавления: {{$ctrl.advertisement.placementDate | date}}</h5>
-    <h5>Дата истечения: {{$ctrl.advertisement.expirationDate | date}}</h5>
-</div>
-<div class="row">
-    <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
-         class="img-rounded" style="max-width: 300px;">
-</div>
-<div class="row" ng-show="$ctrl.user.login == $ctrl.advertisement.holder.login ||
+    <div class="row">
+        <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
+             class="img-rounded" style="max-width: 300px;">
+    </div>
+    <div class="row" ng-show="$ctrl.user.login == $ctrl.advertisement.holder.login ||
 $ctrl.user.role == 'ADMIN'">
-    <button ng-click="$ctrl.editAdvertisement()" class="btn btn-default">
-        Редактировать
-    </button>
-    <button ng-click="$ctrl.removeAdvertisement()" class="btn btn-default">
-        Удалить
-    </button>
-</div>
-<div class="row description">
-    {{$ctrl.advertisement.description}}
-</div>
-<div class="row">
-    <h3>Комментарии:</h3>
-    <div ng-repeat="comment in $ctrl.advertisement.comments">
-        <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
-            {{comment.publisher.login}}
-        </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
-        <p>{{comment.content}}</p>
+        <button ng-click="$ctrl.editAdvertisement()" class="btn btn-default">
+            Редактировать
+        </button>
+        <button ng-click="$ctrl.removeAdvertisement()" class="btn btn-default">
+            Удалить
+        </button>
     </div>
-</div>
-<div class="row">
-    <h3>Ваш комментарий:</h3>
-    <textarea ng-model="$ctrl.comment.content">
-    </textarea>
-    <button ng-click="$ctrl.addComment()" class="btn btn-default">Добавить</button>
+    <div class="row description">
+        {{$ctrl.advertisement.description}}
+    </div>
+    <div class="row">
+        <h3>Комментарии:</h3>
+        <div ng-repeat="comment in $ctrl.advertisement.comments">
+            <p><a href="" ui-sref="userPage.recentActions({user : comment.publisher})">
+                {{comment.publisher.login}}
+            </a> в {{comment.publishDate | date : "M/d/yy h:mm a"}}</p>
+            <p>{{comment.content}}</p>
+        </div>
+        <p ng-show="$ctrl.advertisement.comments.length == 0">Комментариев пока нет</p>
+    </div>
+    <div class="row">
+        <h3>Ваш комментарий:</h3>
+        <textarea class="col-md-12" ng-model="$ctrl.comment.content"></textarea>
+        <br>
+        <button ng-click="$ctrl.addComment()"
+                class="btn btn-default" style="margin-top: 10px;">Добавить</button>
+    </div>
 </div>

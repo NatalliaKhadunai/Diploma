@@ -5,7 +5,7 @@
             templateUrl: 'res/advertisement/advertisement-list/advertisement-list.html',
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
-                console.log($state.current);
+                $ctrl.showToolbar = true;
                 $ctrl.openAdvertisementPage = function (advertisement) {
                     $state.go('advertisementPage', {'advertisementId': advertisement.id});
                 };
