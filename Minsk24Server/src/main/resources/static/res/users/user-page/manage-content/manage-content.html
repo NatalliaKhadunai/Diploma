@@ -1,0 +1,17 @@
+<ul>
+    <li ng-show="$ctrl.user.role==='ADMIN'">
+        <a ui-sref="users">Пользователи</a>
+    </li>
+    <li>
+        <a ui-sref="addArticle">Добавить новость</a>
+    </li>
+    <li>
+        <a ui-sref="addRemoveTag">Добавить/Удалить тэг</a>
+    </li>
+    <li ng-show="$ctrl.user.role==='ADMIN'">
+        <a ui-sref="addEvent">Добавить событие</a>
+    </li>
+    <li ng-show="$ctrl.user.role==='ADMIN'">
+        <a ui-sref="addHistory">История</a>
+    </li>
+</ul>

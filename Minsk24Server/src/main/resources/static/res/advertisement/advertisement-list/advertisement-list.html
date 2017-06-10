@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="dropdown">
+    <div class="btn-group">
         <button class="btn btn-default dropdown-toggle" type="button"
                 id="dropdownMenu1" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="true">
@@ -11,12 +11,24 @@
             <li><a href="" ng-click="$ctrl.changeSort('expirationDate')">Дате истечения</a></li>
         </ul>
     </div>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="$ctrl.searchKeyword"
+                   placeholder="Поиск...">
+            <span class="input-group-btn">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <button class="btn btn-default" type="button"
+                        ng-click="$ctrl.search()">Поиск</button>
+            </span>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="flex-container">
-        <div class="flex-block" ng-repeat="advertisement in $ctrl.advertisements">
+        <div class="flex-block" ng-repeat="advertisement in $ctrl.advertisements"
+        ng-class="$ctrl.isExpired(advertisement)">
             <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}
                 </a>

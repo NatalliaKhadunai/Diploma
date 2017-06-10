@@ -13,4 +13,7 @@ public interface AdvertisementRepository extends PagingAndSortingRepository<Adve
     List<Advertisement> findByHolder(Account account, Pageable pageable);
     Integer countByHolder(Account account);
     List<Advertisement> findByExpirationDateGreaterThan(Date today, Pageable pageable);
+    Integer countByExpirationDateGreaterThan(Date today);
+    List<Advertisement> findByTitleIgnoreCaseContaining(String keyword, Pageable pageable);
+    Integer countByTitleIgnoreCaseContaining(String keyword);
 }

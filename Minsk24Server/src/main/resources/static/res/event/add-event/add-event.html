@@ -9,7 +9,12 @@
                     <p>Максимальная длина названия: 100</p>
                 </td>
                 <td>
-                    <input name="title" ng-model="$ctrl.event.title" required>
+                    <input name="title" ng-model="$ctrl.event.title"
+                           pattern=".{1,100}" required>
+                    <div class="alert alert-danger" ng-show="addEventForm.title.$touched
+                    && addEventForm.title.$invalid">
+                        Неверный ввод для поля Название
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -19,7 +24,12 @@
                     <p>Максимальная длина места проведения: 100</p>
                 </td>
                 <td>
-                    <input name="location" ng-model="$ctrl.event.location" required>
+                    <input name="location" ng-model="$ctrl.event.location"
+                           pattern=".{1,100}" required>
+                    <div class="alert alert-danger" ng-show="addEventForm.location.$touched
+                    && addEventForm.location.$invalid">
+                        Неверный ввод для поля Место проведения
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -39,7 +49,11 @@
                 </td>
                 <td>
                     <textarea name="description" ng-model="$ctrl.event.description"
-                              required></textarea>
+                              pattern=".{1,1000}" required></textarea>
+                    <div class="alert alert-danger" ng-show="addEventForm.description.$touched
+                    && addEventForm.description.$invalid">
+                        Неверный ввод для поля Описание
+                    </div>
                 </td>
             </tr>
             <tr>

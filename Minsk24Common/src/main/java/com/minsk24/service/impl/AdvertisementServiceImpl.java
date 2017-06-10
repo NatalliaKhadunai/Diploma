@@ -49,10 +49,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 
     @Override
     public Iterable<Advertisement> getAdvertisements(Integer pageNum) {
-        Date date = new Date(System.currentTimeMillis());
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
                 new Sort(Sort.Direction.DESC, "placementDate"));
-        return advertisementDAO.findByExpirationDateGreaterThan(date, pageRequest);
+        return advertisementDAO.findAll(pageRequest).getContent();
     }
 
     @Override
@@ -83,5 +82,29 @@ public class AdvertisementServiceImpl implements AdvertisementService {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
                 new Sort(Sort.Direction.ASC, "expirationDate"));
         return advertisementDAO.findByExpirationDateGreaterThan(date, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfExpiringAdvertisements() {
+        return (int)Math.ceil((double)advertisementDAO
+                        .countByExpirationDateGreaterThan(new Date(System.currentTimeMillis()))
+                        / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Advertisement> searchByKeyword(String keyword, Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "expirationDate"));
+        return advertisementDAO.findByTitleIgnoreCaseContaining(keyword, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfAdvertisementsSearchByKeyword(String keyword) {
+        return (int)Math.ceil((double)advertisementDAO.countByTitleIgnoreCaseContaining(keyword) / PAGE_SIZE);
+    }
+
+    @Override
+    public void removeAdvertisement(Advertisement advertisement) {
+        advertisementDAO.delete(advertisement);
     }
 }

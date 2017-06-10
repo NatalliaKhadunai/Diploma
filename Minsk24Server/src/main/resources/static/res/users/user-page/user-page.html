@@ -14,5 +14,13 @@
     <li ui-sref-active="userPage.advertisements">
         <a ui-sref="userPage.advertisements">Объявления пользователя</a>
     </li>
+    <li ui-sref-active="userPage.articles"
+        ng-show="$ctrl.user.role =='ADMIN' || $ctrl.user.role =='AUTHOR'">
+        <a ui-sref="userPage.articles">Статьи пользователя</a>
+    </li>
+    <li ui-sref-active="userPage.manageContent"
+        ng-show="$ctrl.isCurrent && ($ctrl.user.role==='ADMIN' || $ctrl.user.role==='AUTHOR')">
+        <a ui-sref="userPage.manageContent">Управление контентом</a>
+    </li>
 </ul>
 <ui-view></ui-view>

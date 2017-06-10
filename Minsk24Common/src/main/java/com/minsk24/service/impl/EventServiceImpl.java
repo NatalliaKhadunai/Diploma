@@ -52,8 +52,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public Iterable<Event> getEvents(Integer pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
-                new Sort(Sort.Direction.ASC, "time"));
-        return eventDAO.findByTimeGreaterThan(new Date(System.currentTimeMillis()), pageRequest);
+                new Sort(Sort.Direction.DESC, "time"));
+        return eventDAO.findAll(pageRequest).getContent();
     }
 
     @Override
@@ -71,14 +71,14 @@ public class EventServiceImpl implements EventService {
         Date today = getTodayDate(timestamp);
         Date tomorrow = getTomorrowDate(timestamp);
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
-                new Sort(Sort.Direction.ASC, "time"));
+                new Sort(Sort.Direction.DESC, "time"));
         return eventDAO.findByTimeBetween(today, tomorrow, pageRequest);
     }
 
     @Override
     public List<Event> getEventByLocation(String location, Integer pageNum) {
         PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
-                new Sort(Sort.Direction.ASC, "time"));
+                new Sort(Sort.Direction.DESC, "time"));
         return eventDAO.findByLocationIgnoreCaseContaining(location, pageRequest);
     }
 
@@ -117,6 +117,85 @@ public class EventServiceImpl implements EventService {
         int endIndex = pageNum * PAGE_SIZE;
         return eventDAO.findTopRatedUpcomingEventsByLocation("%" + location + "%",
                 startIndex, endIndex);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedUpcomingEvents() {
+        return (int)Math.ceil((double)eventDAO.countTopRatedUpcomingEvents() / PAGE_SIZE);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedUpcomingEventsByTime(Timestamp timestamp) {
+        Date today = getTodayDate(timestamp);
+        Date tomorrow = getTomorrowDate(timestamp);
+        return (int)Math.ceil((double)eventDAO
+                .countTopRatedUpcomingEventsByTime(today.toString(), tomorrow.toString()) / PAGE_SIZE);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedUpcomingEventsByLocation(String location) {
+        return (int)Math.ceil((double)eventDAO
+                .countTopRatedUpcomingEventsByLocation(location) / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Event> searchByKeyword(String keyword, Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "time"));
+        return eventDAO.findByTitleIgnoreCaseContaining(keyword, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfEventsSearchByKeyword(String keyword) {
+        return (int)Math.ceil((double)eventDAO.countByTitleIgnoreCaseContaining(keyword) / PAGE_SIZE);
+    }
+
+    @Override
+    public List<Event> getTopRatedPastEvents(Integer pageNum) {
+        int startIndex = (pageNum - 1) * PAGE_SIZE;
+        int endIndex = pageNum * PAGE_SIZE;
+        return eventDAO.findTopRatedPastEvents(startIndex, endIndex);
+    }
+
+    @Override
+    public List<Event> getTopRatedPastEventsByTime(Timestamp timestamp, Integer pageNum) {
+        int startIndex = (pageNum - 1) * PAGE_SIZE;
+        int endIndex = pageNum * PAGE_SIZE;
+        Date today = getTodayDate(timestamp);
+        Date tomorrow = getTomorrowDate(timestamp);
+        return eventDAO.findTopRatedPastEventsByTime(today.toString(),
+                tomorrow.toString(), startIndex, endIndex);
+    }
+
+    @Override
+    public List<Event> getTopRatedPastEventsByLocation(String location, Integer pageNum) {
+        int startIndex = (pageNum - 1) * PAGE_SIZE;
+        int endIndex = pageNum * PAGE_SIZE;
+        return eventDAO.findTopRatedPastEventsByLocation(location, startIndex, endIndex);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedPastEvents() {
+        return (int)Math.ceil((double)eventDAO.countTopRatedPastEvents() / PAGE_SIZE);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedPastEventsByTime(Timestamp timestamp) {
+        Date today = getTodayDate(timestamp);
+        Date tomorrow = getTomorrowDate(timestamp);
+        return (int)Math.ceil((double)eventDAO
+                .countTopRatedPastEventsByTime(today.toString(), tomorrow.toString()) / PAGE_SIZE);
+    }
+
+    @Override
+    public Integer getNumberOfTopRatedPastEventsByLocation(String location) {
+        return (int)Math.ceil((double)eventDAO
+                .countTopRatedPastEventsByLocation(location) / PAGE_SIZE);
+    }
+
+    @Override
+    public void removeEvent(Event event) {
+        eventDAO.delete(event);
     }
 
     private Date getTodayDate(Timestamp timestamp) {

@@ -13,31 +13,39 @@
                     $http.get('/events', {params: params})
                         .then(function (response) {
                             $ctrl.events = response.data;
-                        });
-                };
-                $ctrl.getPastTopRatedEvents = function () {
-                    let params = $ctrl.defineParams();
-                    params.past = true;
-                    $http.get('/events', {params: params})
-                        .then(function (response) {
-                            $ctrl.pastTopRatedEvents = response.data;
+                            $ctrl.getPageCount();
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
                         });
                 };
                 $ctrl.loadEventsByPage = function (page) {
-                    $state.go('events', {page : page});
+                    $state.go('events', {page: page});
                 };
                 $ctrl.getPageCount = function () {
                     let params = $ctrl.defineParams();
                     $http.get('/events/count/', {params: params})
                         .then(function (response) {
                             $ctrl.pageCount = response.data;
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
                         });
                 };
                 $ctrl.getPageNumber = function () {
                     return new Array($ctrl.pageCount);
                 };
                 $ctrl.changeSort = function (sort) {
-                    $state.go('events', {page : 1, sort: sort});
+                    $state.go('events', {page: 1, sort: sort});
+                };
+                $ctrl.search = function () {
+                    $state.go('search', {scope : 'event',
+                        keyword : $ctrl.searchKeyword});
+                };
+                $ctrl.isPast = function (event) {
+                    let now = new Date();
+                    let eventTime = new Date(event.time);
+                    if (eventTime < now) return 'expired';
                 };
                 $ctrl.defineParams = function () {
                     let params = {};
@@ -53,7 +61,6 @@
                     return params;
                 };
                 $ctrl.getEvents();
-                $ctrl.getPageCount();
             }
         });
 })();

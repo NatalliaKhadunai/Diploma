@@ -1,22 +1,22 @@
 (function () {
     'use strict';
     angular.module('app')
-        .component('userPageAdvertisements', {
-            templateUrl: 'res/advertisement/advertisement-list/advertisement-list.html',
+        .component('userPageArticles', {
+            templateUrl: 'res/article/article-list/article-list.html',
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.user = {};
                 $ctrl.getUser = function () {
                     if (typeof $stateParams['user'].login != 'undefined') {
                         $ctrl.user = $stateParams['user'];
-                        $ctrl.getAdvertisements();
+                        $ctrl.getArticles();
                         $ctrl.getPageCount();
                     }
                     else {
                         $http.get('/currentUser')
                             .then(function (response) {
                                 $ctrl.user = response.data;
-                                $ctrl.getAdvertisements();
+                                $ctrl.getArticles();
                                 $ctrl.getPageCount();
                             }, function (response) {
                                 alert('Status code : ' + response.data.httpStatusCode + '\n'
@@ -24,25 +24,25 @@
                             });
                     }
                 };
-                $ctrl.openAdvertisementPage = function (advertisement) {
-                    $state.go('advertisementPage', {'advertisementId': advertisement.id});
+                $ctrl.openArticlePage = function (article) {
+                    $state.go('articlePage', {'articleId': article.id});
                 };
-                $ctrl.getAdvertisements = function () {
+                $ctrl.getArticles = function () {
                     let params = $ctrl.defineParams();
-                    $http.get('/advertisements', {params: params})
+                    $http.get('/articles', {params: params})
                         .then(function (response) {
-                            $ctrl.advertisements = response.data;
+                            $ctrl.articles = response.data;
                         }, function (response) {
                             alert('Status code : ' + response.data.httpStatusCode + '\n'
                                 + 'Message : ' + response.data.developerMessage);
                         });
                 };
-                $ctrl.loadAdvertisementsByPage = function (page) {
-                    $state.go('userPage.advertisements', {page: page});
+                $ctrl.loadArticlesByPage = function (page) {
+                    $state.go('userPage.articles', {page : page});
                 };
                 $ctrl.getPageCount = function () {
                     let params = $ctrl.defineParams();
-                    $http.get('/advertisements/count/', {params: params})
+                    $http.get('/articles/count/', {params: params})
                         .then(function (response) {
                             $ctrl.pageCount = response.data;
                         }, function (response) {
@@ -58,7 +58,7 @@
                     if (typeof $stateParams['page'] != 'undefined')
                         params.page = $stateParams['page'];
                     else params.page = 1;
-                    params.holder = $ctrl.user.login;
+                    params.author = $ctrl.user.login;
                     return params;
                 };
                 $ctrl.getUser();

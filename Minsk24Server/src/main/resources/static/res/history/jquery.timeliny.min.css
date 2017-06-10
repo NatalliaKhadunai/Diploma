@@ -2,7 +2,7 @@
     position: relative;
     display: block;
     margin: 0 auto 4rem;
-    padding: 10rem 0;
+    padding: 6rem 0;
     width: 100%;
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
@@ -53,13 +53,6 @@
     position: absolute
 }
 
-.timeliny .timeliny-dot:before {
-    content: attr(data-year);
-    top: -5rem;
-    left: 1.25rem;
-    color: #000
-}
-
 .timeliny .timeliny-dot:after {
     -webkit-transition: all .35s ease-in-out;
     transition: all .35s ease-in-out;
@@ -69,7 +62,7 @@
     display: block;
     position: absolute;
     width: 256px;
-    top: 5.6rem;
+    top: 3.6rem;
     left: 1.25rem;
     color: #ddd;
     opacity: 0;

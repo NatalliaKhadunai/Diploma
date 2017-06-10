@@ -23,4 +23,7 @@ public interface ArticleService {
     Integer getNumberOfArticlesByAuthorAndTag(Account author, Tag tag);
     List<Article> getArticlesByInterestingTags(List<Tag> tags, Integer pageNum);
     Integer getNumberOfArticlesByInterestingTags(List<Tag> tags);
+    List<Article> searchByKeyword(String keyword, Integer pageNum);
+    Integer getNumberOfArticlesSearchByKeyword(String keyword);
+    void removeArticle(Article article);
 }

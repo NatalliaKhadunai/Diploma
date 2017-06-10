@@ -6,8 +6,12 @@
                 url: '/',
                 template: '<home></home>'
             })
+            .state('search', {
+                url: '/search?{scope}&{keyword}&{page}',
+                template: '<search></search>'
+            })
             .state('articles', {
-                url: '/articles?{page}&{author}&{tag}&{interesting}',
+                url: '/articles?{page}&{tag}&{interesting}',
                 template: '<article-list></article-list>'
             })
             .state('articlePage', {
@@ -82,6 +86,18 @@
             .state('userPage.advertisements', {
                 url: '/advertisements?{page}',
                 template: '<user-page-advertisements></user-page-advertisements>'
+            })
+            .state('userPage.articles', {
+                url: '/articles?{page}',
+                template: '<user-page-articles></user-page-articles>'
+            })
+            .state('userPage.manageContent', {
+                url: '/manage-content',
+                templateUrl: '/res/users/user-page/manage-content/manage-content.html'
+            })
+            .state('addHistory', {
+                url: '/add-history',
+                template: '<add-history></add-history>'
             });
     });
 })();

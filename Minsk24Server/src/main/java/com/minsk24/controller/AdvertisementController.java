@@ -3,6 +3,7 @@ package com.minsk24.controller;
 import com.minsk24.bean.Account;
 import com.minsk24.bean.Advertisement;
 import com.minsk24.bean.Comment;
+import com.minsk24.exception.NotFoundException;
 import com.minsk24.service.AccountService;
 import com.minsk24.service.AdvertisementService;
 import com.minsk24.service.ImageService;
@@ -45,10 +46,15 @@ public class AdvertisementController {
     @RequestMapping(value = "/advertisements/count", method = RequestMethod.GET)
     @ResponseBody
     public Integer getNumberOfAdvertisements(@RequestParam(value = "holder", required = false)
-                                                         String holderLogin) {
+                                                         String holderLogin,
+                                             @RequestParam(value = "sort", required = false)
+                                                     String sort) {
         if (holderLogin != null) {
             Account holder = accountService.getAccountByLogin(holderLogin);
             return advertisementService.getNumberOfAdvertisementsOfHolder(holder);
+        }
+        else if (sort != null && sort.equals("expirationDate")) {
+            return advertisementService.getNumberOfExpiringAdvertisements();
         }
         else return advertisementService.getNumberOfAdvertisements();
     }
@@ -57,6 +63,14 @@ public class AdvertisementController {
     @ResponseBody
     public Advertisement getAdvertisement(@PathVariable Integer id) {
         return advertisementService.getAdvertisementById(id);
+    }
+
+    @RequestMapping(value = "/advertisements/{id}", method = RequestMethod.DELETE)
+    public String removeAdvertisement(@PathVariable Integer id) {
+        Advertisement advertisement = advertisementService.getAdvertisementById(id);
+        if (advertisement != null) advertisementService.removeAdvertisement(advertisement);
+        else throw new NotFoundException("No such advertisement");
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/advertisements", method = RequestMethod.POST)

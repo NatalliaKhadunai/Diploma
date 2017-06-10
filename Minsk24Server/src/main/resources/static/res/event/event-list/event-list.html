@@ -1,20 +1,35 @@
 <div class="row">
-    <div class="dropdown">
-        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button"
+                id="dropdownMenu1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
             Сортировать по
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="" ng-click="$ctrl.changeSort('time')">Времени</a></li>
-            <li><a href="" ng-click="$ctrl.changeSort('rating')">Рейтингу</a></li>
+            <li><a href="" ng-click="$ctrl.changeSort('upcoming-rating')">Предстоящие по рейтингу</a></li>
+            <li><a href="" ng-click="$ctrl.changeSort('past-rating')">Прошедшие по рейтингу</a></li>
         </ul>
+    </div>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="$ctrl.searchKeyword"
+                   placeholder="Поиск...">
+            <span class="input-group-btn">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <button class="btn btn-default" type="button"
+                        ng-click="$ctrl.search()">Поиск</button>
+            </span>
+        </div>
     </div>
 </div>
 <div class="row">
     <div class="flex-container">
-        <div class="flex-block" ng-repeat="event in $ctrl.events">
+        <div class="flex-block" ng-repeat="event in $ctrl.events"
+             ng-class="$ctrl.isPast(event)">
             <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
                 <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
             </p>
             <p>Место: {{event.location}}</p>

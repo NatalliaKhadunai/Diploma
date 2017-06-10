@@ -5,10 +5,10 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="article in $ctrl.articles">
             <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
                 <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
             </p>
-            <p>{{article.shortDescription}}</p>
+            <p class="description">{{article.shortDescription}}</p>
             <p>Дата публикации: {{article.publishDate | date}}</p>
             <span ng-repeat="tag in article.tags">
                 <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>
@@ -21,9 +21,9 @@
 </div>
 <div class="row">
     <div class="flex-container">
-        <div class="flex-block" ng-repeat="event in $ctrl.events">
+        <div class="flex-block" ng-repeat="event in $ctrl.upcomingEvents">
             <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
                 <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
             </p>
             <p>{{event.location}}</p>
@@ -31,19 +31,16 @@
     </div>
 </div>
 <div class="row">
-    <h2>Новые объявления:</h2>
+    <h2>Топ рейтинговых прошедших событий:</h2>
 </div>
 <div class="row">
     <div class="flex-container">
-        <div class="flex-block" ng-repeat="advertisement in $ctrl.newAdvertisements">
-            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
-            <p>
-                <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
-                    {{advertisement.title}}
-                </a>
+        <div class="flex-block" ng-repeat="event in $ctrl.pastEvents">
+            <img src="res/img/event/{{event.id + '.jpg'}}" style="max-width: 240px">
+            <p class="title">
+                <a ng-click="$ctrl.openEventPage(event)">{{event.title}}</a>
             </p>
-            <p>Дата добавления: {{advertisement.placementDate | date}}</p>
-            <p>Дата истечения: {{advertisement.expirationDate | date}}</p>
+            <p>{{event.location}}</p>
         </div>
     </div>
 </div>
@@ -54,7 +51,24 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="advertisement in $ctrl.expiringAdvertisements">
             <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
+                <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
+                    {{advertisement.title}}
+                </a>
+            </p>
+            <p>Дата добавления: {{advertisement.placementDate | date}}</p>
+            <p>Дата истечения: {{advertisement.expirationDate | date}}</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <h2>Новые объявления:</h2>
+</div>
+<div class="row">
+    <div class="flex-container">
+        <div class="flex-block" ng-repeat="advertisement in $ctrl.newAdvertisements">
+            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
+            <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}
                 </a>

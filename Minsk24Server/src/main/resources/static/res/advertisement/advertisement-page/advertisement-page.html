@@ -1,12 +1,12 @@
 <div class="row">
-    <h3>{{$ctrl.advertisement.title}}</h3>
-</div>
-<div class="row">
-    <span>Добавлено пользователем
-        <a href="" ng-click="$ctrl.getAdvertisementsOfHolder($ctrl.advertisement.holder)">
-            {{$ctrl.advertisement.holder.login}}
-        </a>
-    </span>
+    <div class="page-header">
+        <h3>{{$ctrl.advertisement.title}}</h3>
+        <small>
+            Автор: <a href=""
+                      ui-sref="userPage.advertisements({user : $ctrl.advertisement.holder})">
+            {{$ctrl.advertisement.holder.login}}</a>
+        </small>
+    </div>
 </div>
 <div class="row">
     <h5>Дата добавления: {{$ctrl.advertisement.placementDate | date}}</h5>
@@ -16,12 +16,16 @@
     <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
          class="img-rounded" style="max-width: 300px;">
 </div>
-<div class="row">
+<div class="row" ng-show="$ctrl.user.login == $ctrl.advertisement.holder.login ||
+$ctrl.user.role == 'ADMIN'">
     <button ng-click="$ctrl.editAdvertisement()" class="btn btn-default">
         Редактировать
     </button>
+    <button ng-click="$ctrl.removeAdvertisement()" class="btn btn-default">
+        Удалить
+    </button>
 </div>
-<div class="row">
+<div class="row description">
     {{$ctrl.advertisement.description}}
 </div>
 <div class="row">

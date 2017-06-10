@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="$ctrl.searchKeyword"
+                   placeholder="Поиск...">
+            <span class="input-group-btn">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <button class="btn btn-default" type="button"
+                        ng-click="$ctrl.search()">Поиск</button>
+            </span>
+        </div>
+    </div>
+</div>
+<h2>Search results:</h2>
+<div class="row">
+    <div class="flex-container">
+        <div class="flex-block" ng-repeat="obj in $ctrl.searchData">
+            <img src="res/img/{{$ctrl.scope}}/{{obj.id + '.jpg'}}" style="max-width: 240px">
+            <p>
+                <a ng-click="$ctrl.openResultPage(obj)">{{obj.title}}</a>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li ng-repeat="pageNum in $ctrl.getPageNumber() track by $index">
+                <a href="" ng-click="$ctrl.loadByPage($index+1)">{{$index+1}}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

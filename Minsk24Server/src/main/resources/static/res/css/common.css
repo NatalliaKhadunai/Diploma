@@ -1,3 +1,22 @@
+body, p, span, a {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    color: black;
+}
+
+.navbar-brand {
+    font-size: 30px;
+}
+
+.title {
+    text-decoration: underline;
+}
+
+.description {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
 .row {
     margin-top: 20px;
 }
@@ -6,10 +25,15 @@ table {
     border-collapse: collapse;
 }
 
-.tr {
+tr {
     border-top: gray 1px;
 }
 
-.td {
+td {
     padding-top: 10px;
+}
+
+.expired {
+    border: 1px solid #FAEBCC;
+    background-color: #FCF8E3;
 }

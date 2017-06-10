@@ -23,15 +23,31 @@
         }
     </style>
 </head>
-<body ng-controller="loginCtrl as $ctrl" ng-cloak>
+<body ng-controller="loginCtrl as $ctrl">
 <div class="container">
-    <form method="POST" action="/login" class="form-signin">
-        <h2 class="form-heading">Вход</h2>
-        <div class="alert alert-danger" ng-show="$ctrl.error">Неверное имя пользователя или пароль</div>
-        <input name="username" type="text" class="form-control" placeholder="Username"
-               autofocus="true"/>
-        <input name="password" type="password" class="form-control" placeholder="Password"/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+    <form name="loginForm" method="POST" action="/login" class="form-signin">
+        <h2 class="form-signin-heading">Вход</h2>
+        <div class="alert alert-danger" ng-show="$ctrl.error">
+            Неверное имя пользователя или пароль
+        </div>
+        <input name="username" type="text"
+               class="form-control" placeholder="Логин"
+               pattern="^[A-Za-z0-9]{3,30}$" autofocus="true" required/>
+        <div class="alert alert-danger" ng-show="loginForm.username.$touched &&
+        loginForm.username.$invalid">
+            Неверный ввод для поля Логин
+        </div>
+        <input name="password" type="password"
+               class="form-control" placeholder="Пароль"
+               pattern="^[A-Za-z0-9]{3,30}$" required/>
+        <div class="alert alert-danger" ng-show="loginForm.password.$touched
+        && loginForm.password.$invalid">
+            Неверный ввод для поля Пароль
+        </div>
+        <button class="btn btn-lg btn-primary btn-block"
+                type="submit" ng-disabled="loginForm.$invalid">
+            Войти
+        </button>
     </form>
     <br>
     <a href="/registration">Регистрация</a>

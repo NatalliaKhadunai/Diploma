@@ -1,0 +1,43 @@
+<textarea ng-model="$ctrl.text" style="width: 100%;"></textarea>
+<div id="historyText">{{$ctrl.text}}</div>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.makeSelectedBold()">
+    <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.makeSelectedItalic()">
+    <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.makeSelectedLarger()">
+    <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.makeSelectedSmaller()">
+    <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.insertImage()">
+    <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+</button>
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.makeSelectedUnderline()">
+    <u>U</u>
+</button>
+<input ng-model="$ctrl.link">
+<button ng-mousedown="$ctrl.preventDefault()"
+        ng-click="$ctrl.insertLink()">
+    Link
+    </span>
+</button>
+<input name="image" id="imageInput" type="file"/>
+<button id="imageUpload" class="btn btn-default">Upload</button>
+<div id="imageContainer" class="btn-group" role="group">
+    <!--<button type="button" class="btn btn-default"
+            ng-click="$ctrl.setChosenImage('res/img/history/1.jpg')">
+        <img src="res/img/history/1.jpg">
+    </button>-->
+</div>
+<button class="btn btn-default" ng-click="$ctrl.addHistory()">Добавить</button>

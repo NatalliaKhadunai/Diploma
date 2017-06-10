@@ -5,6 +5,7 @@ import com.minsk24.bean.Article;
 import com.minsk24.bean.Comment;
 import com.minsk24.bean.Tag;
 import com.minsk24.exception.BadRequestException;
+import com.minsk24.exception.NotFoundException;
 import com.minsk24.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class ArticleController {
@@ -37,57 +36,46 @@ public class ArticleController {
                                          @RequestParam(value = "tag", required = false)
                                                  String tagName,
                                          @RequestParam(value = "author", required = false)
-                                                     String authorLogin,
+                                         String authorLogin,
                                          @RequestParam(value = "interesting", required = false)
-                                            Boolean showOnlyInteresting,
+                                                 Boolean showOnlyInteresting,
                                          Principal principal) {
         if (showOnlyInteresting != null && showOnlyInteresting == true) {
             Account account = accountService.getAccountByLogin(principal.getName());
             if (account.getInterestingTags().size() != 0)
                 return articleService.getArticlesByInterestingTags(account.getInterestingTags(), page);
             else return articleService.getArticles(page);
+        } else if (tagName != null) {
+            Tag tag = tagService.getTagByName(tagName);
+            return articleService.getArticlesByTag(tag, page);
         }
-        else {
-            Tag tag = null;
-            Account author = null;
-            if (tagName != null) tag = tagService.getTagByName(tagName);
-            if (authorLogin != null) author = accountService.getAccountByLogin(authorLogin);
-            if (tag == null && author == null)
-                return articleService.getArticles(page);
-            else if (tag != null && author == null)
-                return articleService.getArticlesByTag(tag, page);
-            else if (tag == null && author != null)
-                return articleService.getArticlesByAuthor(author, page);
-            else return articleService.getArticlesByAuthorAndTag(author, tag, page);
-        }
+        else if (authorLogin != null) {
+            Account author = accountService.getAccountByLogin(authorLogin);
+            return articleService.getArticlesByAuthor(author, page);
+        } else return articleService.getArticles(page);
     }
 
     @RequestMapping(value = "/articles/count", method = RequestMethod.GET)
     @ResponseBody
     public Integer getNumberOfArticles(@RequestParam(value = "tag", required = false)
-                                                   String tagName,
+                                               String tagName,
                                        @RequestParam(value = "author", required = false)
                                                String authorLogin,
                                        @RequestParam(value = "interesting", required = false)
-                                                   Boolean showOnlyInteresting,
+                                               Boolean showOnlyInteresting,
                                        Principal principal) {
         if (showOnlyInteresting != null && showOnlyInteresting == true) {
             Account account = accountService.getAccountByLogin(principal.getName());
             if (account.getInterestingTags().size() != 0)
                 return articleService.getNumberOfArticlesByInterestingTags(account.getInterestingTags());
             else return articleService.getNumberOfArticles();
-        }
-        Tag tag = null;
-        Account author = null;
-        if (tagName != null) tag = tagService.getTagByName(tagName);
-        if (authorLogin != null) author = accountService.getAccountByLogin(authorLogin);
-        if (tag == null && author == null)
-            return articleService.getNumberOfArticles();
-        else if (tag != null && author == null)
+        } else if (tagName != null) {
+            Tag tag = tagService.getTagByName(tagName);
             return articleService.getNumberOfArticlesByTag(tag);
-        else if (tag == null && author != null)
+        } else if (authorLogin != null) {
+            Account author = accountService.getAccountByLogin(authorLogin);
             return articleService.getNumberOfArticlesOfAuthor(author);
-        else return articleService.getNumberOfArticlesByAuthorAndTag(author, tag);
+        } else return articleService.getNumberOfArticles();
     }
 
     @RequestMapping(value = "/articles/{id}", method = RequestMethod.GET)
@@ -96,13 +84,21 @@ public class ArticleController {
         return articleService.getArticle(id);
     }
 
+    @RequestMapping(value = "/articles/{id}", method = RequestMethod.DELETE)
+    public String removeArticle(@PathVariable Integer id) {
+        Article article = articleService.getArticle(id);
+        if (article != null) articleService.removeArticle(article);
+        else throw new NotFoundException("No such article");
+        return "redirect:/home";
+    }
+
     @RequestMapping(value = "/articles", method = RequestMethod.POST)
     public String addArticle(@RequestParam(required = false) Integer id,
                              @RequestParam(value = "title") String mainTitle,
-                           @RequestParam(value = "shortDescription") String shortTitle,
-                           @RequestParam(value = "content") String content,
-                           @RequestParam(value = "mainPhoto") MultipartFile mainPhoto,
-                           @RequestParam(value = "tags") Integer[] tags,
+                             @RequestParam(value = "shortDescription") String shortTitle,
+                             @RequestParam(value = "content") String content,
+                             @RequestParam(value = "mainPhoto") MultipartFile mainPhoto,
+                             @RequestParam(value = "tags") Integer[] tags,
                              Principal principal) {
         Article article = null;
         if (id != null) article = articleService.saveArticle(id, mainTitle, shortTitle,
@@ -111,8 +107,8 @@ public class ArticleController {
                 accountService.getAccountByLogin(principal.getName()), content, tags);
         if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
             imageService.saveImage(mainPhoto,
-                        "Minsk24Server\\src\\main\\resources\\static\\res\\img\\article",
-                        Integer.toString(article.getId()));
+                    "Minsk24Server\\src\\main\\resources\\static\\res\\img\\article",
+                    Integer.toString(article.getId()));
         return "redirect:/home";
     }
 

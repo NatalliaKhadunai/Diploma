@@ -1,6 +1,7 @@
 package com.minsk24.boot_config;
 
 import com.minsk24.exception.BadRequestException;
+import com.minsk24.exception.NotFoundException;
 import com.minsk24.exception.UserNotFoundException;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         exceptionStatus = new HashMap<Class<?>, HttpStatus>();
         exceptionStatus.put(FileNotFoundException.class, HttpStatus.NOT_FOUND);
         exceptionStatus.put(UserNotFoundException.class, HttpStatus.NOT_FOUND);
+        exceptionStatus.put(NotFoundException.class, HttpStatus.NOT_FOUND);
         exceptionStatus.put(BadRequestException.class, HttpStatus.BAD_REQUEST);
     }
 

@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="dropdown" ng-show="!$ctrl.showOnlyInteresting">
+    <div class="btn-group" ng-show="!$ctrl.showOnlyInteresting">
         <button class="btn btn-default dropdown-toggle" type="button"
                 id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="true">
+                aria-expanded="false">
             Выберите тэг:
             <span class="caret"></span>
         </button>
@@ -14,15 +14,26 @@
     </div>
     <input type="checkbox" ng-model="$ctrl.showOnlyInteresting"
            ng-change="$ctrl.loadInterestingArticles()">Показывать только интересные мне
+    <div class="col-lg-6">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="$ctrl.searchKeyword"
+                   placeholder="Поиск...">
+            <span class="input-group-btn">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <button class="btn btn-default" type="button"
+                        ng-click="$ctrl.search()">Поиск</button>
+            </span>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="article in $ctrl.articles">
             <img src="res/img/article/{{article.id + '.jpg'}}" style="max-width: 240px">
-            <p>
+            <p class="title">
                 <a ng-click="$ctrl.openArticlePage(article)">{{article.title}}</a>
             </p>
-            <p>{{article.shortDescription}}</p>
+            <p class="description">{{article.shortDescription}}</p>
             <p>Дата публикации: {{article.publishDate | date}}</p>
             <span ng-repeat="tag in article.tags">
                 <a href="" ng-click="$ctrl.loadArticlesByTag(tag)">#{{tag.name}}</a>

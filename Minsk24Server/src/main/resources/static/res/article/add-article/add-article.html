@@ -9,7 +9,12 @@
                     <p>Максимальная длина названия: 100</p>
                 </td>
                 <td>
-                    <input name="title" ng-model="$ctrl.article.title" required>
+                    <input name="title" ng-model="$ctrl.article.title"
+                           pattern=".{1,100}" required>
+                    <div class="alert alert-danger" ng-show="addArticleForm.title.$touched
+                    && addArticleForm.title.$invalid">
+                        Неверный ввод для поля Название
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -21,7 +26,12 @@
                 </td>
                 <td>
                     <input name="shortDescription" ng-model="$ctrl.article.shortDescription"
-                           required>
+                           pattern=".{1,200}" required>
+                    <div class="alert alert-danger"
+                         ng-show="addArticleForm.shortDescription.$touched
+                    && addArticleForm.shortDescription.$invalid">
+                        Неверный ввод для поля Краткое описание
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -31,7 +41,12 @@
                     <p>Максимальная длина содержания: 2000</p>
                 </td>
                 <td>
-                    <textarea name="content" ng-model="$ctrl.article.content" required></textarea>
+                    <textarea name="content" ng-model="$ctrl.article.content"
+                              pattern=".{1,2000}" required></textarea>
+                    <div class="alert alert-danger" ng-show="addArticleForm.content.$touched
+                    && addArticleForm.content.$invalid">
+                        Неверный ввод для поля Содержание
+                    </div>
                 </td>
             </tr>
             <tr>

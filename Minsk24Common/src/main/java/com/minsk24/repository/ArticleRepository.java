@@ -17,6 +17,8 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, I
     Integer countByAuthor(Account account);
     Integer countByTags(Tag tag);
     Integer countByAuthorAndTags(Account author, Tag tag);
+    List<Article> findByTitleIgnoreCaseContaining(String keyword, Pageable pageable);
+    Integer countByTitleIgnoreCaseContaining(String keyword);
     @Query(value = "SELECT ART.* FROM ARTICLE ART JOIN " +
             "(SELECT ARTICLE_ID, COUNT(TAG_ID) AS NUM_OF_TAGS FROM article_tag " +
             "WHERE TAG_ID IN :tagIds GROUP BY ARTICLE_ID) TMP ON ART.ART_ID=TMP.ARTICLE_ID " +

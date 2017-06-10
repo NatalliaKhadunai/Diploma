@@ -6,28 +6,35 @@
             bindings: {
                 users: '<'
             },
-            controller: function($http) {
+            controller: function ($http) {
                 let $ctrl = this;
-                $ctrl.addAuthorPermissions = function(user) {
+                $ctrl.addAuthorPermissions = function (user) {
                     $http.post('admin/users/ ' + user.login + '/addAuthorPermissions')
-                        .then(function() {
+                        .then(function () {
                             user.role = 'AUTHOR';
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
                         });
                 };
-                $ctrl.removeAuthorPermissions = function(user) {
+                $ctrl.removeAuthorPermissions = function (user) {
                     $http.post('admin/users/' + user.login + '/removeAuthorPermissions')
-                        .then(function() {
+                        .then(function () {
                             user.role = 'GUEST';
+                        }, function (response) {
+                            alert('Status code : ' + response.data.httpStatusCode + '\n'
+                                + 'Message : ' + response.data.developerMessage);
                         });
                 };
-                $ctrl.removeUser = function(user) {
+                $ctrl.removeUser = function (user) {
                     $http({
                         url: '/admin/users/' + user.login,
                         method: 'DELETE'
                     }).then(function () {
                         user = null;
                     }, function (response) {
-                        alert('Status code : ' + response.data.httpStatusCode + '\n' + 'Message : ' + response.data.developerMessage);
+                        alert('Status code : ' + response.data.httpStatusCode + '\n'
+                            + 'Message : ' + response.data.developerMessage);
                     });
                 }
             }

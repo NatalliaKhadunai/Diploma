@@ -1,6 +1,7 @@
 package com.minsk24.controller;
 
 import com.minsk24.bean.*;
+import com.minsk24.exception.NotFoundException;
 import com.minsk24.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,16 +32,22 @@ public class EventController {
                                      @RequestParam(required = false) Long time,
                                      @RequestParam(required = false) String location,
                                      @RequestParam(required = false)
-                                                 String sort,
-                                     @RequestParam(required = false) Boolean past) {
+                                                 String sort) {
         Timestamp timestamp = null;
         if (time != null) timestamp = new Timestamp(time);
-        if (sort != null && sort.equals("rating")) {
+        if (sort != null && sort.equals("upcoming-rating")) {
             if (time != null)
                 return eventService.getTopRatedUpcomingEventsByTime(page, timestamp);
             else if (location != null)
                 return eventService.getTopRatedUpcomingEventsByLocation(page, location);
             else return eventService.getTopRatedUpcomingEvents(page);
+        }
+        else if (sort != null && sort.equals("past-rating")) {
+            if (time != null)
+                return eventService.getTopRatedPastEventsByTime(timestamp, page);
+            else if (location != null)
+                return eventService.getTopRatedPastEventsByLocation(location, page);
+            return eventService.getTopRatedPastEvents(page);
         }
         else {
             if (time != null)
@@ -53,11 +60,27 @@ public class EventController {
     @RequestMapping(value = "/events/count", method = RequestMethod.GET)
     @ResponseBody
     public Integer getNumberOfEvents(@RequestParam(required = false) Long time,
-                                     @RequestParam(required = false) String location) {
-        if (time != null) {
-            Timestamp timestamp = new Timestamp(time);
-            return eventService.getNumberOfEventsByTime(timestamp);
+                                     @RequestParam(required = false) String location,
+                                     @RequestParam(required = false)
+                                                 String sort) {
+        Timestamp timestamp = null;
+        if (time != null) timestamp = new Timestamp(time);
+        if (sort != null && sort.equals("upcoming-rating")) {
+            if (time != null)
+                return eventService.getNumberOfTopRatedUpcomingEventsByTime(timestamp);
+            else if (location != null)
+                return eventService.getNumberOfTopRatedUpcomingEventsByLocation(location);
+            else return eventService.getNumberOfTopRatedUpcomingEvents();
         }
+        else if (sort != null && sort.equals("past-rating")) {
+            if (time != null)
+                return eventService.getNumberOfTopRatedPastEventsByTime(timestamp);
+            else if (location != null)
+                return eventService.getNumberOfTopRatedPastEventsByLocation(location);
+            return eventService.getNumberOfTopRatedPastEvents();
+        }
+        else if (time != null)
+            return eventService.getNumberOfEventsByTime(timestamp);
         else if (location != null) return eventService.getNumberOfEventsByLocation(location);
         else return eventService.getNumberOfEvents();
     }
@@ -66,6 +89,14 @@ public class EventController {
     @ResponseBody
     public Event getEvent(@PathVariable Integer id) {
         return eventService.getEventById(id);
+    }
+
+    @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
+    public String removeEvent(@PathVariable Integer id) {
+        Event event = eventService.getEventById(id);
+        if (event != null) eventService.removeEvent(event);
+        else throw new NotFoundException("No such event");
+        return "redirect:/home";
     }
 
     @RequestMapping(value = "/events", method = RequestMethod.POST)

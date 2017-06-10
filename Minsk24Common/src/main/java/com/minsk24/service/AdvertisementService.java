@@ -16,4 +16,8 @@ public interface AdvertisementService {
     List<Advertisement> getAdvertisementsByHolder(Account account, Integer pageNum);
     Integer getNumberOfAdvertisementsOfHolder(Account account);
     List<Advertisement> getExpiringAdvertisements(Integer pageNum);
+    Integer getNumberOfExpiringAdvertisements();
+    List<Advertisement> searchByKeyword(String keyword, Integer pageNum);
+    Integer getNumberOfAdvertisementsSearchByKeyword(String keyword);
+    void removeAdvertisement(Advertisement advertisement);
 }

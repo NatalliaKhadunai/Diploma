@@ -1,37 +1,29 @@
-<ul class="nav nav-tabs">
-    <li ui-sref-active="home">
-        <a ui-sref="home">Главная</a>
-    </li>
-    <li ui-sref-active="articles">
-        <a href="" ng-click="$ctrl.goToArticles()">Новости</a>
-    </li>
-    <li ui-sref-active="advertisements">
-        <a href="" ng-click="$ctrl.goToAdvertisements()">Объявления</a>
-    </li>
-    <li ui-sref-active="events">
-        <a href="" ng-click="$ctrl.goToEvents()">События</a>
-    </li>
-    <li ui-sref-active="addAdvertisement">
-        <a ui-sref="addAdvertisement">Добавить объявление</a>
-    </li>
-    <li ui-sref-active="users"
-        ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="users">Пользователи</a>
-    </li>
-    <li ui-sref-active="addArticle"
-        ng-show="$ctrl.currentUser.role==='ADMIN' || $ctrl.currentUser.role==='AUTHOR'">
-        <a ui-sref="addArticle">Добавить новость</a>
-    </li>
-    <li ui-sref-active="addEvent"
-        ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="addEvent">Добавить событие</a>
-    </li>
-    <li ui-sref-active="addRemoveTag"
-        ng-show="$ctrl.currentUser.role==='ADMIN'">
-        <a ui-sref="addRemoveTag">Добавить/Удалить тэг</a>
-    </li>
-    <li>
-        <a ui-sref="userPage.recentActions">Моя страница</a>
-    </li>
-    <li><a href="/logout">Выйти</a></li>
-</ul>
+<nav class="navbar navbar-default">
+    <div class="container">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">Минск 24</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li ui-sref-active="articles">
+                <a href="" ng-click="$ctrl.goToArticles()">Новости</a>
+            </li>
+            <li ui-sref-active="advertisements">
+                <a href="" ng-click="$ctrl.goToAdvertisements()">Объявления</a>
+            </li>
+            <li ui-sref-active="events">
+                <a href="" ng-click="$ctrl.goToEvents()">События</a>
+            </li>
+            <li ui-sref-active="addAdvertisement">
+                <a ui-sref="addAdvertisement">Добавить объявление</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a ui-sref="userPage.recentActions">Моя страница</a>
+            </li>
+            <li><a href="/logout">Выйти</a></li>
+        </ul>
+    </div>
+</div>
+</nav>

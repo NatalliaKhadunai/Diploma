@@ -129,4 +129,21 @@ public class ArticleServiceImpl implements ArticleService{
         List<Integer> tagIds = tags.stream().map(n -> n.getId()).collect(Collectors.toList());
         return (int)Math.ceil((double)articleDAO.countByInterestingTags(tagIds) / PAGE_SIZE);
     }
+
+    @Override
+    public List<Article> searchByKeyword(String keyword, Integer pageNum) {
+        PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
+                new Sort(Sort.Direction.DESC, "publishDate"));
+        return articleDAO.findByTitleIgnoreCaseContaining(keyword, pageRequest);
+    }
+
+    @Override
+    public Integer getNumberOfArticlesSearchByKeyword(String keyword) {
+        return (int)Math.ceil((double)articleDAO.countByTitleIgnoreCaseContaining(keyword) / PAGE_SIZE);
+    }
+
+    @Override
+    public void removeArticle(Article article) {
+        articleDAO.delete(article);
+    }
 }
