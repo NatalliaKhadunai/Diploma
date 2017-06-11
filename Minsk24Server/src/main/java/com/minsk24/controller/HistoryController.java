@@ -27,7 +27,7 @@ public class HistoryController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addHistory(@RequestBody History history) {
-        history.setId(this.history.getId());
+        if (this.history != null) history.setId(this.history.getId());
         int i = 0;
         while (history.getContent().indexOf("INSERT_IMAGE_SRC") != -1) {
             history.setContent(history.getContent().replaceFirst("INSERT_IMAGE_SRC", images.get(i)));
@@ -59,5 +59,23 @@ public class HistoryController {
                     history.getId().toString() + "_" + i + ".jpg");
             i++;
         }
+    }
+
+    @RequestMapping(value = "/ids", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Integer> getHistoryIds() {
+        return historyService.getHistoryIds();
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ResponseBody
+    public List<History> getAllHistory() {
+        return historyService.getAllHistory();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public History getHistoryById(@PathVariable(value = "id") Integer id) {
+        return historyService.getHistoryById(id);
     }
 }

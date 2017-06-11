@@ -15,7 +15,7 @@ public class History {
     private Integer startYear;
     @Column(name = "END_YEAR")
     private Integer endYear;
-    @Column(name = "content", length = 4000)
+    @Column(name = "CONTENT", length = 4000)
     private String content;
 
     public Integer getId() {

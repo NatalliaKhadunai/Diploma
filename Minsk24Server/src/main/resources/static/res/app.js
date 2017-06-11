@@ -97,7 +97,7 @@
             })
             .state('history', {
                 url: '/history',
-                templateUrl: '/res/history/history.html'
+                template: '<history></history>'
             })
             .state('addHistory', {
                 url: '/add-history',

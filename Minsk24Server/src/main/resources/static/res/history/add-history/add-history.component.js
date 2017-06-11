@@ -42,10 +42,12 @@
                         images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
                     }
                     history.content = data.outerHTML;
-                    if ($ctrl.startYearEra == 'до н.э.') $ctrl.startYear = (-1) * $ctrl.startYear;
-                    if ($ctrl.endYearEra == 'до н.э.') $ctrl.endYear = (-1) * $ctrl.endYear;
-                    history.startYear = $ctrl.startYear;
-                    history.endYear = $ctrl.endYear;
+                    if ($ctrl.startYearEra == 'до н.э.') history.startYear = (-1) * $ctrl.startYear;
+                    if ($ctrl.endYearEra == 'до н.э.') history.endYear = (-1) * $ctrl.endYear;
+                    else {
+                        history.startYear = $ctrl.startYear;
+                        history.endYear = $ctrl.endYear;
+                    }
                     $http.post('/history/add', history).then(function () {
 
                     });
@@ -60,7 +62,16 @@
                     document.execCommand('createLink', false, $ctrl.link);
                 };
                 $ctrl.insertBr = function () {
-                    document.execCommand('insertBrOnReturn', false, null);
+                    document.execCommand('insertHTML', false, '<br>');
+                };
+                $ctrl.getSelectedText = function (){
+                    var text = "";
+                    if (window.getSelection) {
+                        text = window.getSelection().toString();
+                    } else if (document.selection && document.selection.type != "Control") {
+                        text = document.selection.createRange().text;
+                    }
+                    return text;
                 };
             }
         });
