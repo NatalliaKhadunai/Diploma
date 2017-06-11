@@ -7,13 +7,13 @@ $(document).ready(function () {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                //$('#image_upload_preview').attr('src', e.target.result);
                 let imgUrl = e.target.result;
                 let newImgElem = document.createElement('img');
                 newImgElem.setAttribute('src', imgUrl);
                 newImgElem.setAttribute('id', 'img' + images.length);
+                newImgElem.setAttribute('style', 'max-width: 100px');
                 let newButtonElem = document.createElement('button');
-                newButtonElem.setAttribute('class','btn btn-default');
+                newButtonElem.setAttribute('class', 'btn btn-default');
                 newButtonElem.onclick = function () {
                     chosenImage = this.childNodes[0].attributes['src'].nodeValue;
                     console.log(this);

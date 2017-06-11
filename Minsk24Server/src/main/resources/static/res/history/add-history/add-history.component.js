@@ -8,6 +8,8 @@
                 $ctrl.text = '';
                 document.designMode = 'on';
                 $ctrl.headingNum = 6;
+                $ctrl.startYearEra = 'до н.э.';
+                $ctrl.endYearEra = 'до н.э.';
                 $ctrl.preventDefault = function () {
                     event.preventDefault();
                 };
@@ -32,12 +34,19 @@
                     }
                 };
                 $ctrl.addHistory = function () {
+                    document.getElementById('imageUpload').click();
+                    let history = {};
                     let data = document.getElementById('historyText');
                     let images = data.getElementsByTagName('img');
                     for (let i = 0; i < images.length; i++) {
                         images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
                     }
-                    $http.post('/history/add', data.outerHTML).then(function () {
+                    history.content = data.outerHTML;
+                    if ($ctrl.startYearEra == 'до н.э.') $ctrl.startYear = (-1) * $ctrl.startYear;
+                    if ($ctrl.endYearEra == 'до н.э.') $ctrl.endYear = (-1) * $ctrl.endYear;
+                    history.startYear = $ctrl.startYear;
+                    history.endYear = $ctrl.endYear;
+                    $http.post('/history/add', history).then(function () {
 
                     });
                 };

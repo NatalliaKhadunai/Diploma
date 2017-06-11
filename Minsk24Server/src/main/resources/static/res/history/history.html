@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="jquery.timeliny.min.css" rel="stylesheet">
-    <style>
-        .content-body {
-            width: 500px;
-        }
-    </style>
-</head>
-<body>
 <div id="example">
     <div data-year="1" class="active">100 000 – рубеж 3 000 до н.э. Каменный век</div>
     <div data-year="2">рубеж 3 и 2 тысячелетия – 8–6 вв. до н.э. Бронзовый век</div>
@@ -18,7 +5,7 @@
     <div data-year="4">VI – XIII вв. Первые политические объединения</div>
     <div data-year="5">XIII–XVI вв. Великое княжество Литовское, Русское и Жемойтское</div>
 </div>
-<div class="content-body">
+<div class="col-md-8 col-md-2-offset">
     <div id="1" class="article">
         <p>
             На территории Беларуси первобытный человек появился примерно 100–35 тыс. лет тому назад.
@@ -71,18 +58,5 @@
         </p>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="jquery.timeliny.min.js"></script>
-<script>
-    $(".article").hide();
-    $("#1").fadeIn(200);
-    $('#example').timeliny({
-        onLeave: function(currYear, nextYear) {
-            $("#" + currYear).fadeOut(0);
-            $("#" + nextYear).fadeIn(200);
-        }
-    });
-
-</script>
 </body>
 </html>

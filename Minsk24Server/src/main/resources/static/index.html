@@ -31,9 +31,22 @@
     <script src="res/search/search.component.js"></script>
     <script src="res/history/add-history/add-history.component.js"></script>
     <script src="res/form.js"></script>
+    <script src="res/js/jquery.timeliny.min.js"></script>
     <link rel="stylesheet" href="res/css/list.css">
     <link rel="stylesheet" href="res/css/common.css">
+    <link rel="stylesheet" href="res/css/jquery.timeliny.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Oswald" rel="stylesheet">
+    <script>
+        $(document).ready(function () {
+        $(".article").hide();
+        $("#1").fadeIn(200);
+        $('#example').timeliny({
+            onLeave: function(currYear, nextYear) {
+                $("#" + currYear).fadeOut(0);
+                $("#" + nextYear).fadeIn(200);
+            }
+        });})
+    </script>
 </head>
 <body>
 <menu-component></menu-component>

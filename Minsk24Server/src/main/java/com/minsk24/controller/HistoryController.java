@@ -26,17 +26,16 @@ public class HistoryController {
     private List<String> images = new ArrayList<>();
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addHistory(@RequestBody String historyContent) {
-        if (history == null) history = new History();
+    public String addHistory(@RequestBody History history) {
+        history.setId(this.history.getId());
         int i = 0;
-        while (historyContent.indexOf("INSERT_IMAGE_SRC") != -1) {
-            historyContent = historyContent.replaceFirst("INSERT_IMAGE_SRC", images.get(i));
+        while (history.getContent().indexOf("INSERT_IMAGE_SRC") != -1) {
+            history.setContent(history.getContent().replaceFirst("INSERT_IMAGE_SRC", images.get(i)));
             i++;
         }
-        history.setContent(historyContent);
         historyService.addHistoryArticle(history);
 
-        history = null;
+        this.history = null;
         images.clear();
 
         return "redirect:/home";

@@ -11,6 +11,10 @@ public class History {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "E_ID")
     private Integer id;
+    @Column(name = "START_YEAR")
+    private Integer startYear;
+    @Column(name = "END_YEAR")
+    private Integer endYear;
     @Column(name = "content", length = 4000)
     private String content;
 
@@ -20,6 +24,22 @@ public class History {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(Integer startYear) {
+        this.startYear = startYear;
+    }
+
+    public Integer getEndYear() {
+        return endYear;
+    }
+
+    public void setEndYear(Integer endYear) {
+        this.endYear = endYear;
     }
 
     public String getContent() {

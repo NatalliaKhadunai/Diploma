@@ -95,6 +95,10 @@
                 url: '/manage-content',
                 templateUrl: '/res/users/user-page/manage-content/manage-content.html'
             })
+            .state('history', {
+                url: '/history',
+                templateUrl: '/res/history/history.html'
+            })
             .state('addHistory', {
                 url: '/add-history',
                 template: '<add-history></add-history>'

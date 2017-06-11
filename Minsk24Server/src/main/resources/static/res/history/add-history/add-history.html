@@ -1,48 +1,78 @@
-<textarea ng-model="$ctrl.text" style="width: 100%;"></textarea>
-<div id="historyText">
-    <div>{{$ctrl.text}}</div>
+<div class="col-md-6">
+    <table>
+        <tr>
+            <td>Введите год начала:</td>
+            <td>
+                <input ng-model="$ctrl.startYear">
+                <select ng-model="$ctrl.startYearEra">
+                    <option>до н.э.</option>
+                    <option>н.э.</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Введите год окончания:</td>
+            <td>
+                <input ng-model="$ctrl.endYear">
+                <select ng-model="$ctrl.endYearEra">
+                    <option>до н.э.</option>
+                    <option>н.э.</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <textarea class="col-md-12" ng-model="$ctrl.text" style="width: 100%;"></textarea>
 </div>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.makeSelectedBold()">
-    <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
-</button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.makeSelectedItalic()">
-    <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
-</button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.makeSelectedLarger()">
-    <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-</button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.makeSelectedSmaller()">
-    <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-</button>
-<button id="insertImgButton">
-    <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-</button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.makeSelectedUnderline()">
-    <u>U</u>
-</button>
-<input ng-model="$ctrl.link">
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.insertLink()">
-    Link
-    </span>
-</button>
-<button ng-mousedown="$ctrl.preventDefault()"
-        ng-click="$ctrl.insertBr()">
-    <span>Paragraph</span>
-</button>
-<input name="image" id="imageInput" type="file"/>
-<button id="imageUpload" class="btn btn-default">Upload</button>
-<div id="imageContainer" class="btn-group" role="group">
-    <!--<button type="button" class="btn btn-default"
-            ng-click="$ctrl.setChosenImage('res/img/history/1.jpg')">
-        <img src="res/img/history/1.jpg">
-    </button>-->
+<div class="col-md-6">
+    <h5>Форматирование текста:</h5>
+    <br>
+    <div id="historyText">
+        <div>{{$ctrl.text}}</div>
+    </div>
+    <br>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.makeSelectedBold()">
+        <span class="glyphicon glyphicon-bold" aria-hidden="true"></span>
+    </button>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.makeSelectedItalic()">
+        <span class="glyphicon glyphicon-italic" aria-hidden="true"></span>
+    </button>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.makeSelectedLarger()">
+        <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+    </button>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.makeSelectedSmaller()">
+        <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+    </button>
+    <button id="insertImgButton">
+        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+    </button>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.makeSelectedUnderline()">
+        <u>U</u>
+    </button>
+    <input ng-model="$ctrl.link">
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.insertLink()">
+        Link
+        </span>
+    </button>
+    <button ng-mousedown="$ctrl.preventDefault()"
+            ng-click="$ctrl.insertBr()">
+        <span>Paragraph</span>
+    </button>
+    <br><br>
+    <h5>Добавьте картинки для вставки:</h5>
+    <input name="image" id="imageInput" type="file"/>
+    <div id="imageContainer" class="btn-group" role="group"></div>
+    <br>
+    <h5>Перед добавлением загрузите картинки:</h5>
+    <button id="imageUpload" class="btn btn-default">Загрузить</button>
+    <br><br>
+    <button class="btn btn-default" ng-click="$ctrl.addHistory()">Добавить</button>
 </div>
-<button class="btn btn-default" ng-click="$ctrl.addHistory()">Добавить</button>
