@@ -30,7 +30,7 @@ public class Article {
     @JoinTable(name = "ARTICLE_TAG", joinColumns = {
             @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
-                    nullable = false, updatable = false) })
+                    nullable = false, updatable = false)})
     private Set<Tag> tags = new HashSet<>();
 
     public Integer getId() {

@@ -27,11 +27,11 @@
                     $state.go('advertisements', {'holder': holder.login});
                 };
                 $ctrl.editAdvertisement = function () {
-                    $state.go('addAdvertisement', {'advertisement': $ctrl.advertisement});
+                    $state.go('addAdvertisement', {'id': $ctrl.advertisement.id});
                 };
                 $ctrl.removeAdvertisement = function () {
                     $http({
-                        url: '/advertisements/' + $ctrl.advertisement.id,
+                        url: '/v1/advertisements/' + $ctrl.advertisement.id,
                         method: 'DELETE'
                     }).then(function () {
                     }, function (response) {
@@ -41,7 +41,7 @@
                 };
                 $ctrl.addComment = function () {
                     $http({
-                        url: '/advertisements/' + $ctrl.advertisement.id + '/comments',
+                        url: '/v1/advertisements/' + $ctrl.advertisement.id + '/comments',
                         method: 'POST',
                         data: $ctrl.comment
                     }).then(function (response) {

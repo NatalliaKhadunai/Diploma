@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Minsk24ServerApplication {
 
 	public static void main(String[] args) {
+		System.out.println("WORKING DIRECTORY = " +
+				System.getProperty("user.dir"));
 		SpringApplication.run(Minsk24ServerApplication.class, args);
 	}
 }

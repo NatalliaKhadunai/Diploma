@@ -91,7 +91,7 @@ public class EventController {
         return eventService.getEventById(id);
     }
 
-    @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/v3/events/{id}", method = RequestMethod.DELETE)
     public String removeEvent(@PathVariable Integer id) {
         Event event = eventService.getEventById(id);
         if (event != null) eventService.removeEvent(event);
@@ -99,7 +99,7 @@ public class EventController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/events", method = RequestMethod.POST)
+    @RequestMapping(value = "/v3/events", method = RequestMethod.POST)
     public String addEvent(@RequestParam(required = false) Integer id,
                            @RequestParam(value = "title") String title,
                            @RequestParam(value = "location") String location,
@@ -118,7 +118,7 @@ public class EventController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/events/{id}/comments", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/events/{id}/comments", method = RequestMethod.POST)
     @ResponseBody
     public Event addComment(Principal principal, @PathVariable Integer id,
                                     @RequestBody Comment comment) {
@@ -130,7 +130,7 @@ public class EventController {
         return eventService.save(event);
     }
 
-    @RequestMapping(value = "/events/{id}/beforeEventRate", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/events/{id}/beforeEventRate", method = RequestMethod.POST)
     @ResponseBody
     public void addBeforeEventChoice(@PathVariable Integer id,
                                      @RequestBody String eventUserChoice,
@@ -144,7 +144,7 @@ public class EventController {
         beforeEventRateService.save(beforeEventRate);
     }
 
-    @RequestMapping(value = "/events/{id}/afterEventRate", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/events/{id}/afterEventRate", method = RequestMethod.POST)
     @ResponseBody
     public void addAfterEventChoice(@PathVariable Integer id,
                                      @RequestBody Integer rate,

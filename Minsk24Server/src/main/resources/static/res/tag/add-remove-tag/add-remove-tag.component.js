@@ -18,7 +18,7 @@
                 };
                 $ctrl.addTag = function () {
                     if ($ctrl.tagName.length != 0) {
-                        $http.post('/tags', $ctrl.tagName)
+                        $http.post('/v2/tags', $ctrl.tagName)
                             .then(function (response) {
                                 $ctrl.tags.push(response.data);
                                 $ctrl.tagName = '';
@@ -30,7 +30,7 @@
                 };
                 $ctrl.deleteTags = function () {
                     $http({
-                        url: '/tags',
+                        url: '/v2/tags',
                         method: 'DELETE',
                         data: $ctrl.chosenTags,
                         headers: {

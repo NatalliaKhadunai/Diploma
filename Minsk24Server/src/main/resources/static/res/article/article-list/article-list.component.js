@@ -33,6 +33,8 @@
                         });
                 };
                 $ctrl.loadArticlesByTag = function (tag) {
+                    $stateParams['tag'] = null;
+                    $stateParams['page'] = null;
                     $state.go('articles', {'tag': tag.name});
                 };
                 $ctrl.loadArticlesByPage = function (page) {

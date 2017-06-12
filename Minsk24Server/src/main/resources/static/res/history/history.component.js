@@ -5,8 +5,17 @@
             templateUrl: 'res/history/history.html',
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
+                $ctrl.currentUser = {};
+                $ctrl.userCanEdit = false;
+                $ctrl.getCurrentUser = function () {
+                    $http.get('/currentUser').then(function(response){
+                        let user = response.data;
+                        if (user.role == 'ADMIN' || user.role == 'AUTHOR')
+                            $ctrl.userCanEdit = true;
+                    });
+                };
                 $ctrl.initialization = function () {
-                    $http.get('/history/')
+                    $http.get('/history')
                         .then(function (response) {
                             $ctrl.history = response.data;
                             $ctrl.initializeTimelineElements();
@@ -46,7 +55,12 @@
                         }
                     });
                 };
+                $ctrl.editHistory = function () {
+                    let num = document.getElementsByClassName('active')[0].getAttribute('data-year');
+                    $state.go('addHistory', {id : $ctrl.history[num].id});
+                };
                 $ctrl.initialization();
+                $ctrl.getCurrentUser();
             }
         });
 })();

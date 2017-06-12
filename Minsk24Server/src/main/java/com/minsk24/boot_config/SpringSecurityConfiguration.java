@@ -26,9 +26,11 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/home")
+                .antMatchers("/v1/*")
                 .access("hasAnyAuthority('GUEST', 'ADMIN', 'AUTHOR')")
-                .antMatchers("/admin")
+                .antMatchers("/v2/*")
+                .access("hasAnyAuthority('ADMIN', 'AUTHOR')")
+                .antMatchers("/v3/*")
                 .access("hasAuthority('ADMIN')")
                 .anyRequest().permitAll()
                 .and()

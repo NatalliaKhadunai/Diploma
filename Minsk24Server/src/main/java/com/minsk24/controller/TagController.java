@@ -22,14 +22,14 @@ public class TagController {
         return tagService.getPopularTags();
     }
 
-    @RequestMapping(value = "/tags", method = RequestMethod.POST)
+    @RequestMapping(value = "/v2/tags", method = RequestMethod.POST)
     public Tag addTag(@RequestBody String name) {
         Tag tag = new Tag();
         tag.setName(name);
         return tagService.addTag(tag);
     }
 
-    @RequestMapping(value = "/tags", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/v2/tags", method = RequestMethod.DELETE)
     public void deleteTags(@RequestBody List<Tag> tagList) {
         tagService.deleteTags(tagList);
     }

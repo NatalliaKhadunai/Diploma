@@ -25,11 +25,11 @@
                         });
                 };
                 $ctrl.editArticle = function () {
-                    $state.go('addArticle', {'article': $ctrl.article});
+                    $state.go('addArticle', {'id' : $ctrl.article.id});
                 };
                 $ctrl.removeArticle = function () {
                     $http({
-                        url: '/articles/' + $ctrl.article.id,
+                        url: '/v2/articles/' + $ctrl.article.id,
                         method: 'DELETE'
                     }).then(function () {
                     }, function (response) {
@@ -45,7 +45,7 @@
                 };
                 $ctrl.addComment = function () {
                     $http({
-                        url: '/articles/' + $ctrl.article.id + '/comments',
+                        url: '/v1/articles/' + $ctrl.article.id + '/comments',
                         method: 'POST',
                         data: $ctrl.comment
                     }).then(function (response) {

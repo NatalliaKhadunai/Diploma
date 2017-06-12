@@ -31,7 +31,7 @@
                         });
                 };
                 $ctrl.initializeInterestingTags = function () {
-                    $http.get('/account/tags/interesting')
+                    $http.get('/v1/account/tags/interesting')
                         .then(function (response) {
                             $ctrl.interestingTags = response.data;
                         }, function (response) {
@@ -49,7 +49,7 @@
                     let element = angular.element(document.querySelector('#' + tag.name));
                     element.attr('disabled', 'disabled');
                     if ($ctrl.isExcluded(tag)) {
-                        $http.post('/account/tags/' + tag.id + '/add')
+                        $http.post('/v1/account/tags/' + tag.id + '/add')
                             .then(function (response) {
                                 $ctrl.interestingTags.push(response.data);
                                 element.removeAttr('disabled');
@@ -59,7 +59,7 @@
                             })
                     }
                     else {
-                        $http.post('/account/tags/' + tag.id + '/exclude')
+                        $http.post('/v1/account/tags/' + tag.id + '/exclude')
                             .then(function () {
                                 var index = -1;
                                 for (var i = 0; i < $ctrl.interestingTags.length; i++) {

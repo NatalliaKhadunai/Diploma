@@ -65,7 +65,7 @@ public class AdvertisementController {
         return advertisementService.getAdvertisementById(id);
     }
 
-    @RequestMapping(value = "/advertisements/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/v1/advertisements/{id}", method = RequestMethod.DELETE)
     public String removeAdvertisement(@PathVariable Integer id) {
         Advertisement advertisement = advertisementService.getAdvertisementById(id);
         if (advertisement != null) advertisementService.removeAdvertisement(advertisement);
@@ -73,7 +73,7 @@ public class AdvertisementController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/advertisements", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/advertisements", method = RequestMethod.POST)
     public String addAdvertisement(Principal principal,
                                    @RequestParam(required = false) Integer id,
                                    @RequestParam String title,
@@ -92,7 +92,7 @@ public class AdvertisementController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/advertisements/{id}/comments", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/advertisements/{id}/comments", method = RequestMethod.POST)
     @ResponseBody
     public Advertisement addComment(Principal principal, @PathVariable Integer id,
                               @RequestBody Comment comment) {

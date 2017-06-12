@@ -19,11 +19,8 @@
                 template: '<article-page></article-page>'
             })
             .state('addArticle', {
-                url: '/addArticle',
-                template: '<add-article></add-article>',
-                params: {
-                    'article': {}
-                }
+                url: '/addArticle/{id}',
+                template: '<add-article></add-article>'
             })
             .state('advertisements', {
                 url: '/advertisements?{page}&{sort}',
@@ -34,11 +31,8 @@
                 template: '<advertisement-page></advertisement-page>'
             })
             .state('addAdvertisement', {
-                url: '/addAdvertisement',
-                template: '<add-advertisement></add-advertisement>',
-                params: {
-                    'advertisement': {}
-                }
+                url: '/addAdvertisement/{id}',
+                template: '<add-advertisement></add-advertisement>'
             })
             .state('events', {
                 url: '/events?{page}&{sort}&{time}&{location}',
@@ -49,11 +43,8 @@
                 template: '<event-page></event-page>'
             })
             .state('addEvent', {
-                url: '/addEvent',
-                template: '<add-event></add-event>',
-                params: {
-                    'event': {}
-                }
+                url: '/addEvent/{id}',
+                template: '<add-event></add-event>'
             })
             .state('addRemoveTag', {
                 url: '/addRemoveTag',
@@ -100,7 +91,7 @@
                 template: '<history></history>'
             })
             .state('addHistory', {
-                url: '/add-history',
+                url: '/add-history?{id}',
                 template: '<add-history></add-history>'
             });
     });

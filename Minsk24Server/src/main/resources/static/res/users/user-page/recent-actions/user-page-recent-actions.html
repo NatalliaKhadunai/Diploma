@@ -9,7 +9,7 @@
     <h3>Оценки предстоящих событий: </h3>
     <div class="col-md-12" ng-repeat="ber in $ctrl.recentBeforeEventRates">
         К событию <a class="title" href="" ng-click="$ctrl.openEventPage(ber.event)">{{ber.event.title}}</a>
-        <span> оставил(а) оценку - {{ber.eventUserChoice}}</span>
+        <span> оставил(а) оценку - {{ber.eventUserChoice == 'WILL_GO' ? 'Пойду' : 'Не пойду'}}</span>
     </div>
 </div>
 <div class="row">

@@ -1,6 +1,10 @@
 <div id="example">
 </div>
 <div id="content-container" class="col-md-8 col-md-offset-2">
+    <div ng-show="$ctrl.userCanEdit">
+        <button class="btn btn-default" ng-click="$ctrl.editHistory()">Редактировать</button>
+        <br>
+    </div>
 </div>
 </body>
 </html>

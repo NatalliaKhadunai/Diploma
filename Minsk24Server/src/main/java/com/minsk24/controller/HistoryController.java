@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/history")
 public class HistoryController {
     @Autowired
     private ImageService imageService;
@@ -25,7 +24,7 @@ public class HistoryController {
     private History history;
     private List<String> images = new ArrayList<>();
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/v2/history/add", method = RequestMethod.POST)
     public String addHistory(@RequestBody History history) {
         if (this.history != null) history.setId(this.history.getId());
         int i = 0;
@@ -41,7 +40,7 @@ public class HistoryController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/images", method = RequestMethod.POST)
+    @RequestMapping(value = "/v2/history/images", method = RequestMethod.POST)
     @ResponseBody
     public void saveImages(MultipartHttpServletRequest request) {
         if (history == null) {
@@ -61,19 +60,13 @@ public class HistoryController {
         }
     }
 
-    @RequestMapping(value = "/ids", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Integer> getHistoryIds() {
-        return historyService.getHistoryIds();
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/history", method = RequestMethod.GET)
     @ResponseBody
     public List<History> getAllHistory() {
         return historyService.getAllHistory();
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/v2/history/{id}", method = RequestMethod.GET)
     @ResponseBody
     public History getHistoryById(@PathVariable(value = "id") Integer id) {
         return historyService.getHistoryById(id);

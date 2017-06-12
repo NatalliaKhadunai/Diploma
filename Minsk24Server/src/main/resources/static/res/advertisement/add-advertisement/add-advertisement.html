@@ -1,5 +1,5 @@
 <div class="row">
-    <form name="addAdvertisementForm" action="/advertisements"
+    <form name="addAdvertisementForm" action="/v1/advertisements"
           method="post" enctype="multipart/form-data">
         <input name="id" type="hidden" value="{{$ctrl.advertisement.id}}">
         <table>
@@ -12,7 +12,7 @@
                 <td>
                     <input name="title" ng-model="$ctrl.advertisement.title"
                            pattern=".{1,100}" required>
-                    <div class="alert alert-danger" ng-show="addAdvertisementForm.title.$touched
+                    <div class="alert alert-danger" ng-show="addAdvertisementForm.title.$dirty
                     && addAdvertisementForm.title.$invalid">
                         Неверный ввод для поля Название
                     </div>
@@ -29,7 +29,7 @@
                               ng-model="$ctrl.advertisement.description"
                               pattern=".{1,1000}" required></textarea>
                     <div class="alert alert-danger"
-                         ng-show="addAdvertisementForm.description.$touched
+                         ng-show="addAdvertisementForm.description.$dirty
                     && addAdvertisementForm.description.$invalid">
                         Неверный ввод для поля Описание
                     </div>

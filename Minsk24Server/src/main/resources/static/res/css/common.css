@@ -80,3 +80,23 @@ footer {
 footer p {
     color: lightgray;
 }
+
+.historyText {
+    border: 1px solid grey;
+}
+
+history-image-wrapper {
+    width:100px;
+    height:100px;
+    position: relative;
+}
+history-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 50%;
+}

@@ -1,5 +1,5 @@
 <div class="row">
-    <form name="addEventForm" action="/events" method="post" enctype="multipart/form-data">
+    <form name="addEventForm" action="/v3/events" method="post" enctype="multipart/form-data">
         <input name="id" type="hidden" value="{{$ctrl.event.id}}">
         <table>
             <tr>
@@ -11,7 +11,7 @@
                 <td>
                     <input name="title" ng-model="$ctrl.event.title"
                            pattern=".{1,100}" required>
-                    <div class="alert alert-danger" ng-show="addEventForm.title.$touched
+                    <div class="alert alert-danger" ng-show="addEventForm.title.$dirty
                     && addEventForm.title.$invalid">
                         Неверный ввод для поля Название
                     </div>
@@ -26,7 +26,7 @@
                 <td>
                     <input name="location" ng-model="$ctrl.event.location"
                            pattern=".{1,100}" required>
-                    <div class="alert alert-danger" ng-show="addEventForm.location.$touched
+                    <div class="alert alert-danger" ng-show="addEventForm.location.$dirty
                     && addEventForm.location.$invalid">
                         Неверный ввод для поля Место проведения
                     </div>
@@ -50,7 +50,7 @@
                 <td>
                     <textarea name="description" ng-model="$ctrl.event.description"
                               pattern=".{1,1000}" required></textarea>
-                    <div class="alert alert-danger" ng-show="addEventForm.description.$touched
+                    <div class="alert alert-danger" ng-show="addEventForm.description.$dirty
                     && addEventForm.description.$invalid">
                         Неверный ввод для поля Описание
                     </div>

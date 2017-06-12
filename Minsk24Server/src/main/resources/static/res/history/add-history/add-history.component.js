@@ -5,11 +5,32 @@
             templateUrl: 'res/history/add-history/add-history.html',
             controller: function ($state, $stateParams, $http) {
                 let $ctrl = this;
-                $ctrl.text = '';
-                document.designMode = 'on';
                 $ctrl.headingNum = 6;
+                $ctrl.history = {};
                 $ctrl.startYearEra = 'до н.э.';
                 $ctrl.endYearEra = 'до н.э.';
+                (function init() {
+                    if (typeof $stateParams['id'] == 'string') {
+                        $http.get('/v2/history/' + $stateParams['id'])
+                            .then(function (response) {
+                                $ctrl.history = response.data;
+                                if ($ctrl.history.startYear < 0) {
+                                    $ctrl.startYearEra = 'до н.э.';
+                                    $ctrl.history.startYear = (-1) * $ctrl.startYear;
+                                }
+                                else $ctrl.startYearEra = 'н.э.';
+                                if ($ctrl.history.endYear < 0) {
+                                    $ctrl.endYearEra = 'до н.э.';
+                                    $ctrl.history.endYear = (-1) * $ctrl.endYear;
+                                }
+                                else $ctrl.endYearEra = 'н.э.';
+                                jQuery('#historyText').append($ctrl.history.content);
+                            });
+                    }
+                    else {
+                        $ctrl.history.content = '< Введите текст >';
+                    }
+                })();
                 $ctrl.preventDefault = function () {
                     event.preventDefault();
                 };
@@ -35,20 +56,19 @@
                 };
                 $ctrl.addHistory = function () {
                     document.getElementById('imageUpload').click();
-                    let history = {};
                     let data = document.getElementById('historyText');
                     let images = data.getElementsByTagName('img');
                     for (let i = 0; i < images.length; i++) {
                         images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
                     }
-                    history.content = data.outerHTML;
+                    $ctrl.history.content = data.innerHTML;
                     if ($ctrl.startYearEra == 'до н.э.') history.startYear = (-1) * $ctrl.startYear;
                     if ($ctrl.endYearEra == 'до н.э.') history.endYear = (-1) * $ctrl.endYear;
                     else {
                         history.startYear = $ctrl.startYear;
                         history.endYear = $ctrl.endYear;
                     }
-                    $http.post('/history/add', history).then(function () {
+                    $http.post('/v2/history/add', history).then(function () {
 
                     });
                 };
@@ -64,15 +84,8 @@
                 $ctrl.insertBr = function () {
                     document.execCommand('insertHTML', false, '<br>');
                 };
-                $ctrl.getSelectedText = function (){
-                    var text = "";
-                    if (window.getSelection) {
-                        text = window.getSelection().toString();
-                    } else if (document.selection && document.selection.type != "Control") {
-                        text = document.selection.createRange().text;
-                    }
-                    return text;
-                };
+
+
             }
         });
 })();

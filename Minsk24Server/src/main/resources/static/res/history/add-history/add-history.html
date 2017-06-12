@@ -1,9 +1,9 @@
-<div class="col-md-6">
+<div class="col-md-8">
     <table>
         <tr>
             <td>Введите год начала:</td>
             <td>
-                <input ng-model="$ctrl.startYear">
+                <input ng-model="$ctrl.history.startYear">
                 <select ng-model="$ctrl.startYearEra">
                     <option>до н.э.</option>
                     <option>н.э.</option>
@@ -13,7 +13,7 @@
         <tr>
             <td>Введите год окончания:</td>
             <td>
-                <input ng-model="$ctrl.endYear">
+                <input ng-model="$ctrl.history.endYear">
                 <select ng-model="$ctrl.endYearEra">
                     <option>до н.э.</option>
                     <option>н.э.</option>
@@ -22,13 +22,10 @@
         </tr>
     </table>
     <br>
-    <textarea class="col-md-12" ng-model="$ctrl.text" style="width: 100%;"></textarea>
-</div>
-<div class="col-md-6">
     <h5>Форматирование текста:</h5>
     <br>
-    <div id="historyText">
-        <div>{{$ctrl.text}}</div>
+    <div id="historyText" contenteditable="true">
+        <div></div>
     </div>
     <br>
     <button ng-mousedown="$ctrl.preventDefault()"

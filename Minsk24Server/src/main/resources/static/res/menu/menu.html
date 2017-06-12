@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" contenteditable="false">
     <div class="container">
     <div class="navbar-header">
         <a class="navbar-brand" ui-sref="home">Минск 24</a>
@@ -17,15 +17,16 @@
             <li ui-sref-active="history">
                 <a href="" ui-sref="history">История</a>
             </li>
-            <li ui-sref-active="addAdvertisement">
+            <li ui-sref-active="addAdvertisement" ng-show="$ctrl.currentUser.role">
                 <a ui-sref="addAdvertisement">Добавить объявление</a>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li ng-show="$ctrl.currentUser.role">
                 <a ui-sref="userPage.recentActions">Моя страница</a>
             </li>
-            <li><a href="/logout">Выйти</a></li>
+            <li ng-show="!$ctrl.currentUser.role"><a href="/login">Войти</a></li>
+            <li ng-show="$ctrl.currentUser.role"><a href="/logout">Выйти</a></li>
         </ul>
     </div>
 </div>

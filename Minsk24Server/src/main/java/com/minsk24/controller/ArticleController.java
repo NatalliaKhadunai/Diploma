@@ -40,7 +40,7 @@ public class ArticleController {
                                          @RequestParam(value = "interesting", required = false)
                                                  Boolean showOnlyInteresting,
                                          Principal principal) {
-        if (showOnlyInteresting != null && showOnlyInteresting == true) {
+        if (showOnlyInteresting != null && showOnlyInteresting == true && principal != null) {
             Account account = accountService.getAccountByLogin(principal.getName());
             if (account.getInterestingTags().size() != 0)
                 return articleService.getArticlesByInterestingTags(account.getInterestingTags(), page);
@@ -84,7 +84,7 @@ public class ArticleController {
         return articleService.getArticle(id);
     }
 
-    @RequestMapping(value = "/articles/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/v2/articles/{id}", method = RequestMethod.DELETE)
     public String removeArticle(@PathVariable Integer id) {
         Article article = articleService.getArticle(id);
         if (article != null) articleService.removeArticle(article);
@@ -92,7 +92,7 @@ public class ArticleController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/articles", method = RequestMethod.POST)
+    @RequestMapping(value = "/v2/articles", method = RequestMethod.POST)
     public String addArticle(@RequestParam(required = false) Integer id,
                              @RequestParam(value = "title") String mainTitle,
                              @RequestParam(value = "shortDescription") String shortTitle,
@@ -112,7 +112,7 @@ public class ArticleController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/articles/{id}/comments", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/articles/{id}/comments", method = RequestMethod.POST)
     @ResponseBody
     public Article addComment(@PathVariable Integer id,
                               @RequestBody Comment comment,

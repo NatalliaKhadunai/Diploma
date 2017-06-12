@@ -21,11 +21,11 @@
                         })
                 };
                 $ctrl.editEvent = function () {
-                    $state.go('addEvent', {'event': $ctrl.event});
+                    $state.go('addEvent', {'id': $ctrl.event.id});
                 };
                 $ctrl.removeEvent = function () {
                     $http({
-                        url: '/events/' + $ctrl.event.id,
+                        url: '/v3/events/' + $ctrl.event.id,
                         method: 'DELETE'
                     }).then(function () {
                     }, function (response) {
@@ -41,7 +41,7 @@
                 };
                 $ctrl.addComment = function () {
                     $http({
-                        url: '/events/' + $ctrl.event.id + '/comments',
+                        url: '/v1/events/' + $ctrl.event.id + '/comments',
                         method: 'POST',
                         data: $ctrl.comment
                     }).then(function (response) {
@@ -54,7 +54,7 @@
                 };
                 $ctrl.sendUserBeforeEventRate = function () {
                     $http({
-                        url: '/events/' + $ctrl.event.id + '/beforeEventRate',
+                        url: '/v1/events/' + $ctrl.event.id + '/beforeEventRate',
                         method: 'POST',
                         data: $ctrl.beforeEventRate
                     }).then(function () {
@@ -71,7 +71,7 @@
                 };
                 $ctrl.sendUserAfterEventRate = function () {
                     $http({
-                        url: '/events/' + $ctrl.event.id + '/afterEventRate',
+                        url: '/v1/events/' + $ctrl.event.id + '/afterEventRate',
                         method: 'POST',
                         data: $ctrl.afterEventRate
                     }).then(function () {

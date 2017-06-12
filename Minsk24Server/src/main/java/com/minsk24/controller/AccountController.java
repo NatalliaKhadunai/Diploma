@@ -38,7 +38,8 @@ public class AccountController {
     @RequestMapping(value = "/currentUser", method = RequestMethod.GET)
     @ResponseBody
     public Account getCurrentUser(Principal principal) {
-        return accountService.getAccountByLogin(principal.getName());
+        if (principal != null) return accountService.getAccountByLogin(principal.getName());
+        else return null;
     }
 
     @RequestMapping(value = "/users/{login}/exists", method = RequestMethod.GET)
@@ -74,14 +75,14 @@ public class AccountController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = "/account/tags/interesting", method = RequestMethod.GET)
+    @RequestMapping(value = "/v1/account/tags/interesting", method = RequestMethod.GET)
     @ResponseBody
     public List<Tag> getInterstingTags(Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
         return account.getInterestingTags();
     }
 
-    @RequestMapping(value = "/account/tags/{tagId}/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/account/tags/{tagId}/add", method = RequestMethod.POST)
     @ResponseBody
     public Tag addInterestingTag(@PathVariable Integer tagId, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
@@ -91,7 +92,7 @@ public class AccountController {
         return tag;
     }
 
-    @RequestMapping(value = "/account/tags/{tagId}/exclude", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/account/tags/{tagId}/exclude", method = RequestMethod.POST)
     @ResponseBody
     public Tag excludeInterestingTag(@PathVariable Integer tagId, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
@@ -101,7 +102,7 @@ public class AccountController {
         return tag;
     }
 
-    @RequestMapping(value = "account/photo", method = RequestMethod.POST)
+    @RequestMapping(value = "/v1/account/photo", method = RequestMethod.POST)
     public String chanheAccountPhoto(@RequestParam MultipartFile file, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
         imageService.saveImage(file,

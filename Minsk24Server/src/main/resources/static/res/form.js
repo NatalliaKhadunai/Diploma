@@ -37,7 +37,7 @@ $(document).ready(function () {
             data.append('images[' + i + ']', images[i]);
         $.ajax({
             type: 'post',
-            url: '/history/images',
+            url: '/v2/history/images',
             processData: false,
             contentType: false,
             data: data,
