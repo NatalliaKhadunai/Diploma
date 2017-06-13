@@ -17,7 +17,7 @@ public class ImageServiceImpl implements ImageService {
             inputStream = imageSourceFile.getInputStream();
             int extensionStartIndex = imageSourceFile.getOriginalFilename().lastIndexOf('.');
             String extension = imageSourceFile.getOriginalFilename().substring(extensionStartIndex);
-            File newFile = new File(destinationDirectory + "\\" + newFilename + extension);
+            File newFile = new File(destinationDirectory + File.separator + newFilename + extension);
             if (!newFile.exists()) {
                 newFile.createNewFile();
             }
