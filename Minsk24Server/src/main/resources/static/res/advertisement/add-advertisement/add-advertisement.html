@@ -11,7 +11,7 @@
                 </td>
                 <td>
                     <input name="title" ng-model="$ctrl.advertisement.title"
-                           pattern=".{1,100}" required>
+                           minlength="1" maxlength="100" required>
                     <div class="alert alert-danger" ng-show="addAdvertisementForm.title.$dirty
                     && addAdvertisementForm.title.$invalid">
                         Неверный ввод для поля Название
@@ -27,7 +27,7 @@
                 <td>
                     <textarea name="description"
                               ng-model="$ctrl.advertisement.description"
-                              pattern=".{1,1000}" required></textarea>
+                              minlength="1" maxlength="1000" required></textarea>
                     <div class="alert alert-danger"
                          ng-show="addAdvertisementForm.description.$dirty
                     && addAdvertisementForm.description.$invalid">

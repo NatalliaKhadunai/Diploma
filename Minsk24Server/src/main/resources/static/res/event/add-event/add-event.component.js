@@ -6,7 +6,6 @@
             controller: function($state, $stateParams, $http) {
                 let $ctrl = this;
                 $ctrl.event = {};
-                $ctrl.timeStr = new Date();
                 $ctrl.dateNow = new Date();
                 $ctrl.required = typeof $stateParams['id'] != 'undefined' &&
                 $stateParams['id'].toString().length != 0 ?

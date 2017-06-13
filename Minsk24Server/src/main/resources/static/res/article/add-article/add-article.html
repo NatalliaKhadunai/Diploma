@@ -10,7 +10,7 @@
                 </td>
                 <td>
                     <input name="title" ng-model="$ctrl.article.title"
-                           pattern=".{1,100}" required>
+                           minlength="1" maxlength="100" required>
                     <div class="alert alert-danger" ng-show="addArticleForm.title.$dirty
                     && addArticleForm.title.$invalid">
                         Неверный ввод для поля Название
@@ -26,7 +26,7 @@
                 </td>
                 <td>
                     <input name="shortDescription" ng-model="$ctrl.article.shortDescription"
-                           pattern=".{1,200}" required>
+                           minlength="1" maxlength="200" required>
                     <div class="alert alert-danger"
                          ng-show="addArticleForm.shortDescription.$dirty
                     && addArticleForm.shortDescription.$invalid">
@@ -38,11 +38,11 @@
                 <td>
                     <p>Содержание *:</p>
                     <p>Длина содержания: {{$ctrl.article.content.length}}</p>
-                    <p>Максимальная длина содержания: 2000</p>
+                    <p>Максимальная длина содержания: 4000</p>
                 </td>
                 <td>
                     <textarea name="content" ng-model="$ctrl.article.content"
-                              pattern=".{1,2000}" required></textarea>
+                              minlength="1" maxlength="4000" required></textarea>
                     <div class="alert alert-danger" ng-show="addArticleForm.content.$dirty
                     && addArticleForm.content.$invalid">
                         Неверный ввод для поля Содержание

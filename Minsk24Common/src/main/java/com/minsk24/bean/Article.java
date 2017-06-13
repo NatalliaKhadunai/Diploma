@@ -20,7 +20,7 @@ public class Article {
     private String shortDescription;
     @Column(name = "PUBLISH_DATE", nullable = false)
     private Timestamp publishDate;
-    @Column(name = "CONTENT", length = 2000, nullable = false)
+    @Column(name = "CONTENT", length = 4000, nullable = false)
     private String content;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
