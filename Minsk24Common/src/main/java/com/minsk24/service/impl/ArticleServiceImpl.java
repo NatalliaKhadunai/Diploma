@@ -103,18 +103,6 @@ public class ArticleServiceImpl implements ArticleService{
     public Integer getNumberOfArticlesByTag(Tag tag) {
         return (int)Math.ceil((double)articleDAO.countByTags(tag) / PAGE_SIZE);
     }
-    
-    @Override 
-    public List<Article> getArticlesByAuthorAndTag(Account author, Tag tag, Integer pageNum) {
-    	PageRequest pageRequest = new PageRequest(pageNum - 1, PAGE_SIZE,
-                new Sort(Sort.Direction.DESC, "publishDate"));
-    	return articleDAO.findByAuthorAndTags(author, tag, pageRequest);
-    }
-
-    @Override
-    public Integer getNumberOfArticlesByAuthorAndTag(Account author, Tag tag) {
-        return (int)Math.ceil((double)articleDAO.countByAuthorAndTags(author, tag) / PAGE_SIZE);
-    }
 
     @Override
     public List<Article> getArticlesByInterestingTags(List<Tag> tags, Integer pageNum) {

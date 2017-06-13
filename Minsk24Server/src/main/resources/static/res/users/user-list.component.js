@@ -9,7 +9,7 @@
             controller: function ($http) {
                 let $ctrl = this;
                 $ctrl.addAuthorPermissions = function (user) {
-                    $http.post('admin/users/ ' + user.login + '/addAuthorPermissions')
+                    $http.post('/v3/users/ ' + user.id + '/addAuthorPermissions')
                         .then(function () {
                             user.role = 'AUTHOR';
                         }, function (response) {
@@ -18,7 +18,7 @@
                         });
                 };
                 $ctrl.removeAuthorPermissions = function (user) {
-                    $http.post('admin/users/' + user.login + '/removeAuthorPermissions')
+                    $http.post('/v3/users/' + user.id + '/removeAuthorPermissions')
                         .then(function () {
                             user.role = 'GUEST';
                         }, function (response) {
@@ -27,7 +27,7 @@
                         });
                 };
                 $ctrl.addAdminPermissions = function (user) {
-                    $http.post('admin/users/ ' + user.login + '/addAdminPermissions')
+                    $http.post('/v3/users/ ' + user.id + '/addAdminPermissions')
                         .then(function () {
                             user.role = 'ADMIN';
                         }, function (response) {
@@ -36,7 +36,7 @@
                         });
                 };
                 $ctrl.removeAdminPermissions = function (user) {
-                    $http.post('admin/users/' + user.login + '/removeAdminPermissions')
+                    $http.post('/v3/users/' + user.id + '/removeAdminPermissions')
                         .then(function () {
                             user.role = 'GUEST';
                         }, function (response) {
@@ -46,7 +46,7 @@
                 };
                 $ctrl.removeUser = function (user) {
                     $http({
-                        url: '/admin/users/' + user.login,
+                        url: '/v3/users/' + user.id,
                         method: 'DELETE'
                     }).then(function () {
                         user = null;

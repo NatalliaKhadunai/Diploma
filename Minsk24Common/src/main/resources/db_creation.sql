@@ -1,2 +1,2 @@
-CREATE SCHEMA `minsk24` ;
+CREATE SCHEMA `minsk24` DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

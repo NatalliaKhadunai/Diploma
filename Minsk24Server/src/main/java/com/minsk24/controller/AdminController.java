@@ -21,14 +21,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{login}", method = RequestMethod.GET)
-    public Account getUser(@PathVariable String login) {
+    public Account getUser(@PathVariable(value = "login") String login) {
         return accountService.getAccountByLogin(login);
     }
 
-    @RequestMapping(value = "/users/{login}/addAuthorPermissions", method = RequestMethod.POST)
-    public void addAuthorPermissions(@PathVariable String login, Principal principal) {
-        if (login.equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
-        Account account = accountService.getAccountByLogin(login);
+    @RequestMapping(value = "/users/{id}/addAuthorPermissions", method = RequestMethod.POST)
+    public void addAuthorPermissions(@PathVariable(value = "id") Integer id,
+                                     Principal principal) {
+        Account account = accountService.getAccountById(id);
+        if (account.getLogin().equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
         if (!account.getRole().equals(Role.AUTHOR)) {
             account.setRole(Role.AUTHOR);
             accountService.update(account);
@@ -36,10 +37,11 @@ public class AdminController {
         else throw new BadRequestException("User already has that role");
     }
 
-    @RequestMapping(value = "/users/{login}/removeAuthorPermissions", method = RequestMethod.POST)
-    public void removeAuthorPermissions(@PathVariable String login, Principal principal) {
-        if (login.equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
-        Account account = accountService.getAccountByLogin(login);
+    @RequestMapping(value = "/users/{id}/removeAuthorPermissions", method = RequestMethod.POST)
+    public void removeAuthorPermissions(@PathVariable(value = "id") Integer id,
+                                        Principal principal) {
+        Account account = accountService.getAccountById(id);
+        if (account.getLogin().equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
         if (account.getRole().equals(Role.AUTHOR)) {
             account.setRole(Role.GUEST);
             accountService.update(account);
@@ -47,10 +49,11 @@ public class AdminController {
         else throw new BadRequestException("This user doesn't have author role");
     }
 
-    @RequestMapping(value = "/users/{login}/addAdminPermissions", method = RequestMethod.POST)
-    public void addAdminPermissions(@PathVariable String login, Principal principal) {
-        if (login.equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
-        Account account = accountService.getAccountByLogin(login);
+    @RequestMapping(value = "/users/{id}/addAdminPermissions", method = RequestMethod.POST)
+    public void addAdminPermissions(@PathVariable(value = "id") Integer id,
+                                    Principal principal) {
+        Account account = accountService.getAccountById(id);
+        if (account.getLogin().equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
         if (!account.getRole().equals(Role.ADMIN)) {
             account.setRole(Role.ADMIN);
             accountService.update(account);
@@ -58,10 +61,11 @@ public class AdminController {
         else throw new BadRequestException("User already has that role");
     }
 
-    @RequestMapping(value = "/users/{login}/removeAdminPermissions", method = RequestMethod.POST)
-    public void removeAdminPermissions(@PathVariable String login, Principal principal) {
-        if (login.equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
-        Account account = accountService.getAccountByLogin(login);
+    @RequestMapping(value = "/users/{id}/removeAdminPermissions", method = RequestMethod.POST)
+    public void removeAdminPermissions(@PathVariable(value = "id") Integer id,
+                                       Principal principal) {
+        Account account = accountService.getAccountById(id);
+        if (account.getLogin().equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
         if (account.getRole().equals(Role.ADMIN)) {
             account.setRole(Role.GUEST);
             accountService.update(account);
@@ -70,9 +74,10 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
-    public void removeUser(@PathVariable String login, Principal principal) {
-        if (login.equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
-        Account account = accountService.getAccountByLogin(login);
+    public void removeUser(@PathVariable(value = "id") Integer id,
+                           Principal principal) {
+        Account account = accountService.getAccountById(id);
+        if (account.getLogin().equals(principal.getName())) throw new BadRequestException("You cannot manage your roles");
         accountService.delete(account);
     }
 }

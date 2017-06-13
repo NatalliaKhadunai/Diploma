@@ -2,7 +2,7 @@
     angular.module('app').service('userSrv', function($http) {
         let $ctrl = this;
         $ctrl.getUsers = function() {
-            return $http.get('/admin/users').then(function(response){
+            return $http.get('/v3/users').then(function(response){
                 return response.data;
             }, function (response) {
                 alert('Status code : ' + response.data.httpStatusCode + '\n'
@@ -18,7 +18,7 @@
             });
         };
         $ctrl.getUser = function(username) {
-            return $http.get('admin/users/' + username)
+            return $http.get('/v3/users/' + username)
                 .then(function (response) {
                     return response.data;
                 }, function (response) {
