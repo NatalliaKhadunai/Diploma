@@ -7,6 +7,7 @@ import com.minsk24.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,18 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Iterable<Tag> getTags() {
-        return tagRepository.findAll();
+        Iterable<Tag> tagsWithoutUTF8 =  tagRepository.findAll();
+        List<Tag> tagsWithUTF8 = new ArrayList<>();
+        try {
+            for (Tag tag : tagsWithoutUTF8) {
+                tag.setName(new String(tag.getName().getBytes("UTF-8")));
+                tagsWithUTF8.add(tag);
+            }
+        }
+        catch (UnsupportedEncodingException e) {
+
+        }
+        return tagsWithUTF8;
     }
 
     @Override
