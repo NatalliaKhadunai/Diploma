@@ -29,8 +29,8 @@ public class Account {
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID",
                     nullable = false, updatable = false) })
     private List<Tag> interestingTags = new ArrayList<>();
-    @Column(name = "PHOTO", length = 20, columnDefinition="default 'defaultPhoto'")
-    private String photo;
+    @Column(name = "PHOTO", length = 20)
+    private String photo = "defaultPhoto";
 
     public Integer getId() {
         return id;
