@@ -10,6 +10,6 @@ public class SpringConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //registry.addResourceHandler("/resources/images/**").addResourceLocations("file:///D:/images/");
-        registry.addResourceHandler("/resources/images/**").addResourceLocations("file:///var/www/DiplomaImages");
+        registry.addResourceHandler("/resources/images/**").addResourceLocations("file:/var/www/DiplomaImages");
     }
 }
