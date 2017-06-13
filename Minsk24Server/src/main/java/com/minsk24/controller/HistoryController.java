@@ -52,9 +52,9 @@ public class HistoryController {
         int i = 0;
         for (Map.Entry<String, MultipartFile> entry : map.entrySet()) {
             imageService.saveImage(entry.getValue(),
-                    "Minsk24Server\\src\\main\\resources\\static\\res\\img\\history",
+                    "/var/www/DiplomaImages/history",
                     history.getId().toString() + "_" + i);
-            images.add("\\\\res\\\\img\\\\history\\\\" +
+            images.add("\\\\resources\\\\images\\\\history\\\\" +
                     history.getId().toString() + "_" + i + ".jpg");
             i++;
         }

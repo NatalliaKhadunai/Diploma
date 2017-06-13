@@ -107,7 +107,7 @@ public class ArticleController {
                 accountService.getAccountByLogin(principal.getName()), content, tags);
         if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
             imageService.saveImage(mainPhoto,
-                    "Minsk24Server\\src\\main\\resources\\static\\res\\img\\article",
+                    "/var/www/DiplomaImages/article",
                     Integer.toString(article.getId()));
         return "redirect:/home";
     }

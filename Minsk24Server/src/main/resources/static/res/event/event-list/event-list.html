@@ -29,7 +29,7 @@
         <div class="flex-block" ng-repeat="event in $ctrl.events"
              ng-class="$ctrl.isPast(event)">
                 <div class="image">
-                    <img src="res/img/event/{{event.id + '.jpg'}}">
+                    <img src="/resources/images/event/{{event.id + '.jpg'}}">
                     <h6>
                         <a ng-click="$ctrl.openEventPage(event)">
                             <span>{{event.title}}</span>

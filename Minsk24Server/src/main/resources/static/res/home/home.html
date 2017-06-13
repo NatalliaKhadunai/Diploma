@@ -5,7 +5,7 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="article in $ctrl.articles">
             <div class="image">
-                <img src="res/img/article/{{article.id + '.jpg'}}">
+                <img src="/resources/images/article/{{article.id + '.jpg'}}">
                 <h6>
                     <a ng-click="$ctrl.openArticlePage(article)">
                         <span>{{article.title}}</span>
@@ -27,7 +27,7 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="event in $ctrl.upcomingEvents">
             <div class="image">
-                <img src="res/img/event/{{event.id + '.jpg'}}">
+                <img src="/resources/images/event/{{event.id + '.jpg'}}">
                 <h6>
                     <a ng-click="$ctrl.openEventPage(event)">
                         <span>{{event.title}}</span>
@@ -45,7 +45,7 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="event in $ctrl.pastEvents">
             <div class="image">
-                <img src="res/img/event/{{event.id + '.jpg'}}">
+                <img src="/resources/images/event/{{event.id + '.jpg'}}">
                 <h6>
                     <a ng-click="$ctrl.openEventPage(event)">
                         <span>{{event.title}}</span>
@@ -62,7 +62,7 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="advertisement in $ctrl.expiringAdvertisements">
-            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}">
+            <img src="/resources/images/advertisement/{{advertisement.id + '.jpg'}}">
             <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}
@@ -79,7 +79,7 @@
 <div class="row">
     <div class="flex-container">
         <div class="flex-block" ng-repeat="advertisement in $ctrl.newAdvertisements">
-            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
+            <img src="/resources/images/advertisement/{{advertisement.id + '.jpg'}}" style="max-width: 240px">
             <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}

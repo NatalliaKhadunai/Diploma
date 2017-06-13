@@ -106,7 +106,7 @@ public class AccountController {
     public String chanheAccountPhoto(@RequestParam MultipartFile file, Principal principal) {
         Account account = accountService.getAccountByLogin(principal.getName());
         imageService.saveImage(file,
-                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\account",
+                "/var/www/DiplomaImages/account",
                 Integer.toString(account.getId()));
         if (!account.getPhoto().equals(account.getId().toString())) {
             account.setPhoto(account.getId().toString());

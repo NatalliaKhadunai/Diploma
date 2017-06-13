@@ -9,7 +9,7 @@
             {{$ctrl.event.time | date :'yyyy-MM-dd hh:mm a'}}</a></p>
     </div>
     <div class="row">
-        <img src="res/img/event/{{$ctrl.event.id + '.jpg'}}"
+        <img src="/resources/images/event/{{$ctrl.event.id + '.jpg'}}"
              style="max-width: 300px;" class="img-rounded">
     </div>
     <div class="row" ng-show="$ctrl.user.role == 'ADMIN'">

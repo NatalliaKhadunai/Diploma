@@ -113,7 +113,7 @@ public class EventController {
         else event = eventService.save(title, location, time, description);
         if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
         imageService.saveImage(mainPhoto,
-                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\event",
+                "/var/www/DiplomaImages/event",
                 Integer.toString(event.getId()));
         return "redirect:/home";
     }

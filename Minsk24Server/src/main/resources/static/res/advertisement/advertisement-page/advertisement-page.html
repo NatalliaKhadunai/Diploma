@@ -14,7 +14,7 @@
         <h5>Дата истечения: {{$ctrl.advertisement.expirationDate | date}}</h5>
     </div>
     <div class="row">
-        <img src="res/img/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
+        <img src="/resources/images/advertisement/{{$ctrl.advertisement.id + '.jpg'}}"
              class="img-rounded" style="max-width: 300px;">
     </div>
     <div class="row" ng-show="$ctrl.user.login == $ctrl.advertisement.holder.login ||
