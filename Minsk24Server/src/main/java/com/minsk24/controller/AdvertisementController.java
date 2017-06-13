@@ -87,7 +87,7 @@ public class AdvertisementController {
             advertisement = advertisementService.save(title, description, accountService.getAccountByLogin(principal.getName()), expirationDate);
         if (mainPhoto != null && !mainPhoto.getOriginalFilename().isEmpty())
         imageService.saveImage(mainPhoto,
-                "Minsk24Server\\src\\main\\resources\\static\\res\\img\\advertisement",
+                "/var/www/DiplomaImages/",
                 Integer.toString(advertisement.getId()));
         return "redirect:/home";
     }

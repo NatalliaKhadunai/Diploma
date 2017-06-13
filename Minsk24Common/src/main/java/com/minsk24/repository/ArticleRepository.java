@@ -20,14 +20,14 @@ public interface ArticleRepository extends PagingAndSortingRepository<Article, I
     List<Article> findByTitleIgnoreCaseContaining(String keyword, Pageable pageable);
     Integer countByTitleIgnoreCaseContaining(String keyword);
     @Query(value = "SELECT ART.* FROM ARTICLE ART JOIN " +
-            "(SELECT ARTICLE_ID, COUNT(TAG_ID) AS NUM_OF_TAGS FROM article_tag " +
+            "(SELECT ARTICLE_ID, COUNT(TAG_ID) AS NUM_OF_TAGS FROM ARTICLE_TAG " +
             "WHERE TAG_ID IN :tagIds GROUP BY ARTICLE_ID) TMP ON ART.ART_ID=TMP.ARTICLE_ID " +
             "ORDER BY ART.PUBLISH_DATE DESC, TMP.NUM_OF_TAGS DESC LIMIT :startIndex, :endIndex", nativeQuery = true)
     List<Article> findByInterestingTags(@Param(value = "tagIds") List<Integer> tagIds,
                                         @Param(value = "startIndex") Integer startIndex,
                                         @Param(value = "endIndex") Integer endIndex);
     @Query(value = "SELECT COUNT(*) FROM ARTICLE ART JOIN " +
-            "  (SELECT ARTICLE_ID, COUNT(TAG_ID) AS NUM_OF_TAGS FROM article_tag " +
+            "  (SELECT ARTICLE_ID, COUNT(TAG_ID) AS NUM_OF_TAGS FROM ARTICLE_TAG " +
             "  WHERE TAG_ID IN :tagIds GROUP BY ARTICLE_ID) TMP ON ART.ART_ID=TMP.ARTICLE_ID " +
             "ORDER BY ART.PUBLISH_DATE DESC, TMP.NUM_OF_TAGS DESC", nativeQuery = true)
     Integer countByInterestingTags(@Param(value = "tagIds") List<Integer> tagIds);

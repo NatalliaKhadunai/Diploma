@@ -29,7 +29,7 @@
     <div class="flex-container">
         <div class="flex-block" ng-repeat="advertisement in $ctrl.advertisements"
              ng-class="$ctrl.isExpired(advertisement)">
-            <img src="res/img/advertisement/{{advertisement.id + '.jpg'}}">
+            <img src="/resources/images/advertisement/{{advertisement.id + '.jpg'}}">
             <p class="title">
                 <a ng-click="$ctrl.openAdvertisementPage(advertisement)">
                     {{advertisement.title}}

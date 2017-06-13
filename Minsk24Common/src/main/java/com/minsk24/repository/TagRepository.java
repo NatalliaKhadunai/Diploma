@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TagRepository extends CrudRepository<Tag, Integer> {
     Tag findByName(String name);
-    @Query(value = "SELECT TAG_ID FROM article_tag GROUP BY TAG_ID ORDER BY (COUNT(TAG_ID)) DESC",
+    @Query(value = "SELECT TAG_ID FROM ARTICLE_TAG GROUP BY TAG_ID ORDER BY (COUNT(TAG_ID)) DESC",
     nativeQuery = true)
     List<Integer> findPopularTags();
 }

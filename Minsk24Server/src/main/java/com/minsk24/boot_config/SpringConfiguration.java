@@ -7,8 +7,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class SpringConfiguration extends WebMvcConfigurerAdapter {
-    /*@Override
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static*//**").addResourceLocations("/");
-    }*/
+        //registry.addResourceHandler("/resources/images/**").addResourceLocations("file:///D:/images/");
+        registry.addResourceHandler("/resources/images/**").addResourceLocations("file:///var/www/DiplomaImages/");
+    }
 }
