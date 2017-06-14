@@ -24,9 +24,9 @@ public class Article {
     private String content;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Account author;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ARTICLE_TAG", joinColumns = {
             @JoinColumn(name = "ARTICLE_ID", nullable = false, updatable = false) },
             inverseJoinColumns = { @JoinColumn(name = "TAG_ID",

@@ -10,10 +10,10 @@ public class AfterEventRate {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "AER_ID")
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "EVENT_ID", nullable = false)
     private Event event;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account user;
     @Column(name = "RATE", nullable = false)

@@ -14,7 +14,7 @@ public class Advertisement {
     private Integer id;
     @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "HOLDER_ACCOUNT_ID", nullable = false)
     private Account holder;
     @Column(name = "DESCRIPTION", length = 1000, nullable = false)

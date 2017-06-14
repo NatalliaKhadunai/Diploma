@@ -1,6 +1,7 @@
 package com.minsk24.bean;
 
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ public class Comment {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "C_ID")
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
     private Account publisher;
     @Column(name = "PUBLISH_DATE", nullable = false)

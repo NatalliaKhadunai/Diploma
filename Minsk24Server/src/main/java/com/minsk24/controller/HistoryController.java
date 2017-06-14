@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,26 @@ public class HistoryController {
     private History history;
     private List<String> images = new ArrayList<>();
 
-    @RequestMapping(value = "/v2/history/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/v2/history/", method = RequestMethod.POST)
     public String addHistory(@RequestBody History history) {
         if (this.history != null) history.setId(this.history.getId());
+        int i = 0;
+        while (history.getContent().indexOf("INSERT_IMAGE_SRC") != -1) {
+            history.setContent(history.getContent().replaceFirst("INSERT_IMAGE_SRC", images.get(i)));
+            i++;
+        }
+        historyService.addHistoryArticle(history);
+
+        this.history = null;
+        images.clear();
+
+        return "redirect:/home";
+    }
+
+    @RequestMapping(value = "/v2/history/{id}", method = RequestMethod.POST)
+    public String addHistory(@PathVariable(value = "id") Integer id,
+                             @RequestBody History history) {
+        history.setId(id);
         int i = 0;
         while (history.getContent().indexOf("INSERT_IMAGE_SRC") != -1) {
             history.setContent(history.getContent().replaceFirst("INSERT_IMAGE_SRC", images.get(i)));
@@ -52,7 +70,32 @@ public class HistoryController {
         int i = 0;
         for (Map.Entry<String, MultipartFile> entry : map.entrySet()) {
             imageService.saveImage(entry.getValue(),
-                    "/var/www/DiplomaImages/history",
+                    "/var/www/DiplomaImages",
+                    history.getId().toString() + "_" + i);
+            images.add("\\\\resources\\\\images\\\\history\\\\" +
+                    history.getId().toString() + "_" + i + ".jpg");
+            i++;
+        }
+    }
+
+    @RequestMapping(value = "/v2/history/{id}/images", method = RequestMethod.POST)
+    @ResponseBody
+    public void saveImagesForHistory(@PathVariable(value = "id") Integer id,
+                           MultipartHttpServletRequest request) {
+        history = historyService.getHistoryById(id);
+        Map<String, MultipartFile> map = request.getMultiFileMap().toSingleValueMap();
+        map.remove("image");
+        int i = 0;
+        for (Map.Entry<String, MultipartFile> entry : map.entrySet()) {
+            File file = null;
+            do {
+                file = new File("/var/www/DiplomaImages" +
+                        history.getId().toString() + "_" + i + ".jpg");
+                if (!file.exists()) break;
+                i++;
+            } while (true);
+            imageService.saveImage(entry.getValue(),
+                    "/var/www/DiplomaImages",
                     history.getId().toString() + "_" + i);
             images.add("\\\\resources\\\\images\\\\history\\\\" +
                     history.getId().toString() + "_" + i + ".jpg");

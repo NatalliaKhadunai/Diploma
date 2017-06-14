@@ -47,7 +47,7 @@
                 };
                 $ctrl.initializeTimeline = function () {
                     jQuery(".article").hide();
-                    jQuery("#1").fadeIn(200);
+                    jQuery("#0").fadeIn(200);
                     jQuery('#example').timeliny({
                         onLeave: function (currYear, nextYear) {
                             $("#" + currYear).fadeOut(0);

@@ -1,9 +1,9 @@
-<div class="col-md-8">
+<div class="col-md-8" id="addHistoryPage">
     <table>
         <tr>
             <td>Введите год начала:</td>
             <td>
-                <input ng-model="$ctrl.history.startYear">
+                <input ng-model="$ctrl.startYear">
                 <select ng-model="$ctrl.startYearEra">
                     <option>до н.э.</option>
                     <option>н.э.</option>
@@ -13,7 +13,7 @@
         <tr>
             <td>Введите год окончания:</td>
             <td>
-                <input ng-model="$ctrl.history.endYear">
+                <input ng-model="$ctrl.endYear">
                 <select ng-model="$ctrl.endYearEra">
                     <option>до н.э.</option>
                     <option>н.э.</option>
@@ -46,7 +46,7 @@
         <span class="glyphicon glyphicon-text-height" aria-hidden="true"></span>
         <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
     </button>
-    <button id="insertImgButton">
+    <button id="insertImgButton" onclick="insertImageClick()">
         <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
     </button>
     <button ng-mousedown="$ctrl.preventDefault()"
@@ -65,11 +65,12 @@
     </button>
     <br><br>
     <h5>Добавьте картинки для вставки:</h5>
-    <input name="image" id="imageInput" type="file"/>
+    <input name="image" id="imageInput" type="file"
+           onchange="imageInputChange()"/>
     <div id="imageContainer" class="btn-group" role="group"></div>
     <br>
     <h5>Перед добавлением загрузите картинки:</h5>
-    <button id="imageUpload" class="btn btn-default">Загрузить</button>
+    <button id="imageUpload" ng-click="$ctrl.imageUpload()" class="btn btn-default">Загрузить</button>
     <br><br>
     <button class="btn btn-default" ng-click="$ctrl.addHistory()">Добавить</button>
 </div>

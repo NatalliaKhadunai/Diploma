@@ -16,19 +16,27 @@
                                 $ctrl.history = response.data;
                                 if ($ctrl.history.startYear < 0) {
                                     $ctrl.startYearEra = 'до н.э.';
-                                    $ctrl.history.startYear = (-1) * $ctrl.startYear;
+                                    $ctrl.startYear = (-1) * $ctrl.history.startYear;
                                 }
-                                else $ctrl.startYearEra = 'н.э.';
+                                else {
+                                    $ctrl.startYearEra = 'н.э.';
+                                    $ctrl.startYear = $ctrl.history.startYear;
+                                }
                                 if ($ctrl.history.endYear < 0) {
                                     $ctrl.endYearEra = 'до н.э.';
-                                    $ctrl.history.endYear = (-1) * $ctrl.endYear;
+                                    $ctrl.endYear = (-1) * $ctrl.history.endYear;
                                 }
-                                else $ctrl.endYearEra = 'н.э.';
+                                else {
+                                    $ctrl.endYearEra = 'н.э.';
+                                    $ctrl.endYear = $ctrl.history.endYear;
+                                }
                                 jQuery('#historyText').append($ctrl.history.content);
+                                window.initializeHistoryWithImages();
                             });
                     }
                     else {
                         $ctrl.history.content = '< Введите текст >';
+                        jQuery('#historyText').append($ctrl.history.content);
                     }
                 })();
                 $ctrl.preventDefault = function () {
@@ -59,21 +67,24 @@
                     let data = document.getElementById('historyText');
                     let images = data.getElementsByTagName('img');
                     for (let i = 0; i < images.length; i++) {
-                        images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
+                        if (images[i].getAttribute('src').indexOf('resources\\images') == -1)
+                            images[i].setAttribute('src', 'INSERT_IMAGE_SRC');
                     }
                     $ctrl.history.content = data.innerHTML;
-                    if ($ctrl.startYearEra == 'до н.э.') history.startYear = (-1) * $ctrl.startYear;
-                    if ($ctrl.endYearEra == 'до н.э.') history.endYear = (-1) * $ctrl.endYear;
-                    else {
-                        history.startYear = $ctrl.startYear;
-                        history.endYear = $ctrl.endYear;
-                    }
-                    $http.post('/v2/history/add', history).then(function () {
+                    if ($ctrl.startYearEra == 'до н.э.') $ctrl.history.startYear = (-1) * $ctrl.startYear;
+                    else $ctrl.history.startYear = $ctrl.startYear;
+                    if ($ctrl.endYearEra == 'до н.э.') $ctrl.history.endYear = (-1) * $ctrl.endYear;
+                    else $ctrl.history.endYear = $ctrl.endYear;
+                    if (typeof $stateParams['id'] == 'number' ||
+                        typeof $stateParams['id'] == 'string')
+                        $http.post('/v2/history/' + $stateParams['id'], $ctrl.history)
+                            .then(function () {
 
-                    });
-                };
-                $ctrl.setChosenImage = function (img) {
-                    $ctrl.chosenImage = document.getElementById(img).getAttribute('src');
+                            });
+                    else $http.post('/v2/history/', $ctrl.history)
+                        .then(function () {
+
+                        });
                 };
                 $ctrl.makeSelectedUnderline = function () {
                     document.execCommand('underline', false, null);
@@ -84,7 +95,9 @@
                 $ctrl.insertBr = function () {
                     document.execCommand('insertHTML', false, '<br>');
                 };
-
+                $ctrl.imageUpload = function () {
+                    window.imageUpload($stateParams['id']);
+                };
 
             }
         });
