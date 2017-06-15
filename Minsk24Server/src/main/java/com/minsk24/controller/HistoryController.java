@@ -71,7 +71,7 @@ public class HistoryController {
         for (Map.Entry<String, MultipartFile> entry : map.entrySet()) {
             imageService.saveImage(entry.getValue(),
                     "/var/www/DiplomaImages/history",
-                    history.getId().toString() + "_" + i);
+                    history.getId().toString() + "_" + i + ".jpg");
             images.add("\\\\resources\\\\images\\\\history\\\\" +
                     history.getId().toString() + "_" + i + ".jpg");
             i++;
@@ -96,7 +96,7 @@ public class HistoryController {
             } while (true);
             imageService.saveImage(entry.getValue(),
                     "/var/www/DiplomaImages/history",
-                    history.getId().toString() + "_" + i);
+                    history.getId().toString() + "_" + i + ".jpg");
             images.add("\\\\resources\\\\images\\\\history\\\\" +
                     history.getId().toString() + "_" + i + ".jpg");
             i++;
